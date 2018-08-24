@@ -39,9 +39,6 @@ public class StartupConfig implements ApplicationListener<ApplicationStartedEven
         this.loadOptions();
         this.loadThemes();
         this.loadOwo();
-        //启动定时任务
-        CronUtil.start();
-        log.info("The scheduled task starts successfully!");
     }
 
     /**
