@@ -4,7 +4,7 @@
 
     <defaultCache
             eternal="false"
-            maxElementsInMemory="1000"
+            maxElementsInMemory="100"
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="0"
@@ -18,7 +18,7 @@
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="0"
-            timeToLiveSeconds="300"
+            timeToLiveSeconds="600"
             memoryStoreEvictionPolicy="LRU"/>
 
     <cache
@@ -28,37 +28,37 @@
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="0"
-            timeToLiveSeconds="300"
+            timeToLiveSeconds="600"
             memoryStoreEvictionPolicy="LRU"/>
 
     <cache
             name="posts"
             eternal="false"
-            maxElementsInMemory="1000"
+            maxElementsInMemory="100"
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="0"
-            timeToLiveSeconds="300"
+            timeToLiveSeconds="600"
             memoryStoreEvictionPolicy="LRU"/>
 
     <cache
             name="comments"
             eternal="false"
-            maxElementsInMemory="1000"
+            maxElementsInMemory="100"
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="0"
-            timeToLiveSeconds="300"
+            timeToLiveSeconds="600"
             memoryStoreEvictionPolicy="LRU"/>
 
     <cache
             name="attachments"
             eternal="false"
-            maxElementsInMemory="1000"
+            maxElementsInMemory="100"
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="0"
-            timeToLiveSeconds="300"
+            timeToLiveSeconds="600"
             memoryStoreEvictionPolicy="LRU"/>
 
     <cache
@@ -68,7 +68,7 @@
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="0"
-            timeToLiveSeconds="300"
+            timeToLiveSeconds="600"
             memoryStoreEvictionPolicy="LRU"/>
 
     <cache
@@ -78,6 +78,6 @@
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="0"
-            timeToLiveSeconds="300"
+            timeToLiveSeconds="600"
             memoryStoreEvictionPolicy="LRU"/>
 </ehcache>

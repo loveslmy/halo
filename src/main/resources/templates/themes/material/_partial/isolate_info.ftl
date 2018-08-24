@@ -18,21 +18,23 @@
             它不会影响美观并可以给开发者很大的支持。 :)
             -->
             <div>
-                Powered by <a href="https://github.com/ruibaby/halo.git" target="_blank" class="footer-develop-a">Halo</a>
+                Powered by <a href="https://github.com/ruibaby/halo.git" target="_blank"
+                              class="footer-develop-a">Halo</a>
                 <br>
-                Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a>
+                Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank"
+                           class="footer-develop-a">Material</a>
             </div>
         </div>
 
         <!-- Header Title -->
         <span class="header-title header-item">
             <a href="/" title="<%= config.title %>">
-                ${options.blog_title?if_exists}
+            ${options.blog_title?if_exists}
             </a>
         </span>
 
         <p class="header-slogan header-item">
-            ${options.theme_material_uiux_slogan?default("Hi,nice to meet you")}
+        ${options.theme_material_uiux_slogan?default("Hi,nice to meet you")}
         </p>
 
         <!-- Header Nav -->
