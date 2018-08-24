@@ -29,10 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 /**
  * <pre>
@@ -144,21 +141,30 @@ public class AttachmentController {
                     mediaPath.mkdirs();
                 }
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-                String nameWithOutSuffix = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf('.')).replaceAll(" ", "_").replaceAll(",", "") + dateFormat.format(DateUtil.date()) + new Random().nextInt(1000);
-                String fileSuffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.') + 1);
+                String nameWithOutSuffix = file.getOriginalFilename().substring(0,
+                        Objects.requireNonNull(file.getOriginalFilename()).lastIndexOf('.'))
+                        .replaceAll(" ", "_")
+                        .replaceAll(",", "")
+                        + dateFormat.format(DateUtil.date()) + new Random().nextInt(1000);
+                String fileSuffix = file.getOriginalFilename()
+                        .substring(file.getOriginalFilename().lastIndexOf('.') + 1);
                 String fileName = nameWithOutSuffix + "." + fileSuffix;
                 file.transferTo(new File(mediaPath.getAbsoluteFile(), fileName));
 
                 //压缩图片
-                Thumbnails.of(new StringBuffer(mediaPath.getAbsolutePath()).append("/").append(fileName).toString()).size(256, 256).keepAspectRatio(false).toFile(new StringBuffer(mediaPath.getAbsolutePath()).append("/").append(nameWithOutSuffix).append("_small.").append(fileSuffix).toString());
+                Thumbnails.of(mediaPath.getAbsolutePath() + "/" + fileName).size(256, 256)
+                        .keepAspectRatio(false).toFile(mediaPath.getAbsolutePath() + "/"
+                        + nameWithOutSuffix + "_small." + fileSuffix);
 
                 //保存在数据库
                 Attachment attachment = new Attachment();
                 attachment.setAttachName(fileName);
-                attachment.setAttachPath(new StringBuffer("/upload/").append(DateUtil.thisYear()).append("/").append(DateUtil.thisMonth()).append("/").append(fileName).toString());
-                attachment.setAttachSmallPath(new StringBuffer("/upload/").append(DateUtil.thisYear()).append("/").append(DateUtil.thisMonth()).append("/").append(nameWithOutSuffix).append("_small.").append(fileSuffix).toString());
+                attachment.setAttachPath("/upload/" + DateUtil.thisYear() + "/"
+                        + DateUtil.thisMonth() + "/" + fileName);
+                attachment.setAttachSmallPath("/upload/" + DateUtil.thisYear() + "/"
+                        + DateUtil.thisMonth() + "/" + nameWithOutSuffix + "_small." + fileSuffix);
                 attachment.setAttachType(file.getContentType());
-                attachment.setAttachSuffix(new StringBuffer(".").append(fileSuffix).toString());
+                attachment.setAttachSuffix("." + fileSuffix);
                 attachment.setAttachCreated(DateUtil.date());
                 attachment.setAttachSize(HaloUtils.parseSize(new File(mediaPath, fileName).length()));
                 attachment.setAttachWh(HaloUtils.getImageWh(new File(mediaPath, fileName)));
@@ -200,7 +206,7 @@ public class AttachmentController {
      * 移除附件的请求
      *
      * @param attachId 附件编号
-     * @param request request
+     * @param request  request
      * @return JsonResult
      */
     @GetMapping(value = "/remove")
@@ -209,20 +215,23 @@ public class AttachmentController {
                                        HttpServletRequest request) {
         Optional<Attachment> attachment = attachmentService.findByAttachId(attachId);
         String delFileName = attachment.get().getAttachName();
-        String delSmallFileName = delFileName.substring(0, delFileName.lastIndexOf('.')) + "_small" + attachment.get().getAttachSuffix();
+        String delSmallFileName = delFileName.substring(0, delFileName.lastIndexOf('.')) + "_small"
+                + attachment.get().getAttachSuffix();
         try {
             //删除数据库中的内容
             attachmentService.removeByAttachId(attachId);
             //删除文件
             File basePath = new File(ResourceUtils.getURL("classpath:").getPath());
-            File mediaPath = new File(basePath.getAbsolutePath(), attachment.get().getAttachPath().substring(0, attachment.get().getAttachPath().lastIndexOf('/')));
-            File delFile = new File(new StringBuffer(mediaPath.getAbsolutePath()).append("/").append(delFileName).toString());
-            File delSmallFile = new File(new StringBuffer(mediaPath.getAbsolutePath()).append("/").append(delSmallFileName).toString());
+            File mediaPath = new File(basePath.getAbsolutePath(), attachment.get().getAttachPath()
+                    .substring(0, attachment.get().getAttachPath().lastIndexOf('/')));
+            File delFile = new File(mediaPath.getAbsolutePath() + "/" + delFileName);
+            File delSmallFile = new File(mediaPath.getAbsolutePath() + "/" + delSmallFileName);
             if (delFile.exists() && delFile.isFile()) {
                 if (delFile.delete() && delSmallFile.delete()) {
                     log.info("删除文件[{}]成功！", delFileName);
                     logsService.saveByLogs(
-                            new Logs(LogsRecord.REMOVE_FILE, delFileName, ServletUtil.getClientIP(request), DateUtil.date())
+                            new Logs(LogsRecord.REMOVE_FILE, delFileName, ServletUtil.getClientIP(request),
+                                    DateUtil.date())
                     );
                 } else {
                     log.error("删除附件[{}]失败！", delFileName);
