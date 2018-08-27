@@ -100,7 +100,7 @@
                         <div class="box box-solid animated fadeInUp" style="display: none" id="installSuccess">
                             <div class="box-body">
                                 <h2>安装成功！</h2>
-                                <h4>你可以选择进入前台，或者登陆后台！</h4>
+                                <h4>你可以选择进入前台，或者登录后台！</h4>
                             </div>
                             <div class="box-footer" style="padding-right: 30px;">
                                 <a class="btn btn-primary btn-sm btn-flat" href="/">前台</a>
