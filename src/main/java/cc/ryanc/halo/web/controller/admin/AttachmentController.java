@@ -133,18 +133,19 @@ public class AttachmentController {
                 //程序根路径，也就是/resources
                 File basePath = new File(ResourceUtils.getURL("classpath:").getPath());
                 //upload的路径
+                String uploadPath = "upload/" + DateUtil.thisYear() + "/" + (DateUtil.thisMonth() + 1) + "/";
                 //获取当前年月以创建目录，如果没有该目录则创建
-                File mediaPath = new File(basePath.getAbsolutePath(), "upload/" + DateUtil.thisYear() + "/"
-                        + (DateUtil.thisMonth() + 1) + "/");
+                File mediaPath = new File(basePath.getAbsolutePath(), uploadPath);
                 if (!mediaPath.exists()) {
                     mediaPath.mkdirs();
                 }
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
                 String nameWithOutSuffix = file.getOriginalFilename().substring(0,
                         Objects.requireNonNull(file.getOriginalFilename()).lastIndexOf('.'))
                         .replaceAll(" ", "_")
                         .replaceAll(",", "")
-                        + dateFormat.format(DateUtil.date()) + new Random().nextInt(1000);
+                        + System.nanoTime();
+
                 String fileSuffix = file.getOriginalFilename()
                         .substring(file.getOriginalFilename().lastIndexOf('.') + 1);
                 String fileName = nameWithOutSuffix + "." + fileSuffix;
@@ -158,10 +159,8 @@ public class AttachmentController {
                 //保存在数据库
                 Attachment attachment = new Attachment();
                 attachment.setAttachName(fileName);
-                attachment.setAttachPath("/upload/" + DateUtil.thisYear() + "/"
-                        + DateUtil.thisMonth() + "/" + fileName);
-                attachment.setAttachSmallPath("/upload/" + DateUtil.thisYear() + "/"
-                        + DateUtil.thisMonth() + "/" + nameWithOutSuffix + "_small." + fileSuffix);
+                attachment.setAttachPath("/"+uploadPath + fileName);
+                attachment.setAttachSmallPath("/"+uploadPath + nameWithOutSuffix + "_small." + fileSuffix);
                 attachment.setAttachType(file.getContentType());
                 attachment.setAttachSuffix("." + fileSuffix);
                 attachment.setAttachCreated(DateUtil.date());
@@ -172,7 +171,6 @@ public class AttachmentController {
                 logsService.saveByLogs(
                         new Logs(LogsRecord.UPLOAD_FILE, fileName, ServletUtil.getClientIP(request), DateUtil.date())
                 );
-
                 result.put("success", 1);
                 result.put("message", "上传成功！");
                 result.put("url", attachment.getAttachPath());
