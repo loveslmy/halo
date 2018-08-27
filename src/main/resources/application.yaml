@@ -1,10 +1,18 @@
+custom:
+  server:
+    http:
+      port: 8080
 server:
-  port: 80
+  port: 8443
   use-forward-headers: true
+  ssl:
+    key-store: classpath:214948636630345.jks
+    key-store-type: JKS
+    key-password: 214948636630345
   undertow:
     io-threads: 1
     worker-threads: 5
-    buffer-size: 1024
+    buffer-size: 512
     directBuffers: true
 spring:
   datasource:
@@ -39,7 +47,7 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+  thymeleaf:
+    cache: false
 logging:
   file: ./logs/log.log
-
-

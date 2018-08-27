@@ -6,12 +6,20 @@ import cc.ryanc.halo.model.enums.BlogPropertiesEnum;
 import cc.ryanc.halo.service.OptionsService;
 import cc.ryanc.halo.utils.HaloUtils;
 import cc.ryanc.halo.web.controller.core.BaseController;
-import cn.hutool.cron.CronUtil;
+import io.undertow.Undertow;
+import io.undertow.servlet.api.SecurityConstraint;
+import io.undertow.servlet.api.SecurityInfo;
+import io.undertow.servlet.api.TransportGuaranteeType;
+import io.undertow.servlet.api.WebResourceCollection;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
@@ -30,8 +38,48 @@ import java.util.Map;
 @Configuration
 public class StartupConfig implements ApplicationListener<ApplicationStartedEvent> {
 
+    /**
+     * http服务端口
+     */
+    @Value("${custom.server.http.port}")
+    private int httpPort;
+
+    /**
+     * https服务端口
+     */
+    @Value("${server.port}")
+    private int httpsPort;
+
     @Autowired
     private OptionsService optionsService;
+
+
+    /**
+     * 采用Undertow作为服务器。
+     * Undertow是一个用java编写的、灵活的、高性能的Web服务器，提供基于NIO的阻塞和非阻塞API，特点：
+     * 非常轻量级，Undertow核心瓶子在1Mb以下。它在运行时也是轻量级的，有一个简单的嵌入式服务器使用少于4Mb的堆空间。
+     * 支持HTTP升级，允许多个协议通过HTTP端口进行多路复用。
+     * 提供对Web套接字的全面支持，包括JSR-356支持。
+     * 提供对Servlet 3.1的支持，包括对嵌入式servlet的支持。还可以在同一部署中混合Servlet和本机Undertow非阻塞处理程序。
+     * 可以嵌入在应用程序中或独立运行，只需几行代码。
+     * 通过将处理程序链接在一起来配置Undertow服务器。它可以对各种功能进行配置，方便灵活。
+     */
+    @Bean
+    public ServletWebServerFactory undertowFactory() {
+        UndertowServletWebServerFactory undertowFactory = new UndertowServletWebServerFactory();
+        undertowFactory.addBuilderCustomizers((Undertow.Builder builder) -> {
+            builder.addHttpListener(httpPort, "0.0.0.0");
+        });
+        undertowFactory.addDeploymentInfoCustomizers(deploymentInfo -> {
+            // 开启HTTP自动跳转至HTTPS
+            deploymentInfo.addSecurityConstraint(new SecurityConstraint()
+                    .addWebResourceCollection(new WebResourceCollection().addUrlPattern("/*"))
+                    .setTransportGuaranteeType(TransportGuaranteeType.CONFIDENTIAL)
+                    .setEmptyRoleSemantic(SecurityInfo.EmptyRoleSemantic.PERMIT))
+                    .setConfidentialPortManager(exchange -> httpsPort);
+        });
+        return undertowFactory;
+    }
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
@@ -217,4 +265,5 @@ public class StartupConfig implements ApplicationListener<ApplicationStartedEven
         map.put("@(鼓掌)", "<img src='/static/plugins/OwO/alu/鼓掌.png' alt='鼓掌.png' style='vertical-align: middle;'>");
         HaloConst.OWO = map;
     }
+
 }
