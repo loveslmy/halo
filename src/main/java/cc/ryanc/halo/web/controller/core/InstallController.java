@@ -189,14 +189,14 @@ public class InstallController {
             );
 
             Menu menuIndex = new Menu();
-            menuIndex.setMenuName("首页");
+            menuIndex.setMenuName("最近更新");
             menuIndex.setMenuUrl("/");
             menuIndex.setMenuSort(1);
             menuIndex.setMenuIcon("");
             menuService.saveByMenu(menuIndex);
 
             Menu menuArchive = new Menu();
-            menuArchive.setMenuName("归档");
+            menuArchive.setMenuName("TimeLine");
             menuArchive.setMenuUrl("/archives");
             menuArchive.setMenuSort(2);
             menuArchive.setMenuIcon("");

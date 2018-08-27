@@ -133,10 +133,9 @@ public class AttachmentController {
                 //程序根路径，也就是/resources
                 File basePath = new File(ResourceUtils.getURL("classpath:").getPath());
                 //upload的路径
-                StringBuffer sbMedia = new StringBuffer("upload/");
                 //获取当前年月以创建目录，如果没有该目录则创建
-                sbMedia.append(DateUtil.thisYear()).append("/").append(DateUtil.thisMonth()).append("/");
-                File mediaPath = new File(basePath.getAbsolutePath(), sbMedia.toString());
+                File mediaPath = new File(basePath.getAbsolutePath(), "upload/" + DateUtil.thisYear() + "/"
+                        + (DateUtil.thisMonth() + 1) + "/");
                 if (!mediaPath.exists()) {
                     mediaPath.mkdirs();
                 }
