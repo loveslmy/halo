@@ -8,19 +8,18 @@ import cc.ryanc.halo.model.enums.BlogPropertiesEnum;
 import cc.ryanc.halo.model.enums.TrueFalseEnum;
 import cc.ryanc.halo.service.*;
 import cc.ryanc.halo.utils.HaloUtils;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.extra.servlet.ServletUtil;
 import freemarker.template.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -69,7 +68,8 @@ public class InstallController {
     @GetMapping
     public String install(Model model) {
         try {
-            if (StringUtils.equals(TrueFalseEnum.TRUE.getDesc(), HaloConst.OPTIONS.get(BlogPropertiesEnum.IS_INSTALL.getProp()))) {
+            if (StringUtils.equals(TrueFalseEnum.TRUE.getDesc(),
+                    HaloConst.OPTIONS.get(BlogPropertiesEnum.IS_INSTALL.getProp()))) {
                 model.addAttribute("isInstall", true);
             } else {
                 model.addAttribute("isInstall", false);
@@ -83,8 +83,8 @@ public class InstallController {
     /**
      * 执行安装
      *
-     * @param siteTitle       博客标题
-     * @param siteUrl         博客网址
+     * @param blogTitle       博客标题
+     * @param blogUrl         博客网址
      * @param userName        用户名
      * @param userDisplayName 用户名显示名
      * @param userEmail       用户邮箱
@@ -102,7 +102,8 @@ public class InstallController {
                              @RequestParam("userPwd") String userPwd,
                              HttpServletRequest request) {
         try {
-            if (StringUtils.equals(TrueFalseEnum.TRUE.getDesc(), HaloConst.OPTIONS.get(BlogPropertiesEnum.IS_INSTALL.getProp()))) {
+            if (StringUtils.equals(TrueFalseEnum.TRUE.getDesc(),
+                    HaloConst.OPTIONS.get(BlogPropertiesEnum.IS_INSTALL.getProp()))) {
                 return false;
             }
             //创建新的用户
@@ -113,7 +114,7 @@ public class InstallController {
             }
             user.setUserDisplayName(userDisplayName);
             user.setUserEmail(userEmail);
-            user.setUserPass(SecureUtil.md5(userPwd));
+            user.setUserPass(DigestUtils.md5DigestAsHex(userPwd.getBytes()));
             userService.saveByUser(user);
 
             //默认分类
@@ -123,6 +124,8 @@ public class InstallController {
             category.setCateDesc("未分类");
             categoryService.saveByCategory(category);
 
+            Date cc = new Date();
+
             //第一篇文章
             Post post = new Post();
             List<Category> categories = new ArrayList<>();
@@ -130,10 +133,12 @@ public class InstallController {
             post.setPostTitle("Hello Halo!");
             post.setPostContentMd("# Hello Halo!\n" +
                     "欢迎使用Halo进行创作，删除这篇文章后赶紧开始吧。");
-            post.setPostContent("<h1 id=\"h1-hello-halo-\"><a name=\"Hello Halo!\" class=\"reference-link\"></a><span class=\"header-link octicon octicon-link\"></span>Hello Halo!</h1><p>欢迎使用Halo进行创作，删除这篇文章后赶紧开始吧。</p>\n");
+            post.setPostContent("<h1 id=\"h1-hello-halo-\"><a name=\"Hello Halo!\" " +
+                    "class=\"reference-link\"></a><span class=\"header-link octicon octicon-link\">" +
+                    "</span>Hello Halo!</h1><p>欢迎使用Halo进行创作，删除这篇文章后赶紧开始吧。</p>\n");
             post.setPostSummary("欢迎使用Halo进行创作，删除这篇文章后赶紧开始吧。");
             post.setPostStatus(0);
-            post.setPostDate(DateUtil.date());
+            post.setPostDate(cc);
             post.setPostUrl("hello-halo");
             post.setUser(user);
             post.setCategories(categories);
@@ -148,10 +153,11 @@ public class InstallController {
             comment.setCommentAuthorUrl("https://ryanc.cc");
             comment.setCommentAuthorIp("127.0.0.1");
             comment.setCommentAuthorAvatarMd5("7cc7f29278071bd4dce995612d428834");
-            comment.setCommentDate(DateUtil.date());
+            comment.setCommentDate(cc);
             comment.setCommentContent("欢迎，欢迎！");
             comment.setCommentStatus(0);
-            comment.setCommentAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36");
+            comment.setCommentAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) " +
+                    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36");
             comment.setIsAdmin(0);
             commentService.saveByComment(comment);
 
@@ -165,7 +171,7 @@ public class InstallController {
             optionsService.saveOption(BlogPropertiesEnum.THEME.getProp(), "anatole");
 
             //建立网站时间
-            optionsService.saveOption(BlogPropertiesEnum.BLOG_START.getProp(), HaloUtils.getStringDate("yyyy-MM-dd"));
+            optionsService.saveOption(BlogPropertiesEnum.BLOG_START.getProp(), HaloUtils.getStringDate(cc, "yyyy-MM-dd"));
 
             //默认评论系统
             optionsService.saveOption(BlogPropertiesEnum.COMMENT_SYSTEM.getProp(), "native");
@@ -183,8 +189,8 @@ public class InstallController {
                     new Logs(
                             LogsRecord.INSTALL,
                             "安装成功，欢迎使用Halo。",
-                            ServletUtil.getClientIP(request),
-                            DateUtil.date()
+                            HaloUtils.getClientIP(request),
+                            new Date()
                     )
             );
 

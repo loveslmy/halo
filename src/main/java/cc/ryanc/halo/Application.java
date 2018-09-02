@@ -20,7 +20,7 @@ import org.springframework.context.ApplicationContext;
 public class Application {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(Application.class, args);
-        String serverPort = context.getEnvironment().getProperty("custom.server.http.port");
+        String serverPort = context.getEnvironment().getProperty("http.port");
         log.info("Halo started at http://127.0.0.1:" + serverPort);
     }
 

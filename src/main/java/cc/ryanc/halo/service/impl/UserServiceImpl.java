@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUser() {
         List<User> users = userRepository.findAll();
-        if (users != null && users.size() > 0) {
+        if (users.size() > 0) {
             return users.get(0);
         } else {
             return new User();
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User findByUserIdAndUserPass(Long userId, String userPass) {
-        return userRepository.findByUserIdAndUserPass(userId, userPass);
+        return userRepository.findByIdAndUserPass(userId, userPass);
     }
 
     /**
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
      * @param enable enable
      */
     @Override
-    public void updateUserLoginEnable(String enable) {
+    public void updateUserLoginEnable(boolean enable) {
         User user = this.findUser();
         user.setLoginEnable(enable);
         userRepository.save(user);
@@ -117,9 +117,12 @@ public class UserServiceImpl implements UserService {
      * @return 登录错误次数
      */
     @Override
-    public Integer updateUserLoginError() {
+    public byte updateUserLoginError() {
         User user = this.findUser();
-        user.setLoginError((user.getLoginError() == null ? 0 : user.getLoginError()) + 1);
+        int loginError = user.getLoginError();
+        if (loginError != 0) {
+            user.setLoginError((byte)++loginError);
+        }
         userRepository.save(user);
         return user.getLoginError();
     }
@@ -132,10 +135,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUserNormal() {
         User user = this.findUser();
-        user.setLoginEnable(TrueFalseEnum.TRUE.getDesc());
-        user.setLoginError(0);
+        user.setLoginEnable(true);
+        user.setLoginError((byte)0);
         user.setLoginLast(new Date());
         userRepository.save(user);
         return user;
     }
+
 }

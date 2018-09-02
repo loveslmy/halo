@@ -26,4 +26,5 @@ public class OwoUtil {
         }
         return mark;
     }
+
 }

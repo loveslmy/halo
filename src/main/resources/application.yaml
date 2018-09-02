@@ -1,7 +1,5 @@
-custom:
-  server:
-    http:
-      port: 80
+http:
+  port: 80
 server:
   port: 443
   use-forward-headers: true
@@ -17,22 +15,27 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-
     # H2database 配置
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/halo/halo
-    username: admin
-    password: 123456
-  h2:
-    console:
-      settings:
-        web-allow-others: true
-      path: /h2-console
-      enabled: true
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/halo?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: Loveslmy_520
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 5
+      max-wait: 2000
+      validation-query: select 1 from dual
+      test-while-idle: false
+      test-on-borrow: true
+      test-on-return: false
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   freemarker:
     allow-request-override: false
     cache: false

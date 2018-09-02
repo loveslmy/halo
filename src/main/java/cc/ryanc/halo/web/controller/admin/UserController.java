@@ -4,11 +4,11 @@ import cc.ryanc.halo.model.domain.User;
 import cc.ryanc.halo.model.dto.JsonResult;
 import cc.ryanc.halo.model.enums.ResultCodeEnum;
 import cc.ryanc.halo.service.UserService;
-import cn.hutool.crypto.SecureUtil;
 import freemarker.template.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -87,9 +87,9 @@ public class UserController {
                                  @ModelAttribute("userId") Long userId,
                                  HttpSession session) {
         try {
-            User user = userService.findByUserIdAndUserPass(userId, SecureUtil.md5(beforePass));
+            User user = userService.findByUserIdAndUserPass(userId, DigestUtils.md5DigestAsHex(beforePass.getBytes()));
             if (null != user) {
-                user.setUserPass(SecureUtil.md5(newPass));
+                user.setUserPass(DigestUtils.md5DigestAsHex(newPass.getBytes()));
                 userService.saveByUser(user);
                 session.invalidate();
             } else {
@@ -101,4 +101,5 @@ public class UserController {
         }
         return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "修改密码成功！");
     }
+
 }

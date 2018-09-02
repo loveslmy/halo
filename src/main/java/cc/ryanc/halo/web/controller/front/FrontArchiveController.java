@@ -9,7 +9,6 @@ import cc.ryanc.halo.service.CommentService;
 import cc.ryanc.halo.service.PostService;
 import cc.ryanc.halo.utils.CommentUtil;
 import cc.ryanc.halo.web.controller.core.BaseController;
-import cn.hutool.core.collection.CollUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static cc.ryanc.halo.HaloConstant.DOT_JOINER;
 
 /**
  * <pre>
@@ -71,11 +72,12 @@ public class FrontArchiveController extends BaseController {
         //所有文章数据，分页，material主题适用
         Sort sort = new Sort(Sort.Direction.DESC, "postDate");
         Pageable pageable = PageRequest.of(page - 1, 5, sort);
-        Page<Post> posts = postService.findPostByStatus(PostStatusEnum.PUBLISHED.getCode(), PostTypeEnum.POST_TYPE_POST.getDesc(), pageable);
+        Page<Post> posts = postService.findPostByStatus(PostStatusEnum.PUBLISHED.getCode(),
+                PostTypeEnum.POST_TYPE_POST.getDesc(), pageable);
         if (null == posts) {
             return this.renderNotFound();
         }
-        model.addAttribute("is_archives",true);
+        model.addAttribute("is_archives", true);
         model.addAttribute("posts", posts);
         return this.render("archives");
     }
@@ -96,7 +98,7 @@ public class FrontArchiveController extends BaseController {
         if (null == posts) {
             return this.renderNotFound();
         }
-        model.addAttribute("is_archives",true);
+        model.addAttribute("is_archives", true);
         model.addAttribute("posts", posts);
         return this.render("archives");
     }
@@ -127,8 +129,10 @@ public class FrontArchiveController extends BaseController {
         if (null != afterPosts && afterPosts.size() > 0) {
             model.addAttribute("afterPost", afterPosts.get(afterPosts.size() - 1));
         }
-        List<Comment> comments = null;
-        if (StringUtils.equals(HaloConst.OPTIONS.get(BlogPropertiesEnum.NEW_COMMENT_NEED_CHECK.getProp()), TrueFalseEnum.TRUE.getDesc()) || HaloConst.OPTIONS.get(BlogPropertiesEnum.NEW_COMMENT_NEED_CHECK.getProp()) == null) {
+        List<Comment> comments;
+        if (StringUtils.equals(HaloConst.OPTIONS.get(BlogPropertiesEnum.NEW_COMMENT_NEED_CHECK.getProp()),
+                TrueFalseEnum.TRUE.getDesc())
+                || HaloConst.OPTIONS.get(BlogPropertiesEnum.NEW_COMMENT_NEED_CHECK.getProp()) == null) {
             comments = commentService.findCommentsByPostAndCommentStatus(post, CommentStatusEnum.PUBLISHED.getCode());
         } else {
             comments = commentService.findCommentsByPostAndCommentStatusNot(post, CommentStatusEnum.RECYCLE.getCode());
@@ -141,11 +145,11 @@ public class FrontArchiveController extends BaseController {
                 tagWords.add(tag.getTagName());
             }
         }
-        model.addAttribute("is_post",true);
+        model.addAttribute("is_post", true);
         model.addAttribute("post", post);
         model.addAttribute("comments", CommentUtil.getComments(comments));
         model.addAttribute("commentsCount", comments.size());
-        model.addAttribute("tagWords", CollUtil.join(tagWords, ","));
+        model.addAttribute("tagWords", DOT_JOINER.join(tagWords));
         postService.updatePostView(post);
         return this.render("post");
     }

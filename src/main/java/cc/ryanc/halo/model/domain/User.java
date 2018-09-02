@@ -1,15 +1,16 @@
 package cc.ryanc.halo.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -20,69 +21,54 @@ import java.util.Date;
  * @author : RYAN0UP
  * @date : 2017/11/14
  */
-@Data
+@Getter
+@Setter
+@ToString(callSuper = true)
 @Entity
 @Table(name = "halo_user")
-public class User implements Serializable {
+public class User extends BaseEntity {
 
     private static final long serialVersionUID = -5144055068797033748L;
 
-    /**
-     * 编号
-     */
-    @Id
-    @GeneratedValue
-    private Long userId;
-
-    /**
-     * 用户名
-     */
     @NotBlank(message = "用户名不能为空")
     @JsonIgnore
+    @Column(length = 16, columnDefinition = "CHAR(16) NOT NULL COMMENT '用户名'",
+            updatable = false, unique = true)
     private String userName;
 
-    /**
-     * 显示名称
-     */
+    @NotBlank(message = "昵称不能为空")
+    @Column(length = 16, columnDefinition = "CHAR(16) NOT NULL COMMENT '昵称'",
+            unique = true)
     private String userDisplayName;
 
-    /**
-     * 密码
-     */
+    @NotBlank(message = "密码不能为空")
     @JsonIgnore
+    @Column(length = 32, columnDefinition = "CHAR(32) NOT NULL COMMENT '密码'",
+            unique = true)
     private String userPass;
 
-    /**
-     * 邮箱
-     */
     @Email(message = "邮箱格式不正确")
+    @Column(length = 64, columnDefinition = "VARCHAR(64) NOT NULL COMMENT '邮箱'",
+            unique = true)
     private String userEmail;
 
-    /**
-     * 头像
-     */
+    @Column(length = 64, columnDefinition = "VARCHAR(64) COMMENT '头像'")
     private String userAvatar;
 
-    /**
-     * 说明
-     */
+    @Column(length = 32, columnDefinition = "VARCHAR(32) COMMENT '描述'")
     private String userDesc;
 
-    /**
-     * 是否禁用登录
-     */
     @JsonIgnore
-    private String loginEnable = "true";
+    @Type(type = "yes_no")
+    @Column(columnDefinition = "BIT NOT NULL DEFAULT b'1' COMMENT '是否禁用登录'")
+    private boolean loginEnable = true;
 
-    /**
-     * 最后一次登录时间
-     */
     @JsonIgnore
+    @Column(columnDefinition = "TIMESTAMP COMMENT '最后登录时间'")
     private Date loginLast;
 
-    /**
-     * 登录错误次数记录
-     */
     @JsonIgnore
-    private Integer loginError = 0;
+    @Column(columnDefinition = "TINYINT(4) NOT NULL DEFAULT '0' COMMENT '登录错误次数记录'")
+    private byte loginError = 0;
+
 }

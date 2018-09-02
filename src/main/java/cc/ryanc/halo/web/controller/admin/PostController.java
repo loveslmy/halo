@@ -14,11 +14,9 @@ import cc.ryanc.halo.service.PostService;
 import cc.ryanc.halo.service.TagService;
 import cc.ryanc.halo.utils.HaloUtils;
 import cc.ryanc.halo.web.controller.core.BaseController;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.extra.servlet.ServletUtil;
-import cn.hutool.http.HtmlUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +46,7 @@ import java.util.Optional;
 @RequestMapping(value = "/admin/posts")
 public class PostController extends BaseController {
 
+    public static final String DATE_FORMAT = "yyyyMMddHHmmss";
     @Autowired
     private PostService postService;
 
@@ -162,7 +161,8 @@ public class PostController extends BaseController {
      */
     @PostMapping(value = "/new/push")
     @ResponseBody
-    public JsonResult pushPost(@ModelAttribute Post post, @RequestParam("cateList") List<String> cateList, @RequestParam("tagList") String tagList, HttpSession session) {
+    public JsonResult pushPost(@ModelAttribute Post post, @RequestParam("cateList") List<String> cateList,
+                               @RequestParam("tagList") String tagList, HttpSession session) {
         User user = (User) session.getAttribute(HaloConst.USER_SESSION_KEY);
         String msg = "发表成功";
         try {
@@ -172,7 +172,7 @@ public class PostController extends BaseController {
                 postSummary = Integer.parseInt(HaloConst.OPTIONS.get(BlogPropertiesEnum.POST_SUMMARY.getProp()));
             }
             //文章摘要
-            String summaryText = HtmlUtil.cleanHtmlTag(post.getPostContent());
+            String summaryText = HaloUtils.cleanHtmlTag(post.getPostContent());
             if (summaryText.length() > postSummary) {
                 String summary = summaryText.substring(0, postSummary);
                 post.setPostSummary(summary);
@@ -183,12 +183,12 @@ public class PostController extends BaseController {
             if (null != post.getPostId()) {
                 Post oldPost = postService.findByPostId(post.getPostId()).get();
                 post.setPostDate(oldPost.getPostDate());
-                post.setPostUpdate(DateUtil.date());
+                post.setPostUpdate(new Date());
                 post.setPostViews(oldPost.getPostViews());
                 msg = "更新成功";
             } else {
-                post.setPostDate(DateUtil.date());
-                post.setPostUpdate(DateUtil.date());
+                post.setPostDate(new Date());
+                post.setPostUpdate(new Date());
             }
             post.setUser(user);
             List<Category> categories = categoryService.strListToCateList(cateList);
@@ -199,7 +199,8 @@ public class PostController extends BaseController {
             }
             post.setPostUrl(urlFilter(post.getPostUrl()));
             postService.saveByPost(post);
-            logsService.saveByLogs(new Logs(LogsRecord.PUSH_POST, post.getPostTitle(), ServletUtil.getClientIP(request), DateUtil.date()));
+            logsService.saveByLogs(new Logs(LogsRecord.PUSH_POST, post.getPostTitle(),
+                    HaloUtils.getClientIP(request), new Date()));
             return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), msg);
         } catch (Exception e) {
             log.error("保存文章失败：{}", e.getMessage());
@@ -227,7 +228,7 @@ public class PostController extends BaseController {
                                    @RequestParam(value = "postContentMd") String postContentMd,
                                    @RequestParam(value = "postType", defaultValue = "post") String postType,
                                    HttpSession session) {
-        Post post = null;
+        Post post;
         User user = (User) session.getAttribute(HaloConst.USER_SESSION_KEY);
         if (postId == 0) {
             post = new Post();
@@ -235,15 +236,14 @@ public class PostController extends BaseController {
             post = postService.findByPostId(postId).get();
         }
         try {
+            Date currentDate = new Date();
             if (StringUtils.isEmpty(postTitle)) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-                post.setPostTitle("草稿：" + dateFormat.format(DateUtil.date()));
+                post.setPostTitle("草稿：" + DateFormatUtils.format(currentDate, DATE_FORMAT));
             } else {
                 post.setPostTitle(postTitle);
             }
             if (StringUtils.isEmpty(postUrl)) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-                post.setPostUrl(dateFormat.format(DateUtil.date()));
+                post.setPostUrl(DateFormatUtils.format(currentDate, DATE_FORMAT));
             } else {
                 post.setPostUrl(postUrl);
             }
@@ -251,8 +251,8 @@ public class PostController extends BaseController {
             post.setPostStatus(1);
             post.setPostContentMd(postContentMd);
             post.setPostType(postType);
-            post.setPostDate(DateUtil.date());
-            post.setPostUpdate(DateUtil.date());
+            post.setPostDate(currentDate);
+            post.setPostUpdate(currentDate);
             post.setUser(user);
         } catch (Exception e) {
             log.error("未知错误：{}", e.getMessage());
@@ -308,7 +308,8 @@ public class PostController extends BaseController {
         try {
             Optional<Post> post = postService.findByPostId(postId);
             postService.removeByPostId(postId);
-            logsService.saveByLogs(new Logs(LogsRecord.REMOVE_POST, post.get().getPostTitle(), ServletUtil.getClientIP(request), DateUtil.date()));
+            logsService.saveByLogs(new Logs(LogsRecord.REMOVE_POST, post.get().getPostTitle(),
+                    HaloUtils.getClientIP(request), new Date()));
         } catch (Exception e) {
             log.error("删除文章失败：{}", e.getMessage());
         }

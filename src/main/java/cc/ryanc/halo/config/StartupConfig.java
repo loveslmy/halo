@@ -40,7 +40,7 @@ public class StartupConfig implements ApplicationListener<ApplicationStartedEven
     /**
      * http服务端口
      */
-    @Value("${custom.server.http.port}")
+    @Value("${http.port}")
     private int httpPort;
 
     /**

@@ -1,12 +1,10 @@
 package cc.ryanc.halo.utils;
 
 import cc.ryanc.halo.model.domain.Post;
-import cc.ryanc.halo.model.dto.BackupDto;
 import cc.ryanc.halo.model.dto.HaloConst;
 import cc.ryanc.halo.model.dto.Theme;
 import cc.ryanc.halo.model.enums.BlogPropertiesEnum;
 import cc.ryanc.halo.model.enums.CommonParamsEnum;
-import cn.hutool.core.io.FileUtil;
 import com.sun.syndication.feed.rss.Channel;
 import com.sun.syndication.feed.rss.Content;
 import com.sun.syndication.feed.rss.Item;
@@ -14,26 +12,25 @@ import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.WireFeedOutput;
 import io.github.biezhi.ome.OhMyEmail;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ResourceUtils;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributeView;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+import java.util.regex.Pattern;
 
 /**
  * <pre>
@@ -46,66 +43,80 @@ import java.util.*;
 @Slf4j
 public class HaloUtils {
 
-    private static ArrayList<String> FILE_LIST = new ArrayList<>();
+    private final static Pattern EMAIL = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])", Pattern.CASE_INSENSITIVE);
+    private static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";
 
     /**
-     * 获取所有附件
+     * 清除所有HTML标签
      *
-     * @param filePath filePath
-     * @return ArrayList
+     * @param content 文本
+     * @return 清除标签后的文本
      */
-    public static ArrayList<String> getFiles(String filePath) {
-        try {
-            //获取项目根路径
-            File basePath = new File(ResourceUtils.getURL("classpath:").getPath());
-            //获取目标路径
-            File targetPath = new File(basePath.getAbsolutePath(), filePath);
-            File[] files = targetPath.listFiles();
-            //遍历文件
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    getFiles(filePath + "/" + file.getName());
-                } else {
-                    String abPath = file.getAbsolutePath().substring(file.getAbsolutePath().indexOf("/upload"));
-                    FILE_LIST.add(abPath);
-                }
-            }
-        } catch (Exception e) {
-            log.error("未知错误：{0}", e.getMessage());
-        }
-        return FILE_LIST;
+    public static String cleanHtmlTag(String content) {
+        return content.replaceAll(RE_HTML_MARK, "");
     }
 
     /**
-     * 获取备份文件信息
+     * 获取客户端IP<br>
+     * 默认检测的Header：<br>
+     * 1、X-Forwarded-For<br>
+     * 2、X-Real-IP<br>
+     * 3、Proxy-Client-IP<br>
+     * 4、WL-Proxy-Client-IP<br>
+     * otherHeaderNames参数用于自定义检测的Header
      *
-     * @param dir dir
-     * @return List
+     * @param request          请求对象{@link HttpServletRequest}
+     * @param otherHeaderNames 其他自定义头文件
+     * @return IP地址
      */
-    public static List<BackupDto> getBackUps(String dir) {
-        String srcPathStr = System.getProperties().getProperty("user.home") + "/halo/backup/" + dir;
-        File srcPath = new File(srcPathStr);
-        File[] files = srcPath.listFiles();
-        List<BackupDto> backupDtos = new ArrayList<>();
-        BackupDto backupDto = null;
-        //遍历文件
-        if (null != files) {
-            for (File file : files) {
-                if (file.isFile()) {
-                    if (StringUtils.equals(file.getName(), ".DS_Store")) {
-                        continue;
-                    }
-                    backupDto = new BackupDto();
-                    backupDto.setFileName(file.getName());
-                    backupDto.setCreateAt(getCreateTime(file.getAbsolutePath()));
-                    backupDto.setFileType(FileUtil.getType(file));
-                    backupDto.setFileSize(parseSize(file.length()));
-                    backupDto.setBackupType(dir);
-                    backupDtos.add(backupDto);
+    public static String getClientIP(HttpServletRequest request, String... otherHeaderNames) {
+        String[] headers = {"X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP",
+                "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"};
+        if (ArrayUtils.isNotEmpty(otherHeaderNames)) {
+            headers = ArrayUtils.addAll(headers, otherHeaderNames);
+        }
+
+        String ip;
+        for (String header : headers) {
+            ip = request.getHeader(header);
+            if (!isUnKnow(ip)) {
+                return getMultistageReverseProxyIp(ip);
+            }
+        }
+
+        ip = request.getRemoteAddr();
+        return getMultistageReverseProxyIp(ip);
+    }
+
+    /**
+     * 从多级反向代理中获得第一个非unknown IP地址
+     *
+     * @param ip 获得的IP地址
+     * @return 第一个非unknown IP地址
+     */
+    private static String getMultistageReverseProxyIp(String ip) {
+        // 多级反向代理检测
+        if (ip != null && ip.indexOf(",") > 0) {
+            final String[] ips = ip.trim().split(",");
+            for (String subIp : ips) {
+                if (!isUnKnow(subIp)) {
+                    ip = subIp;
+                    break;
                 }
             }
         }
-        return backupDtos;
+        return ip;
+    }
+
+
+    /**
+     * 检测给定字符串是否为未知，多用于检测HTTP请求相关<br>
+     *
+     * @param checkString 被检测的字符串
+     * @return 是否未知
+     */
+    private static boolean isUnKnow(String checkString) {
+        return StringUtils.isBlank(checkString) || "unknown".equalsIgnoreCase(checkString);
     }
 
     /**
@@ -132,28 +143,6 @@ public class HaloUtils {
             size = size * 100 / 1024;
             return String.valueOf((size / 100)) + "." + String.valueOf((size % 100)) + "GB";
         }
-    }
-
-    /**
-     * 获取文件创建时间
-     *
-     * @param srcPath 文件绝对路径
-     * @return 时间
-     */
-    public static Date getCreateTime(String srcPath) {
-        Path path = Paths.get(srcPath);
-        BasicFileAttributeView basicview = Files.getFileAttributeView(path, BasicFileAttributeView.class, LinkOption.NOFOLLOW_LINKS);
-        BasicFileAttributes attr;
-        try {
-            attr = basicview.readAttributes();
-            Date createDate = new Date(attr.creationTime().toMillis());
-            return createDate;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Calendar cal = Calendar.getInstance();
-        cal.set(1970, 0, 1, 0, 0, 0);
-        return cal.getTime();
     }
 
     /**
@@ -194,7 +183,8 @@ public class HaloUtils {
                         }
                         theme = new Theme();
                         theme.setThemeName(file.getName());
-                        File optionsPath = new File(themesPath.getAbsolutePath(), file.getName() + "/module/options.ftl");
+                        File optionsPath = new File(themesPath.getAbsolutePath(), file.getName()
+                                + "/module/options.ftl");
                         if (optionsPath.exists()) {
                             theme.setHasOptions(true);
                         } else {
@@ -246,20 +236,10 @@ public class HaloUtils {
         return tpls;
     }
 
-    /**
-     * 获取当前时间
-     *
-     * @return 字符串
-     */
-    public static String getStringDate(String format) {
-        SimpleDateFormat formatter = new SimpleDateFormat(format);
-        String dateString = formatter.format(new Date());
-        return dateString;
-    }
-
     public static String getStringDate(Date date, String format) {
-        Long unixTime = Long.parseLong(String.valueOf(date.getTime() / 1000));
-        return Instant.ofEpochSecond(unixTime).atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern(format));
+        long unixTime = Long.parseLong(String.valueOf(date.getTime() / 1000));
+        return Instant.ofEpochSecond(unixTime).atZone(ZoneId.systemDefault())
+                .format(DateTimeFormatter.ofPattern(format));
     }
 
     /**
@@ -334,7 +314,8 @@ public class HaloUtils {
             value = new String(xmlChar);
             content.setValue(value);
             item.setContent(content);
-            item.setLink(HaloConst.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()) + "/archives/" + post.getPostUrl());
+            item.setLink(HaloConst.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()) + "/archives/"
+                    + post.getPostUrl());
             item.setPubDate(post.getPostDate());
             items.add(item);
         }
@@ -350,12 +331,14 @@ public class HaloUtils {
      * @return String
      */
     public static String getSiteMap(List<Post> posts) {
-        String head = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
+        String head = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset " +
+                "xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
         String urlBody = "";
         String urlItem;
         String urlPath = HaloConst.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()) + "/archives/";
         for (Post post : posts) {
-            urlItem = "<url><loc>" + urlPath + post.getPostUrl() + "</loc><lastmod>" + getStringDate(post.getPostDate(), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") + "</lastmod>" + "</url>";
+            urlItem = "<url><loc>" + urlPath + post.getPostUrl() + "</loc><lastmod>" + getStringDate(post.getPostDate(),
+                    "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") + "</lastmod>" + "</url>";
             urlBody += urlItem;
         }
         return head + urlBody + "</urlset>";
@@ -372,6 +355,44 @@ public class HaloUtils {
         Properties properties = OhMyEmail.defaultConfig(false);
         properties.setProperty("mail.smtp.host", smtpHost);
         OhMyEmail.config(properties, userName, password);
+    }
+
+    /**
+     * 标准化URL字符串，包括：
+     * <pre>
+     * 1. 多个/替换为一个
+     * </pre>
+     *
+     * @param url URL字符串
+     * @return 标准化后的URL字符串
+     */
+    public static String normalize(String url) {
+        if (StringUtils.isBlank(url)) {
+            return url;
+        }
+        final int sepIndex = url.indexOf("://");
+        String pre;
+        String body;
+        if (sepIndex > 0) {
+            pre = StringUtils.substring(url, 0, sepIndex + 3);
+            body = StringUtils.substring(url, sepIndex + 3, url.length());
+        } else {
+            pre = "http://";
+            body = url;
+        }
+
+        int paramsSepIndex = url.indexOf("?");
+        String params = null;
+        if (paramsSepIndex > 0) {
+            pre = StringUtils.substring(url, paramsSepIndex, body.length());
+            body = StringUtils.substring(url, 0, paramsSepIndex);
+        }
+
+        //去除开头的\或者/
+        body = body.replaceAll("^[\\/]+", StringUtils.EMPTY);
+        //替换多个\或/为单个/
+        body = body.replace("\\", "/").replaceAll("//+", "/");
+        return pre + body + StringUtils.defaultString(params);
     }
 
     /**
@@ -423,7 +444,7 @@ public class HaloUtils {
      */
     public static String baiduPost(String blogUrl, String token, String urls) {
         String url = "http://data.zz.baidu.com/urls?site=" + blogUrl + "&token=" + token;
-        String result = "";
+        StringBuilder result = new StringBuilder();
         PrintWriter out = null;
         BufferedReader in = null;
         try {
@@ -448,7 +469,7 @@ public class HaloUtils {
             in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
-                result += line;
+                result.append(line);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -464,7 +485,21 @@ public class HaloUtils {
                 ex.printStackTrace();
             }
         }
-        return result;
+        return result.toString();
+    }
+
+    /**
+     * 验证是否为可用邮箱地址
+     *
+     * @param value 值
+     * @return 否为可用邮箱地址
+     */
+    public static boolean isEmail(String value) {
+        if (value == null) {
+            // 提供null的字符串为不匹配
+            return false;
+        }
+        return EMAIL.matcher(value).matches();
     }
 
 }

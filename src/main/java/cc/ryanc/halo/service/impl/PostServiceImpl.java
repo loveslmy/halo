@@ -9,7 +9,6 @@ import cc.ryanc.halo.model.enums.PostTypeEnum;
 import cc.ryanc.halo.repository.PostRepository;
 import cc.ryanc.halo.service.PostService;
 import cc.ryanc.halo.utils.HaloUtils;
-import cn.hutool.http.HtmlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -103,7 +102,7 @@ public class PostServiceImpl implements PostService {
     public void updateAllSummary(Integer postSummary) {
         List<Post> posts = this.findAllPosts(PostTypeEnum.POST_TYPE_POST.getDesc());
         for (Post post : posts) {
-            String text = HtmlUtil.cleanHtmlTag(post.getPostContent());
+            String text = HaloUtils.cleanHtmlTag(post.getPostContent());
             if (text.length() > postSummary) {
                 post.setPostSummary(text.substring(0, postSummary));
             } else {
@@ -171,7 +170,8 @@ public class PostServiceImpl implements PostService {
     @Override
     @Cacheable(value = POSTS_CACHE_NAME, key = "'posts_page_'+#pageable.pageNumber")
     public Page<Post> findPostByStatus(Pageable pageable) {
-        return postRepository.findPostsByPostStatusAndPostType(PostStatusEnum.PUBLISHED.getCode(), PostTypeEnum.POST_TYPE_POST.getDesc(), pageable);
+        return postRepository.findPostsByPostStatusAndPostType(PostStatusEnum.PUBLISHED.getCode(),
+                PostTypeEnum.POST_TYPE_POST.getDesc(), pageable);
     }
 
     /**
@@ -241,7 +241,8 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public List<Post> findByPostDateAfter(Date postDate) {
-        return postRepository.findByPostDateAfterAndPostStatusAndPostTypeOrderByPostDateDesc(postDate, PostStatusEnum.PUBLISHED.getCode(), PostTypeEnum.POST_TYPE_POST.getDesc());
+        return postRepository.findByPostDateAfterAndPostStatusAndPostTypeOrderByPostDateDesc(postDate,
+                PostStatusEnum.PUBLISHED.getCode(), PostTypeEnum.POST_TYPE_POST.getDesc());
     }
 
     /**
@@ -252,7 +253,8 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public List<Post> findByPostDateBefore(Date postDate) {
-        return postRepository.findByPostDateBeforeAndPostStatusAndPostTypeOrderByPostDateAsc(postDate, PostStatusEnum.PUBLISHED.getCode(), PostTypeEnum.POST_TYPE_POST.getDesc());
+        return postRepository.findByPostDateBeforeAndPostStatusAndPostTypeOrderByPostDateAsc(postDate,
+                PostStatusEnum.PUBLISHED.getCode(), PostTypeEnum.POST_TYPE_POST.getDesc());
     }
 
 
@@ -266,7 +268,7 @@ public class PostServiceImpl implements PostService {
     public List<Archive> findPostGroupByYearAndMonth() {
         List<Object[]> objects = postRepository.findPostGroupByYearAndMonth();
         List<Archive> archives = new ArrayList<>();
-        Archive archive = null;
+        Archive archive;
         for (Object[] obj : objects) {
             archive = new Archive();
             archive.setYear(obj[0].toString());
@@ -288,7 +290,7 @@ public class PostServiceImpl implements PostService {
     public List<Archive> findPostGroupByYear() {
         List<Object[]> objects = postRepository.findPostGroupByYear();
         List<Archive> archives = new ArrayList<>();
-        Archive archive = null;
+        Archive archive;
         for (Object[] obj : objects) {
             archive = new Archive();
             archive.setYear(obj[0].toString());
@@ -341,7 +343,6 @@ public class PostServiceImpl implements PostService {
      * 根据分类目录查询文章
      *
      * @param category category
-     * @param status   status
      * @param pageable pageable
      * @return Page
      */
@@ -355,7 +356,6 @@ public class PostServiceImpl implements PostService {
      * 根据标签查询文章，分页
      *
      * @param tag      tag
-     * @param status   status
      * @param pageable pageable
      * @return Page
      */
@@ -397,19 +397,19 @@ public class PostServiceImpl implements PostService {
     @Override
     @CachePut(value = POSTS_CACHE_NAME, key = "'posts_related_'+#post.getPostId()")
     public List<Post> relatedPosts(Post post) {
-        //获取当前文章的所有标签
+        // 获取当前文章的所有标签
         List<Tag> tags = post.getTags();
         List<Post> tempPosts = new ArrayList<>();
         for (Tag tag : tags) {
             tempPosts.addAll(postRepository.findPostsByTags(tag));
         }
-        //去掉当前的文章
+        // 去掉当前的文章
         tempPosts.remove(post);
-        //去掉重复的文章
+        // 去掉重复的文章
         List<Post> allPosts = new ArrayList<>();
-        for (int i = 0; i < tempPosts.size(); i++) {
-            if (!allPosts.contains(tempPosts.get(i))) {
-                allPosts.add(tempPosts.get(i));
+        for (Post tempPost : tempPosts) {
+            if (!allPosts.contains(tempPost)) {
+                allPosts.add(tempPost);
             }
         }
         return allPosts;
@@ -454,7 +454,7 @@ public class PostServiceImpl implements PostService {
     }
 
     /**
-     * 生成sitemap
+     * 生成siteMap
      *
      * @param posts posts
      * @return String

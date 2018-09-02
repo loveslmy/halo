@@ -9,8 +9,6 @@ import cc.ryanc.halo.model.enums.ResultCodeEnum;
 import cc.ryanc.halo.service.AttachmentService;
 import cc.ryanc.halo.service.LogsService;
 import cc.ryanc.halo.utils.HaloUtils;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.extra.servlet.ServletUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.lang3.StringUtils;
@@ -28,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -118,7 +115,6 @@ public class AttachmentController {
         return uploadAttachment(file, request);
     }
 
-
     /**
      * 上传图片
      *
@@ -127,13 +123,15 @@ public class AttachmentController {
      * @return Map
      */
     private Map<String, Object> uploadAttachment(MultipartFile file, HttpServletRequest request) {
+        Calendar cc = Calendar.getInstance();
         Map<String, Object> result = new HashMap<String, Object>();
         if (!file.isEmpty()) {
             try {
+                Date date = new Date();
                 //程序根路径，也就是/resources
                 File basePath = new File(ResourceUtils.getURL("classpath:").getPath());
                 //upload的路径
-                String uploadPath = "upload/" + DateUtil.thisYear() + "/" + (DateUtil.thisMonth() + 1) + "/";
+                String uploadPath = "upload/" + cc.get(Calendar.YEAR) + "/" + (cc.get(Calendar.MONTH) + 1) + "/";
                 //获取当前年月以创建目录，如果没有该目录则创建
                 File mediaPath = new File(basePath.getAbsolutePath(), uploadPath);
                 if (!mediaPath.exists()) {
@@ -159,17 +157,17 @@ public class AttachmentController {
                 //保存在数据库
                 Attachment attachment = new Attachment();
                 attachment.setAttachName(fileName);
-                attachment.setAttachPath("/"+uploadPath + fileName);
-                attachment.setAttachSmallPath("/"+uploadPath + nameWithOutSuffix + "_small." + fileSuffix);
+                attachment.setAttachPath("/" + uploadPath + fileName);
+                attachment.setAttachSmallPath("/" + uploadPath + nameWithOutSuffix + "_small." + fileSuffix);
                 attachment.setAttachType(file.getContentType());
                 attachment.setAttachSuffix("." + fileSuffix);
-                attachment.setAttachCreated(DateUtil.date());
+                attachment.setAttachCreated(new Date());
                 attachment.setAttachSize(HaloUtils.parseSize(new File(mediaPath, fileName).length()));
                 attachment.setAttachWh(HaloUtils.getImageWh(new File(mediaPath, fileName)));
                 attachmentService.saveByAttachment(attachment);
                 log.info("上传文件[{}]到[{}]成功", fileName, mediaPath.getAbsolutePath());
                 logsService.saveByLogs(
-                        new Logs(LogsRecord.UPLOAD_FILE, fileName, ServletUtil.getClientIP(request), DateUtil.date())
+                        new Logs(LogsRecord.UPLOAD_FILE, fileName, HaloUtils.getClientIP(request), new Date())
                 );
                 result.put("success", 1);
                 result.put("message", "上传成功！");
@@ -227,8 +225,8 @@ public class AttachmentController {
                 if (delFile.delete() && delSmallFile.delete()) {
                     log.info("删除文件[{}]成功！", delFileName);
                     logsService.saveByLogs(
-                            new Logs(LogsRecord.REMOVE_FILE, delFileName, ServletUtil.getClientIP(request),
-                                    DateUtil.date())
+                            new Logs(LogsRecord.REMOVE_FILE, delFileName, HaloUtils.getClientIP(request),
+                                    new Date())
                     );
                 } else {
                     log.error("删除附件[{}]失败！", delFileName);
@@ -241,4 +239,5 @@ public class AttachmentController {
         }
         return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "删除成功！");
     }
+
 }

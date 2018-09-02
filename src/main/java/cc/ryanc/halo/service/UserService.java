@@ -60,7 +60,7 @@ public interface UserService {
      *
      * @param enable enable
      */
-    void updateUserLoginEnable(String enable);
+    void updateUserLoginEnable(boolean enable);
 
     /**
      * 修改最后登录时间
@@ -75,7 +75,7 @@ public interface UserService {
      *
      * @return 登录错误次数
      */
-    Integer updateUserLoginError();
+    byte updateUserLoginError();
 
     /**
      * 修改用户的状态为正常

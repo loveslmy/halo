@@ -138,5 +138,7 @@ public enum BlogPropertiesEnum {
 
     public String getProp() {
         return prop;
+
     }
+
 }

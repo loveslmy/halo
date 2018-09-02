@@ -38,5 +38,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param userPass userpass
      * @return User
      */
-    User findByUserIdAndUserPass(Long userId, String userPass);
+    User findByIdAndUserPass(Long userId, String userPass);
 }
