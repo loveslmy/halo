@@ -23,7 +23,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <#list logs.content as log>
+                            <#list opLog.content as log>
                                 <tr>
                                     <td>${log.logId}</td>
                                     <td>${log.logTitle}</td>
@@ -37,14 +37,14 @@
                 </div>
                 <div class="box-footer clearfix">
                     <div class="no-margin pull-left">
-                        第${logs.number+1}/${logs.totalPages}页
+                        第${opLog.number+1}/${opLog.totalPages}页
                     </div>
                     <div class="no-margin pull-right">
                         <ul class="pagination" style="margin: 0;">
-                            <li><a class="btn btn-sm <#if !logs.hasPrevious()>disabled</#if>" href="/admin/logs">首页</a> </li>
-                            <li><a class="btn btn-sm <#if !logs.hasPrevious()>disabled</#if>" href="/admin/logs?page=${logs.number-1}">上页</a></li>
-                            <li><a class="btn btn-sm <#if !logs.hasNext()>disabled</#if>" href="/admin/logs?page=${logs.number+1}">下页</a></li>
-                            <li><a class="btn btn-sm <#if !logs.hasNext()>disabled</#if>" href="/admin/logs?page=${logs.totalPages-1}">尾页</a> </li>
+                            <li><a class="btn btn-sm <#if !opLog.hasPrevious()>disabled</#if>" href="/admin/opLog">首页</a> </li>
+                            <li><a class="btn btn-sm <#if !opLog.hasPrevious()>disabled</#if>" href="/admin/opLog?page=${opLog.number-1}">上页</a></li>
+                            <li><a class="btn btn-sm <#if !opLog.hasNext()>disabled</#if>" href="/admin/opLog?page=${opLog.number+1}">下页</a></li>
+                            <li><a class="btn btn-sm <#if !opLog.hasNext()>disabled</#if>" href="/admin/opLog?page=${opLog.totalPages-1}">尾页</a> </li>
                         </ul>
                     </div>
                 </div>

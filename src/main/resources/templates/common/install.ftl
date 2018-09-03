@@ -5,14 +5,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
         <meta name="renderer" content="webkit">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Halo安装向导</title>
+        <title>Halo Install</title>
         <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
         <link rel="stylesheet" href="/static/plugins/animate/animate.min.css">
         <link rel="stylesheet" href="/static/plugins/bootstrapvalidator/css/bootstrapValidator.min.css">
         <!--[if lt IE 9]>
         <script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
         <![endif]-->
         <style>
             body{
@@ -24,7 +24,10 @@
             .form-horizontal .control-label{
                 text-align: left;
             }
-            .logo{font-size:56px;text-align:center;margin-bottom:25px;font-weight:500;color:#444;text-shadow:#b2baba .1em .1em .2em;}
+            .logo{
+                font-size:56px;text-align:center;margin-bottom:25px;font-weight:500;color:#444;
+                text-shadow:#b2baba .1em .1em .2em;
+            }
         </style>
     </head>
     <body>
@@ -32,20 +35,20 @@
             <div class="row" style="padding-top: 50px">
                 <div class="col-lg-12 col-xs-12">
                     <div class="logo animated fadeInUp">
-                        Halo<small style="font-size: 14px;">安装向导</small>
+                        Halo<small style="font-size: 14px;">Install</small>
                     </div>
-                    <#if isInstall==false>
+                    <#if installed>
                     <form method="post" action="/install/do" class="form-horizontal" id="installForm">
                         <div class="box box-solid animated" id="installFirst">
                             <div class="box-body" style="padding: 30px;">
                                 <div class="form-group animated fadeInUp" style="animation-delay: 0.1s">
-                                    <label for="blogTitle" class="col-sm-4 control-label">网站标题：</label>
+                                    <label for="blogTitle" class="col-sm-4 control-label">Blog标题：</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="blogTitle" name="blogTitle" value="">
                                     </div>
                                 </div>
                                 <div class="form-group animated fadeInUp" style="animation-delay: 0.1s">
-                                    <label for="blogUrl" class="col-sm-4 control-label">网站地址：</label>
+                                    <label for="blogUrl" class="col-sm-4 control-label">Blog地址：</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="blogUrl" name="blogUrl" value="">
                                     </div>
@@ -94,17 +97,17 @@
                                 </div>
                             </div>
                             <div class="box-footer" style="padding-right: 30px;">
-                                <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right animated fadeInUp" style="animation-delay: 0.9s">安装Halo</button>
+                                <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right animated fadeInUp" style="animation-delay: 0.9s">提 交</button>
                             </div>
                         </div>
                         <div class="box box-solid animated fadeInUp" style="display: none" id="installSuccess">
                             <div class="box-body">
                                 <h2>安装成功！</h2>
-                                <h4>你可以选择进入前台，或者登录后台！</h4>
+                                <h4>您可以选择进入首页或者登录管理控制台！</h4>
                             </div>
                             <div class="box-footer" style="padding-right: 30px;">
-                                <a class="btn btn-primary btn-sm btn-flat" href="/">前台</a>
-                                <a class="btn btn-primary btn-sm btn-flat" href="/admin/login">登录后台</a>
+                                <a class="btn btn-primary btn-sm btn-flat" href="/">首页</a>
+                                <a class="btn btn-primary btn-sm btn-flat" href="/admin/login">管理控制台</a>
                             </div>
                         </div>
                         <div class="box box-solid animated fadeInUp" style="display: none" id="installError">
@@ -119,98 +122,7 @@
                     </form>
                     <#else >
                     <div class="animated fadeInUp" style="animation-delay: 0.1s">
-                        <h4>已经安装过了，不能重复安装的酱紫！</h4>
-                        <pre style="font: 10px/7px monospace;border: none;">
-                                    .'+:
-                                  `+@#'##
-                                   +#.```#+
-                                 `.@` `` .# `
-                                  '+`  `  @,`
-                                  +'`   ``++
-                        ,#@@' `   ++      ;#
-                      .@#'..'#`   ,#      .@               ``.,::;;:,,`
-                     `#+`    '@   `#`     `@         `.:'##@@###+#++#@@#,
-                     .@      `@'   #'     `@  ` `.;+#@@#':..` ``;:    .'@#`
-                     ,@       ,@`  ,@`     @`.'@@##;,`` `      ., `     .## `
-                     `#        #+   #'`    ##@+,.`           ` +         `#+
-                     `#,     ` :#`  .@.   `@.`    .    `      `,`         .#:
-                      ;#       `#,   +#`  `` `   `+';+`       :`        `  '#`
-                      `@:`      ++`:@@#:         +``  +       '    ,.  ;@#``@,
-                     ` ,@`      .@@#:```        .. ##.`:      '`  ;@@.`#@#;`+'
-                        ++       @:  ` ` `.`    , ,#@'`'      ;   #@@' +@@:`,#`
-                         @;      #:  ` ,'` ,+   ..`@@``:      .`  ;@@:``++  .#`
-                        `.@,     ::   ,,  `` #   +``` +`     ``;`` :;   `   .#`
-                          ;@.  `      # `:   `.  `+;;+``      `+`           ,@
-                         `@@#        `, @@@```'  `  `          `:           ;#``
-                        `@+ ;` `     `: @@#` `;```  ` `         ;.          #:
-                        @'`           +``:  `..                  +`      ` .#`
-                       +#             ,.   ` '                    +.`    ``#'
-                      .@.              :'``,+                      ,'.` `.#@. ``
-                      #'                 ..`                         `;';;#`
-                     .@` `                                            ``:@,``
-                   ``#+                                           `    '@,
-                     @`                                           `  `#@``
-                    ;#                                             .'#'` `
-                   `#:                                  ` ` ,;` `,#@+.
-                   `@`                                    :;'@+#@#;``  `
-                  `.#``                                   '#+#@,.  `
-                   ;#                                         @:`
-                   #;                                        `:@
-                   @.                                          #.
-                   @.                                         `+'
-                   @.                                          ;#
-                   @.                                    :`    .@`
-                   @.                                    ;.   ``@`
-                   @.                                    ;,  ` `#
-                   @,                  `                 +.    `@
-                   +'                  ;:                @`     @
-                   ,#`                  +,              :;     `@
-                  ``@`                   +;          ``,#      .@
-                   `#;                    ;#.`      ``'+       ;#`
-                    :@ `                  ` '@',..,;#+.      ``#;
-                     #:                   ` ```:;;:.`         `@`
-                  `` :@                        `    `         ;#``
-                     `#+                                      @,
-                      `@:`                                   +#`
-                       ,#.                                 `,@.`
-                      ` ;@.`                               .@:`
-                         '@,                              .@;`
-                      ```@+#;                         ```;@@  `
-                     ` `@' ,@+`                        ,#@.#'
-                       ## ```+@;                    `,#@'. `@.
-                     `;@ `    ,@#' `      `  `   `;+@@;`    ;@` `
-                      #:       `,@@#',` ` ```.;#@@@;. `  `   @@#,
-               ``   ;@@`           ;+@@@@@@@@##'.`           ,@@@#:`
-                 `+@@@:`           ` ` ```.``   `            `@::#@@'`
-               .#@@+++                `                       ,@` .+@@+.
-   `    `    :#@@;` @,                                         @,   `+@@#.``;#@@@`
-    @@@@#, :@@@: ` ,#                                        ``'#``   `'@@#@@@##@`
-   `;''+@@@#@:`    #'                                          .@``    ` ;@@#.
-       ,#@@:       @`                                           @:      `.@#@@'`
-      '@@'@.      :#                                            '#       `@;`+@#``
-    `'#+ :@.    ``#'                                            .@      ``#+` ;' `
-     .,  #@``     @`                                             @.     ``:@,
-       `.@;      .@                                              ++       `;`
-        `,`     `;#                                              :#
-                `#'                                               @`
-                 @.                                              `@.
-                 @`                                               #'`
-                `@                                                ;#
-                ,#                                                .#
-                ;+                                                `@`
-                #'                                                 @.
-                #:                                                 #:
-                @,                                                `++
-                @`                                                 ;#`
-               `@`                                                 ,@
-               `@`                                                 `@  `
-               `@`                                                 `@`
-               `@`                                                  @`
-               `@`                                                  @.
-               `@`                                                  #: `
-               `@@@@@@@@@##################@@@@@@@@@@@@@@@@@@@@@@@#@@;
-             ` `::::::::::::::::::::::::::::,:::::,,,,,,,,,,,,,,,,,:,.`
-                    </pre>
+                        <h4>已经安装过了，不能重复安装！</h4>
                     </div>
                     </#if>
                 </div>
@@ -239,10 +151,10 @@
                     },
                     fields: {
                         blogTitle: {
-                            message: '网站标题验证失败',
+                            message: 'BLog标题验证失败',
                             validators: {
                                 notEmpty: {
-                                    message: '网站标题不能为空'
+                                    message: 'Blog标题不能为空'
                                 }
                             }
                         },
@@ -265,7 +177,7 @@
                                 },
                                 stringLength: {
                                     min: 1,
-                                    max: 24,
+                                    max: 16,
                                     message: '用户名超出长度限制'
                                 }
                             }

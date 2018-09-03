@@ -92,7 +92,7 @@
                                                         <span class="label" style="background-color: #d6cdcd;">${page.comments?size}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="label" style="background-color: #d6cdcd;">${page.postViews}</span>
+                                                        <span class="label" style="background-color: #d6cdcd;">${page.getVistCount}</span>
                                                     </td>
                                                     <td>${page.postDate?string("yyyy-MM-dd HH:mm")}</td>
                                                     <td>

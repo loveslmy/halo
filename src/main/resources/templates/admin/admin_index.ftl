@@ -296,7 +296,7 @@
                                         <i class="fa fa-bars"></i></button>
                                     <ul class="dropdown-menu pull-right" role="menu">
                                         <li><a href="#" onclick="openAllLogs()">查看所有</a></li>
-                                        <li><a href="/admin/logs/clear">清空日志</a></li>
+                                        <li><a href="/admin/opLog/clear">清空日志</a></li>
                                     </ul>
                                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                                         <i class="fa fa-minus"></i>
@@ -315,8 +315,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <#if logs??>
-                                    <#list logs as log>
+                                    <#if opLog??>
+                                    <#list opLog as log>
                                         <tr>
                                             <td>${log.logTitle}</td>
                                             <td>${log.logContent}</td>
@@ -375,7 +375,7 @@
                     shade: 0.5,
                     maxmin: true,
                     area: ['90%', '90%'],
-                    content: '/admin/logs',
+                    content: '/admin/opLog',
                     scrollbar: false
                 });
             }

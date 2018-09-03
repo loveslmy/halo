@@ -88,7 +88,7 @@
                                                     <span class="label" style="background-color: #d6cdcd;">${post.getComments()?size}</span>
                                                 </td>
                                                 <td>
-                                                    <span class="label" style="background-color: #d6cdcd;">${post.postViews}</span>
+                                                    <span class="label" style="background-color: #d6cdcd;">${post.getVistCount}</span>
                                                 </td>
                                                 <td>${post.postDate?if_exists?string("yyyy-MM-dd HH:mm")}</td>
                                                 <td>

@@ -8,15 +8,15 @@
     <name>halo</name>
 
     <description>
-        halo，一个基于SpringBoot的博客系统，最求轻快，易用，以内容为中心。
+        halo，一个基于SpringBoot的博客系统，轻快，易用，以内容为中心。
     </description>
 
     <developers>
         <developer>
-            <id>ruibaby</id>
-            <name>Ryan Wang</name>
-            <email>i@ryanc.cc</email>
-            <url>https://ryanc.cc</url>
+            <id>mingyuliu</id>
+            <name>jack</name>
+            <email>liumy2009@126.com</email>
+            <url>http://mingyuliu.cn</url>
         </developer>
     </developers>
 
@@ -37,12 +37,9 @@
         <ehcache.version>3.5.2</ehcache.version>
         <rome.version>1.0</rome.version>
         <commons-lang3.version>3.7</commons-lang3.version>
-        <hutool-all.version>4.1.9</hutool-all.version>
-        <upyun-java-sdk.version>4.0.1</upyun-java-sdk.version>
-        <qiniu-java-sdk.version>7.2.14</qiniu-java-sdk.version>
         <thumbnailator.version>0.4.8</thumbnailator.version>
-        <jaxb-api.version>2.3.0</jaxb-api.version>
         <guava.version>26.0-jre</guava.version>
+        <fastutil.version>5.0.9</fastutil.version>
     </properties>
 
     <dependencies>
@@ -125,6 +122,13 @@
             <version>${commons-lang3.version}</version>
         </dependency>
 
+        <!-- commons-text -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.4</version>
+        </dependency>
+
         <!-- 图片操作 -->
         <dependency>
             <groupId>net.coobird</groupId>
@@ -137,6 +141,13 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+
+        <!-- fastutil -->
+        <dependency>
+            <groupId>fastutil</groupId>
+            <artifactId>fastutil</artifactId>
+            <version>${fastutil.version}</version>
         </dependency>
 
     </dependencies>
