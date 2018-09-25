@@ -30,16 +30,16 @@
                                 <h3 class="box-title">修改分类目录<#if updateCategory??>[${updateCategory.cateName}]</#if></h3>
                             </div>
                             <form action="/admin/category/save" method="post" role="form" id="cateAddForm">
-                                <input type="hidden" name="cateId" value="${updateCategory.cateId?c}">
+                                <input type="hidden" name="cateId" code="${updateCategory.cateId?c}">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">名称</label>
-                                        <input type="text" class="form-control" id="cateName" name="cateName" value="${updateCategory.cateName}">
+                                        <input type="text" class="form-control" id="cateName" name="cateName" code="${updateCategory.cateName}">
                                         <small>页面上所显示的名称</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">路径名称</label>
-                                        <input type="text" class="form-control" id="cateUrl" name="cateUrl" value="${updateCategory.cateUrl}">
+                                        <input type="text" class="form-control" id="cateUrl" name="cateUrl" code="${updateCategory.cateUrl}">
                                         <small>*这是文章路径上显示的名称，最好为英文</small>
                                     </div>
                                     <div class="form-group">
@@ -160,7 +160,7 @@
                 var name = $('#cateName').val();
                 var url = $('#cateUrl').val();
                 var desc = $('#cateDesc').val();
-                var result = true;
+                var datas = true;
                 if(name==""||url==""||desc==""){
                     showMsg("请输入完整信息！","info",2000);
                     result = false;

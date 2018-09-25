@@ -2,7 +2,7 @@ package cn.mingyuliu.halo.web.controller.front;
 
 import cn.mingyuliu.halo.model.domain.Category;
 import cn.mingyuliu.halo.model.domain.Post;
-import cn.mingyuliu.halo.service.CategoryService;
+import cn.mingyuliu.halo.service.ICategoryService;
 import cn.mingyuliu.halo.service.PostService;
 import cn.mingyuliu.halo.web.controller.core.BaseController;
 import org.springframework.data.domain.Page;
@@ -32,7 +32,7 @@ import static cn.mingyuliu.halo.model.dto.HaloConst.POST_SORT;
 public class FrontCategoryController extends BaseController {
 
     @Resource
-    private CategoryService categoryService;
+    private ICategoryService categoryService;
 
     @Resource
     private PostService postService;

@@ -1,7 +1,7 @@
 package cn.mingyuliu.halo.web.controller.core;
 
-import cn.mingyuliu.halo.config.OptionHolder;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
+import cn.mingyuliu.halo.config.sys.OptionHolder;
+import cn.mingyuliu.halo.model.enums.Option;
 
 import javax.annotation.Resource;
 
@@ -50,7 +50,7 @@ public abstract class BaseController {
      */
     protected int getPageSize() {
         // 尝试加载设置选项，用于设置显示条数
-        int size = optionHolder.getByte(OptionEnum.INDEX_POST_COUNT);
+        int size = optionHolder.getByte(Option.POST_PAGE_COUNT);
 
         // 默认显示10条
         if (size <= 0) {

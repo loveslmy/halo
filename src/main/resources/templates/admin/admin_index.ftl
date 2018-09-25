@@ -41,10 +41,10 @@
                                         <label for="widgetPostCount" class="col-sm-4 control-label">文章总数：</label>
                                         <div class="col-sm-8">
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_postcount" id="widgetPostCount" value="true" ${((options.widget_postcount?default('true'))=='true')?string('checked','')}> 显示
+                                                <input type="radio" name="widget_postcount" id="widgetPostCount" code="true" ${((options.widget_postcount?default('true'))=='true')?string('checked','')}> 显示
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_postcount" id="widgetPostCount" value="false" ${((options.widget_postcount?default('true'))=='false')?string('checked','')}> 隐藏
+                                                <input type="radio" name="widget_postcount" id="widgetPostCount" code="false" ${((options.widget_postcount?default('true'))=='false')?string('checked','')}> 隐藏
                                             </label>
                                         </div>
                                     </div>
@@ -52,10 +52,10 @@
                                         <label for="widgetCommentCount" class="col-sm-4 control-label">评论总数：</label>
                                         <div class="col-sm-8">
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_commentcount" id="widgetCommentCount" value="true" ${((options.widget_commentcount?default('true'))=='true')?string('checked','')}> 显示
+                                                <input type="radio" name="widget_commentcount" id="widgetCommentCount" code="true" ${((options.widget_commentcount?default('true'))=='true')?string('checked','')}> 显示
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_commentcount" id="widgetCommentCount" value="false" ${((options.widget_commentcount?default('true'))=='false')?string('checked','')}> 隐藏
+                                                <input type="radio" name="widget_commentcount" id="widgetCommentCount" code="false" ${((options.widget_commentcount?default('true'))=='false')?string('checked','')}> 隐藏
                                             </label>
                                         </div>
                                     </div>
@@ -63,10 +63,10 @@
                                         <label for="widgetAttachmentCount" class="col-sm-4 control-label">附件总数：</label>
                                         <div class="col-sm-8">
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_attachmentcount" id="widgetAttachmentCount" value="true" ${((options.widget_attachmentcount?default('true'))=='true')?string('checked','')}> 显示
+                                                <input type="radio" name="widget_attachmentcount" id="widgetAttachmentCount" code="true" ${((options.widget_attachmentcount?default('true'))=='true')?string('checked','')}> 显示
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_attachmentcount" id="widgetAttachmentCount" value="false" ${((options.widget_attachmentcount?default('true'))=='false')?string('checked','')}> 隐藏
+                                                <input type="radio" name="widget_attachmentcount" id="widgetAttachmentCount" code="false" ${((options.widget_attachmentcount?default('true'))=='false')?string('checked','')}> 隐藏
                                             </label>
                                         </div>
                                     </div>
@@ -74,10 +74,10 @@
                                         <label for="widgetDayCount" class="col-sm-4 control-label">成立天数：</label>
                                         <div class="col-sm-8">
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_daycount" id="widgetDayCount" value="true" ${((options.widget_daycount?default('true'))=='true')?string('checked','')}> 显示
+                                                <input type="radio" name="widget_daycount" id="widgetDayCount" code="true" ${((options.widget_daycount?default('true'))=='true')?string('checked','')}> 显示
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_daycount" id="widgetDayCount" value="false" ${((options.widget_daycount?default('true'))=='false')?string('checked','')}> 隐藏
+                                                <input type="radio" name="widget_daycount" id="widgetDayCount" code="false" ${((options.widget_daycount?default('true'))=='false')?string('checked','')}> 隐藏
                                             </label>
                                         </div>
                                     </div>
@@ -87,10 +87,10 @@
                                         <label for="widgetPostLastest" class="col-sm-4 control-label">最新文章：</label>
                                         <div class="col-sm-8">
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_postlastest" id="widgetPostLastest" value="true" ${((options.widget_postlastest?default('true'))=='true')?string('checked','')}> 显示
+                                                <input type="radio" name="widget_postlastest" id="widgetPostLastest" code="true" ${((options.widget_postlastest?default('true'))=='true')?string('checked','')}> 显示
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_postlastest" id="widgetPostLastest" value="false" ${((options.widget_postlastest?default('true'))=='false')?string('checked','')}> 隐藏
+                                                <input type="radio" name="widget_postlastest" id="widgetPostLastest" code="false" ${((options.widget_postlastest?default('true'))=='false')?string('checked','')}> 隐藏
                                             </label>
                                         </div>
                                     </div>
@@ -98,10 +98,10 @@
                                         <label for="widgetCommentLastest" class="col-sm-4 control-label">最新评论：</label>
                                         <div class="col-sm-8">
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_commentlastest" id="widgetCommentLastest" value="true" ${((options.widget_commentlastest?default('true'))=='true')?string('checked','')}> 显示
+                                                <input type="radio" name="widget_commentlastest" id="widgetCommentLastest" code="true" ${((options.widget_commentlastest?default('true'))=='true')?string('checked','')}> 显示
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_commentlastest" id="widgetCommentLastest" value="false" ${((options.widget_commentlastest?default('true'))=='false')?string('checked','')}> 隐藏
+                                                <input type="radio" name="widget_commentlastest" id="widgetCommentLastest" code="false" ${((options.widget_commentlastest?default('true'))=='false')?string('checked','')}> 隐藏
                                             </label>
                                         </div>
                                     </div>
@@ -109,10 +109,10 @@
                                         <label for="widgetLogsLastest" class="col-sm-4 control-label">最新日志：</label>
                                         <div class="col-sm-8">
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_logslastest" id="widgetLogsLastest" value="true" ${((options.widget_logslastest?default('true'))=='true')?string('checked','')}> 显示
+                                                <input type="radio" name="widget_logslastest" id="widgetLogsLastest" code="true" ${((options.widget_logslastest?default('true'))=='true')?string('checked','')}> 显示
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="widget_logslastest" id="widgetLogsLastest" value="false" ${((options.widget_logslastest?default('true'))=='false')?string('checked','')}> 隐藏
+                                                <input type="radio" name="widget_logslastest" id="widgetLogsLastest" code="false" ${((options.widget_logslastest?default('true'))=='false')?string('checked','')}> 隐藏
                                             </label>
                                         </div>
                                     </div>

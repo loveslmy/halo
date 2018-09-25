@@ -7,7 +7,7 @@
     <form autocomplete="off" id="search-form" method="get" action="/search" accept-charset="UTF-8" class="mdl-textfield__expandable-holder">
         <input class="mdl-textfield__input search-input" type="search" name="keyword" id="search" placeholder="">
         <label id="search-form-label" class="mdl-textfield__label" for="search"></label>
-        <input type="hidden" name="sitesearch" value="">
+        <input type="hidden" name="sitesearch" code="">
     </form>
 </div>
 

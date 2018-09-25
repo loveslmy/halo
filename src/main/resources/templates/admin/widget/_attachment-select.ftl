@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/plugins/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/plugins/toast/css/jquery.toast.min.css">
     <link rel="stylesheet" href="/static/plugins/fileinput/fileinput.min.css">
-    <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/static/plugins/admin-lte/2.4.5/AdminLTE.min.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -60,8 +60,8 @@
     </section>
 </div>
 </body>
-<script src="/static/plugins/jquery/jquery.min.js"></script>
-<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/plugins/jquery/3.2.1/jquery.min.js"></script>
+<script src="/static/plugins/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/static/plugins/fileinput/fileinput.min.js"></script>
 <script src="/static/plugins/fileinput/zh.min.js"></script>
 <script src="/static/plugins/toast/js/jquery.toast.min.js"></script>

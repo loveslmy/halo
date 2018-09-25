@@ -39,12 +39,12 @@
             <div class="row">
                 <div class="col-md-9">
                     <#if post??>
-                        <input type="hidden" id="postId" name="postId" value="${post.postId?c}">
+                        <input type="hidden" id="postId" name="postId" code="${post.postId?c}">
                     <#else>
-                        <input type="hidden" id="postId" name="postId" value="">
+                        <input type="hidden" id="postId" name="postId" code="">
                     </#if>
                     <div style="margin-bottom: 10px;">
-                        <input type="text" class="form-control input-lg" id="post_title" name="post_title" placeholder="请输入文章标题" onblur="autoComplateUrl();" value="<#if post??>${post.postTitle}</#if>">
+                        <input type="text" class="form-control input-lg" id="post_title" name="post_title" placeholder="请输入文章标题" onblur="autoComplateUrl();" code="<#if post??>${post.postTitle}</#if>">
                     </div>
                     <div style="display: block;margin-bottom: 10px;">
                         <span>
@@ -78,8 +78,8 @@
                         <div class="box-body">
                             <label for="allowComment" class="control-label">开启评论：</label>
                             <select class="form-control" id="allowComment" name="allowComment">
-                                <option value="1" <#if post?? && post.allowComment?default(1)==1>selected</#if>>是</option>
-                                <option value="0" <#if post?? && post.allowComment?default(1)==0>selected</#if>>否</option>
+                                <option code="1" <#if post?? && post.allowComment?default(1)==1>selected</#if>>是</option>
+                                <option code="0" <#if post?? && post.allowComment?default(1)==0>selected</#if>>否</option>
                             </select>
                         </div>
                         <div class="box-footer">
@@ -109,7 +109,7 @@
                                         <#list categories as cate>
                                             <li style="padding: 0;margin: 0px;list-style: none">
                                                 <label>
-                                                    <input name="categories" id="categories" type="checkbox" class="minimal" value="${cate.cateId?c}"> ${cate.cateName}
+                                                    <input name="categories" id="categories" type="checkbox" class="minimal" code="${cate.cateId?c}"> ${cate.cateName}
                                                 </label>
                                             </li>
                                         </#list>
@@ -132,9 +132,9 @@
                             <select class="form-control" id="chooseTag" name="chooseTag">
                                 <@commonTag method="tags">
                                     <#if tags??>
-                                        <option value="">选择添加</option>
+                                        <option code="">选择添加</option>
                                         <#list tags as tag>
-                                            <option value="${tag.tagName}">${tag.tagName}(${tag.posts?size})</option>
+                                            <option code="${tag.tagName}">${tag.tagName}(${tag.posts?size})</option>
                                         </#list>
                                     <#else>
                                         <option>暂无标签</option>
@@ -258,7 +258,7 @@
             function autoComplateUrl() {
                 var titleVal = $("#post_title").val();
                 if(titleVal!="" && titleVal!=null && $("#postUrl").html()==''){
-                    var result = $("#post_title").toPinyin().toLowerCase();
+                    var datas = $("#post_title").toPinyin().toLowerCase();
                     $("#postUrl").html(result.substring(0,result.length-1));
                 }
             }
@@ -293,7 +293,7 @@
             }
             $('#btn_input_postUrl').click(function () {
                 var postUrl = $("#postUrl").html();
-                $('#postUrl').html("<input type='text' id='newPostUrl' onblur='urlOnBlurAuto()' value='"+postUrl+"'>");
+                $('#postUrl').html("<input type='text' id='newPostUrl' onblur='urlOnBlurAuto()' code='"+postUrl+"'>");
                 $(this).hide();
                 $('#btn_change_postUrl').show();
             });

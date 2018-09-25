@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/plugins/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/plugins/toast/css/jquery.toast.min.css">
-    <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/static/plugins/admin-lte/2.4.5/AdminLTE.min.css">
     <style>
         .attachDesc,.attachImg{padding-top:15px;padding-bottom:15px}
         .form-horizontal .control-label{text-align:left}
@@ -28,37 +28,37 @@
                         <div class="form-group">
                             <label for="attachName" class="col-sm-2 control-label">附件名：</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="attachName" value="${attachment.attachName?if_exists}">
+                                <input type="text" class="form-control" id="attachName" code="${attachment.attachName?if_exists}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="attachType" class="col-sm-2 control-label">附件类型：</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="attachType" value="${attachment.attachType?if_exists}" disabled>
+                                <input type="text" class="form-control" id="attachType" code="${attachment.attachType?if_exists}" disabled>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="attachPath" class="col-sm-2 control-label">附件路径：</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="attachPath" value="${attachment.attachPath?if_exists}" disabled>
+                                <input type="text" class="form-control" id="attachPath" code="${attachment.attachPath?if_exists}" disabled>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="attachCreated" class="col-sm-2 control-label">上传时间：</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="attachCreated" value="${attachment.attachCreated?if_exists}" disabled>
+                                <input type="text" class="form-control" id="attachCreated" code="${attachment.attachCreated?if_exists}" disabled>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="attachStorage" class="col-sm-2 control-label">附件大小：</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="attachStorage" value="${attachment.attachSize?if_exists}" disabled>
+                                <input type="text" class="form-control" id="attachStorage" code="${attachment.attachSize?if_exists}" disabled>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="attachSize" class="col-sm-2 control-label">图片尺寸：</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="attachSize" value="${attachment.attachWh?if_exists}" disabled>
+                                <input type="text" class="form-control" id="attachSize" code="${attachment.attachWh?if_exists}" disabled>
                             </div>
                         </div>
                     </div>
@@ -72,8 +72,8 @@
     </div>
 </div>
 </body>
-<script src="/static/plugins/jquery/jquery.min.js"></script>
-<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/plugins/jquery/3.2.1/jquery.min.js"></script>
+<script src="/static/plugins/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/static/plugins/toast/js/jquery.toast.min.js"></script>
 <script src="/static/plugins/clipboard/clipboard.min.js"></script>
 <script src="/static/js/adminlte.min.js"></script>

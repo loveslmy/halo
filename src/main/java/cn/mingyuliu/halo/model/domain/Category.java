@@ -1,14 +1,13 @@
 package cn.mingyuliu.halo.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +38,6 @@ public class Category extends BaseEntity {
     private String cateDesc;
 
     @ManyToMany(mappedBy = "categories", targetEntity = Post.class)
-    @JsonIgnore
     private List<Post> posts;
 
 }

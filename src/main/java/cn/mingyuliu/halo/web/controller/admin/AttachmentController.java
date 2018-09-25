@@ -1,31 +1,25 @@
 package cn.mingyuliu.halo.web.controller.admin;
 
 import cn.mingyuliu.halo.model.domain.Attachment;
-import cn.mingyuliu.halo.model.domain.OpLog;
 import cn.mingyuliu.halo.model.dto.JsonResult;
-import cn.mingyuliu.halo.model.dto.LogsRecord;
-import cn.mingyuliu.halo.model.enums.ResultCodeEnum;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
 import cn.mingyuliu.halo.service.AttachmentService;
 import cn.mingyuliu.halo.service.LogsService;
-import cn.mingyuliu.halo.utils.HaloUtils;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnails;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
-import java.io.File;
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * <pre>
@@ -40,10 +34,10 @@ import java.util.*;
 @RequestMapping(value = "/admin/attachments")
 public class AttachmentController {
 
-    @Autowired
+    @Resource
     private AttachmentService attachmentService;
 
-    @Autowired
+    @Resource
     private LogsService logsService;
 
     /**
@@ -124,7 +118,7 @@ public class AttachmentController {
      */
     private Map<String, Object> uploadAttachment(MultipartFile file, HttpServletRequest request) {
         /*Calendar cc = Calendar.getInstance();
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> datas = new HashMap<String, Object>();
         if (!file.isEmpty()) {
             try {
                 Date date = new Date();
@@ -168,18 +162,18 @@ public class AttachmentController {
                 logsService.saveByLogs(
                         new OpLog(LogsRecord.UPLOAD_FILE, fileName, HaloUtils.getClientIP(request), new Date())
                 );
-                result.put("success", 1);
-                result.put("message", "上传成功！");
-                result.put("url", attachment.getAttachPath());
+                datas.put("success", 1);
+                datas.put("message", "上传成功！");
+                datas.put("url", attachment.getAttachPath());
             } catch (Exception e) {
                 log.error("上传文件失败：{}", e.getMessage());
-                result.put("success", 0);
-                result.put("message", "上传失败！");
+                datas.put("success", 0);
+                datas.put("message", "上传失败！");
             }
         } else {
             log.error("文件不能为空");
         }
-        return result;*/
+        return datas;*/
         return null;
     }
 
@@ -230,14 +224,14 @@ public class AttachmentController {
                     );
                 } else {
                     log.error("删除附件[{}]失败！", delFileName);
-                    return new JsonResult(ResultCodeEnum.FAIL.getCode(), "删除失败！");
+                    return new JsonResult<>(ResponseStatus.FAIL, "删除失败！");
                 }
             }
         } catch (Exception e) {
             log.error("删除附件[{}]失败:{}", delFileName, e.getMessage());
-            return new JsonResult(ResultCodeEnum.FAIL.getCode(), "删除失败！");
+            return new JsonResult<>(ResponseStatus.FAIL, "删除失败！");
         }*/
-        return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "删除成功！");
+        return new JsonResult<>(ResponseStatus.SUCCESS, "删除成功！");
     }
 
 }

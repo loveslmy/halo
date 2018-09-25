@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>${options.blog_title} | 后台登录</title>
-    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/plugins/animate/animate.min.css">
+    <link rel="stylesheet" href="/static/plugins/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/plugins/animate/3.5.1/animate.min.css">
     <link rel="stylesheet" href="/static/plugins/toast/css/jquery.toast.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <style>
@@ -40,8 +40,8 @@
     </div>
 </div>
 </body>
-<script src="/static/plugins/jquery/jquery.min.js"></script>
-<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/plugins/jquery/3.2.1/jquery.min.js"></script>
+<script src="/static/plugins/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/static/plugins/toast/js/jquery.toast.min.js"></script>
 <script src="/static/js/app.js"></script>
 <script src="/static/js/login.js"></script>

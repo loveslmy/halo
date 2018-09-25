@@ -243,8 +243,8 @@
     </div>
     <div class="native-wrap">
         <div class="comment-header">
-            <input type="hidden" name="postId" value="${post.postId?c}">
-            <input type="hidden" name="commentParent" id="commentParent" value="0">
+            <input type="hidden" name="postId" code="${post.postId?c}">
+            <input type="hidden" name="commentParent" id="commentParent" code="0">
             <input type="text" class="comment-input comment-input-who" name="commentAuthor" id="commentAuthor" placeholder="昵称(必填)">
             <input type="text" class="comment-input comment-input-email" name="commentAuthorEmail" id="commentAuthorEmail" onblur="loadAvatar()" placeholder="邮箱(选填)">
             <input type="text" class="comment-input comment-input-website" name="commentAuthorUrl" id="commentAuthorUrl" placeholder="网址(选填)">
@@ -327,7 +327,7 @@
         <#--</ol>-->
     <#--</div>-->
 </div>
-<script src="/static/plugins/jquery/jquery.min.js"></script>
+<script src="/static/plugins/jquery/3.2.1/jquery.min.js"></script>
 <script src="/static/plugins/md5/md5.min.js"></script>
 <script src="/static/plugins/ua-parser/ua-parser.min.js"></script>
 <script src="/static/plugins/OwO/OwO.min.js"></script>

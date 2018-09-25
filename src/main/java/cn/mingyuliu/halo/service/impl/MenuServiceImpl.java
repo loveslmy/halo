@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public class MenuServiceImpl implements MenuService {
 
     private static final String MENUS_CACHE_NAME = "menus";
 
-    @Autowired
+    @Resource
     private MenuRepository menuRepository;
 
     /**

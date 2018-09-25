@@ -1,7 +1,7 @@
 package cn.mingyuliu.halo.model.domain;
 
-import cn.mingyuliu.halo.model.enums.AllowEnum;
-import cn.mingyuliu.halo.model.enums.PostStatusEnum;
+import cn.mingyuliu.halo.model.enums.Allow;
+import cn.mingyuliu.halo.model.enums.PostStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,10 +43,10 @@ public class Post extends BaseEntity {
     private Date postDate;
 
     @Column(columnDefinition = "TINYINT DEFAULT 0 COMMENT '文章状态'")
-    private PostStatusEnum postStatus = PostStatusEnum.DRAFT;
+    private PostStatus postStatus = PostStatus.DRAFT;
 
     @Column(columnDefinition = "TINYINT DEFAULT 0 COMMENT '是否允许评论'")
-    private AllowEnum allowComment = AllowEnum.DISALLOW;
+    private Allow allowComment = Allow.DISALLOW;
 
     @Column(columnDefinition = "BIGINT DEFAULT 0 COMMENT '文章访问量'")
     private long visitCount = 0L;

@@ -13,7 +13,7 @@
 
 CodeMirror.defineMode("xquery", function() {
 
-  // The keywords object is set to the result of this self executing
+  // The keywords object is set to the datas of this self executing
   // function. Each keyword is a property of the keywords object whose
   // value is {type: atype, style: astyle}
   var keywords = function(){

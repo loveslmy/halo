@@ -7,14 +7,13 @@ import cn.mingyuliu.halo.model.domain.User;
 import cn.mingyuliu.halo.model.dto.HaloConst;
 import cn.mingyuliu.halo.model.dto.JsonResult;
 import cn.mingyuliu.halo.model.dto.LogsRecord;
-import cn.mingyuliu.halo.model.enums.ResultCodeEnum;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
 import cn.mingyuliu.halo.service.*;
 import cn.mingyuliu.halo.utils.HaloUtils;
 import cn.mingyuliu.halo.web.controller.core.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.text.StringEscapeUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -42,22 +42,22 @@ import java.util.List;
 @RequestMapping(value = "/admin")
 public class AdminController extends BaseController {
 
-    @Autowired
+    @Resource
     private PostService postService;
 
-    @Autowired
-    private UserService userService;
+    @Resource
+    private IUserService userService;
 
-    @Autowired
+    @Resource
     private LogsService logsService;
 
-    @Autowired
+    @Resource
     private HttpServletRequest request;
 
-    @Autowired
+    @Resource
     private CommentService commentService;
 
-    @Autowired
+    @Resource
     private AttachmentService attachmentService;
 
     /**
@@ -124,7 +124,7 @@ public class AdminController extends BaseController {
                                @ModelAttribute("loginPwd") String loginPwd,
                                HttpSession session) {
         // 已注册账号，单用户，只有一个
-        User user = userService.findUser();
+        User user = userService.findOwnerUser();
 
         if (!user.isLoginEnable()) {
             //首先判断是否已经被禁用已经是否已经过了10分钟
@@ -134,7 +134,7 @@ public class AdminController extends BaseController {
             }
             DateUtils.addMinutes(loginLast, 10);
             if (loginLast.after(new Date())) {
-                return new JsonResult(ResultCodeEnum.FAIL.getCode(), "已禁止登录，请10分钟后再试");
+                return new JsonResult<>(ResponseStatus.FAIL, "已禁止登录，请10分钟后再试");
             }
         }
         userService.updateUserLoginLast(new Date());
@@ -155,7 +155,7 @@ public class AdminController extends BaseController {
                             new Date()
                     )
             );
-            return new JsonResult(ResultCodeEnum.FAIL.getCode(), "登录失败，你还有" + (5 - errorCount) + "次机会。");
+            return new JsonResult<>(ResponseStatus.FAIL, "登录失败，您还有" + (5 - errorCount) + "次重试机会。");
         }
 
         session.setAttribute(HaloConst.USER_SESSION_KEY, user);
@@ -164,7 +164,7 @@ public class AdminController extends BaseController {
         logsService.saveByLogs(new OpLog(LogsRecord.LOGIN, LogsRecord.LOGIN_SUCCESS,
                 HaloUtils.getClientIP(request), new Date()));
         log.info("用户[{}]登录成功。", user.getUserDisplayName());
-        return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "登录成功！");
+        return new JsonResult<>(ResponseStatus.FAIL, "登录成功！");
     }
 
     /**

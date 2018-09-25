@@ -1,13 +1,13 @@
 package cn.mingyuliu.halo.web.controller.admin;
 
 import cn.mingyuliu.halo.model.domain.Category;
-import cn.mingyuliu.halo.service.CategoryService;
+import cn.mingyuliu.halo.service.ICategoryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.websocket.server.PathParam;
 import java.util.Optional;
 
@@ -24,8 +24,8 @@ import java.util.Optional;
 @RequestMapping(value = "/admin/category")
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+    @Resource
+    private ICategoryService categoryService;
 
     /**
      * 查询所有分类并渲染category页面

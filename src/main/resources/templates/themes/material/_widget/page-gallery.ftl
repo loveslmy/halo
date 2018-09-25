@@ -70,8 +70,8 @@
                 <textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
               </div>
               <ul class="actions">
-                <li><input type="submit" value="Send" class="special" /></li>
-                <li><input type="reset" value="Reset" /></li>
+                <li><input type="submit" code="Send" class="special" /></li>
+                <li><input type="reset" code="Reset" /></li>
               </ul>
             </form>
           </section>

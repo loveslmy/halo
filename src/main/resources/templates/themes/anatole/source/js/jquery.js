@@ -3859,7 +3859,7 @@ function markFunction( fn ) {
 
 /**
  * Support testing using an element
- * @param {Function} fn Passed the created div and expects a boolean result
+ * @param {Function} fn Passed the created div and expects a boolean datas
  */
 function assert( fn ) {
 	var div = document.createElement("div");
@@ -7539,7 +7539,7 @@ jQuery.fn.load = function( url, params, callback ) {
 				// Exclude scripts to avoid IE 'Permission Denied' errors
 				jQuery("<div>").append( jQuery.parseHTML( responseText ) ).find( selector ) :
 
-				// Otherwise use the full result
+				// Otherwise use the full datas
 				responseText );
 
 		}).complete( callback && function( jqXHR, status ) {

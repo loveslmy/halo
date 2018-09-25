@@ -4,12 +4,12 @@ import cn.mingyuliu.halo.model.domain.Comment;
 import cn.mingyuliu.halo.model.domain.Post;
 import cn.mingyuliu.halo.model.dto.JsonResult;
 import cn.mingyuliu.halo.model.enums.CommentStatusEnum;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
-import cn.mingyuliu.halo.model.enums.ResultCodeEnum;
+import cn.mingyuliu.halo.model.enums.Option;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
 import cn.mingyuliu.halo.service.CommentService;
+import cn.mingyuliu.halo.service.IUserService;
 import cn.mingyuliu.halo.service.MailService;
 import cn.mingyuliu.halo.service.PostService;
-import cn.mingyuliu.halo.service.UserService;
 import cn.mingyuliu.halo.utils.CommentUtil;
 import cn.mingyuliu.halo.utils.HaloUtils;
 import cn.mingyuliu.halo.utils.OwoUtil;
@@ -17,7 +17,6 @@ import cn.mingyuliu.halo.web.controller.core.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,6 +26,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
@@ -45,16 +45,16 @@ import java.util.Optional;
 @Controller
 public class FrontCommentController extends BaseController {
 
-    @Autowired
+    @Resource
     private CommentService commentService;
 
-    @Autowired
+    @Resource
     private PostService postService;
 
-    @Autowired
-    private UserService userService;
+    @Resource
+    private IUserService userService;
 
-    @Autowired
+    @Resource
     private MailService mailService;
 
     /**
@@ -108,7 +108,7 @@ public class FrontCommentController extends BaseController {
                                  HttpServletRequest request) {
         if (result.hasErrors()) {
             for (ObjectError error : result.getAllErrors()) {
-                return new JsonResult(ResultCodeEnum.FAIL.getCode(), error.getDefaultMessage());
+                return new JsonResult<>(ResponseStatus.FAIL, error.getDefaultMessage());
             }
         }
         try {
@@ -142,13 +142,13 @@ public class FrontCommentController extends BaseController {
             } else {
                 new EmailToAdmin(comment, post).start();
             }
-            if (optionHolder.getBoolean(OptionEnum.NEW_COMMENT_NEED_CHECK)) {
-                return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "你的评论已经提交，待博主审核之后可显示。");
+            if (optionHolder.getBoolean(Option.NEW_COMMENT_NEED_CHECK)) {
+                return new JsonResult<>(ResponseStatus.SUCCESS, "你的评论已经提交，待博主审核之后可显示。");
             } else {
-                return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "你的评论已经提交，刷新后即可显示。");
+                return new JsonResult<>(ResponseStatus.SUCCESS, "你的评论已经提交，刷新后即可显示。");
             }
         } catch (Exception e) {
-            return new JsonResult(ResultCodeEnum.FAIL.getCode(), "评论失败！");
+            return new JsonResult<>(ResponseStatus.FAIL, "评论失败！");
         }
     }
 
@@ -166,25 +166,25 @@ public class FrontCommentController extends BaseController {
 
         @Override
         public void run() {
-            /*if (StringUtils.equals(HaloConst.OPTIONS.get(OptionEnum.SMTP_EMAIL_ENABLE.getProp()),
+            /*if (StringUtils.equals(HaloConst.OPTIONS.get(Option.SMTP_EMAIL_ENABLE.getProp()),
                     TrueFalseEnum.TRUE.getDesc())
-                    && StringUtils.equals(HaloConst.OPTIONS.get(OptionEnum.NEW_COMMENT_NOTICE.getProp()),
+                    && StringUtils.equals(HaloConst.OPTIONS.get(Option.NEW_COMMENT_NOTICE.getProp()),
                     TrueFalseEnum.TRUE.getDesc())) {
                 try {
                     //发送邮件到博主
                     Map<String, Object> map = new HashMap<>();
-                    map.put("author", userService.findUser().getUserDisplayName());
+                    map.put("author", IUserService.findOwnerUser().getUserDisplayName());
                     map.put("pageName", post.getPostTitle());
                     if (StringUtils.equals(post.getPostType(), PostTypeEnum.POST.getDesc())) {
-                        map.put("pageUrl", HaloConst.OPTIONS.get(OptionEnum.BLOG_URL.getProp())
+                        map.put("pageUrl", HaloConst.OPTIONS.get(Option.BLOG_URL.getProp())
                                 + "/archives/" + post.getPostUrl() + "#comment-id-" + comment.getCommentId());
                     } else {
-                        map.put("pageUrl", HaloConst.OPTIONS.get(OptionEnum.BLOG_URL.getProp())
+                        map.put("pageUrl", HaloConst.OPTIONS.get(Option.BLOG_URL.getProp())
                                 + "/p/" + post.getPostUrl() + "#comment-id-" + comment.getCommentId());
                     }
                     map.put("visitor", comment.getCommentAuthor());
                     map.put("commentContent", comment.getCommentContent());
-                    mailService.sendTemplateMail(userService.findUser().getUserEmail(), "有新的评论",
+                    mailService.sendTemplateMail(IUserService.findOwnerUser().getUserEmail(), "有新的评论",
                             map, "common/mail_template/mail_admin.ftl");
                 } catch (Exception e) {
                     log.error("邮件服务器未配置：{}", e.getMessage());
@@ -210,29 +210,29 @@ public class FrontCommentController extends BaseController {
         @Override
         public void run() {
             //发送通知给对方
-            /*if (StringUtils.equals(HaloConst.OPTIONS.get(OptionEnum.SMTP_EMAIL_ENABLE.getProp()),
+            /*if (StringUtils.equals(HaloConst.OPTIONS.get(Option.SMTP_EMAIL_ENABLE.getProp()),
                     TrueFalseEnum.TRUE.getDesc())
-                    && StringUtils.equals(HaloConst.OPTIONS.get(OptionEnum.NEW_COMMENT_NOTICE.getProp()),
+                    && StringUtils.equals(HaloConst.OPTIONS.get(Option.NEW_COMMENT_NOTICE.getProp()),
                     TrueFalseEnum.TRUE.getDesc())) {
                 if (HaloUtils.isEmail(lastComment.getCommentAuthorEmail())) {
                     *//*Map<String, Object> map = new HashMap<>();
-                    map.put("blogTitle", HaloConst.OPTIONS.get(OptionEnum.BLOG_TITLE.getProp()));
+                    map.put("blogTitle", HaloConst.OPTIONS.get(Option.BLOG_TITLE.getProp()));
                     map.put("commentAuthor", lastComment.getCommentAuthor());
                     map.put("pageName", lastComment.getPost().getPostTitle());
                     if (StringUtils.equals(post.getPostType(), PostTypeEnum.POST.getDesc())) {
-                        map.put("pageUrl", HaloConst.OPTIONS.get(OptionEnum.BLOG_URL.getProp())
+                        map.put("pageUrl", HaloConst.OPTIONS.get(Option.BLOG_URL.getProp())
                                 + "/archives/" + post.getPostUrl() + "#comment-id-" + comment.getCommentId());
                     } else {
-                        map.put("pageUrl", HaloConst.OPTIONS.get(OptionEnum.BLOG_URL.getProp())
+                        map.put("pageUrl", HaloConst.OPTIONS.get(Option.BLOG_URL.getProp())
                                 + "/p/" + post.getPostUrl() + "#comment-id-" + comment.getCommentId());
                     }
                     map.put("commentContent", lastComment.getCommentContent());
                     map.put("replyAuthor", comment.getCommentAuthor());
                     map.put("replyContent", comment.getCommentContent());
-                    map.put("blogUrl", HaloConst.OPTIONS.get(OptionEnum.BLOG_URL.getProp()));
+                    map.put("blogUrl", HaloConst.OPTIONS.get(Option.BLOG_URL.getProp()));
                     mailService.sendTemplateMail(
                             lastComment.getCommentAuthorEmail(), "您在"
-                                    + HaloConst.OPTIONS.get(OptionEnum.BLOG_TITLE.getProp()) + "的评论有了新回复",
+                                    + HaloConst.OPTIONS.get(Option.BLOG_TITLE.getProp()) + "的评论有了新回复",
                             map, "common/mail_template/mail_reply.ftl");*//*
                 }
             }*/

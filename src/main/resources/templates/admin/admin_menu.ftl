@@ -26,32 +26,32 @@
                                 <h3 class="box-title">修改菜单<#if updateMenu??>[${updateMenu.menuName}]</#if></h3>
                             </div>
                             <form action="/admin/menus/save" method="post" role="form" id="menuAddForm">
-                                <input type="hidden" name="menuId" value="${updateMenu.menuId?c}">
+                                <input type="hidden" name="menuId" code="${updateMenu.menuId?c}">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="menuName">名称</label>
-                                        <input type="text" class="form-control" id="menuName" name="menuName" value="${updateMenu.menuName}">
+                                        <input type="text" class="form-control" id="menuName" name="menuName" code="${updateMenu.menuName}">
                                         <small>页面上所显示的名称</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="menuUrl">路径</label>
-                                        <input type="text" class="form-control" id="menuUrl" name="menuUrl" value="${updateMenu.menuUrl}">
+                                        <input type="text" class="form-control" id="menuUrl" name="menuUrl" code="${updateMenu.menuUrl}">
                                         <small>*菜单的路径</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="menuSort">排序编号</label>
-                                        <input type="number" class="form-control" id="menuSort" name="menuSort" value="${updateMenu.menuSort}">
+                                        <input type="number" class="form-control" id="menuSort" name="menuSort" code="${updateMenu.menuSort}">
                                     </div>
                                     <div class="form-group">
                                         <label for="menuIcon">图标</label>
-                                        <input type="text" class="form-control" id="menuIcon" name="menuIcon" value="${updateMenu.menuIcon}">
+                                        <input type="text" class="form-control" id="menuIcon" name="menuIcon" code="${updateMenu.menuIcon}">
                                         <small>*请根据主题的支持选填</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="menuIcon">打开方式</label>
                                         <select class="form-control" id="menuTarget" name="menuTarget">
-                                            <option value="_self" ${((updateMenu.menuTarget?default("_self")=="_self")?string('selected',''))}>当前窗口</option>
-                                            <option value="_blank" ${((updateMenu.menuTarget?if_exists=="_blank")?string('selected',''))}>新窗口</option>
+                                            <option code="_self" ${((updateMenu.menuTarget?default("_self")=="_self")?string('selected',''))}>当前窗口</option>
+                                            <option code="_blank" ${((updateMenu.menuTarget?if_exists=="_blank")?string('selected',''))}>新窗口</option>
                                         </select>
                                     </div>
                                 </div>
@@ -88,8 +88,8 @@
                                     <div class="form-group">
                                         <label for="menuIcon">打开方式</label>
                                         <select class="form-control" id="menuTarget" name="menuTarget">
-                                            <option value="_self">当前窗口</option>
-                                            <option value="_blank">新窗口</option>
+                                            <option code="_self">当前窗口</option>
+                                            <option code="_blank">新窗口</option>
                                         </select>
                                     </div>
                                 </div>

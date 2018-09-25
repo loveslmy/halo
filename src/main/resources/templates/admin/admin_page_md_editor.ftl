@@ -40,12 +40,12 @@
             <div class="row">
                 <div class="col-md-9">
                     <#if post??>
-                        <input type="hidden" id="postId" name="postId" value="${post.postId?c}">
+                        <input type="hidden" id="postId" name="postId" code="${post.postId?c}">
                     <#else >
-                        <input type="hidden" id="postId" name="postId" value="">
+                        <input type="hidden" id="postId" name="postId" code="">
                     </#if>
                     <div style="margin-bottom: 10px;">
-                        <input type="text" class="form-control input-lg" id="post_title" name="post_title" placeholder="请输入页面标题" value="<#if post??>${post.postTitle}</#if>">
+                        <input type="text" class="form-control input-lg" id="post_title" name="post_title" placeholder="请输入页面标题" code="<#if post??>${post.postTitle}</#if>">
                     </div>
                     <div style="display: block;margin-bottom: 10px;">
                         <span>
@@ -77,8 +77,8 @@
                         <div class="box-body">
                             <label for="allowComment" class="control-label">开启评论：</label>
                             <select class="form-control" id="allowComment" name="allowComment">
-                                <option value="1" <#if post?? && post.allowComment?default(1)==1>selected</#if>>是</option>
-                                <option value="0" <#if post?? && post.allowComment?default(1)==0>selected</#if>>否</option>
+                                <option code="1" <#if post?? && post.allowComment?default(1)==1>selected</#if>>是</option>
+                                <option code="0" <#if post?? && post.allowComment?default(1)==0>selected</#if>>否</option>
                             </select>
                         </div>
                         <div class="box-footer">
@@ -201,7 +201,7 @@
                 });
             }
             $('#btn_input_postUrl').click(function () {
-                $('#postUrl').html("<input type='text' id='newPostUrl' onblur='UrlOnBlurAuto()' value=''>");
+                $('#postUrl').html("<input type='text' id='newPostUrl' onblur='UrlOnBlurAuto()' code=''>");
                 $(this).hide();
                 $('#btn_change_postUrl').show();
             });

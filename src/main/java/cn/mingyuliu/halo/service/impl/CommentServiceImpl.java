@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
 
     private static final String POSTS_CACHE_NAME = "posts";
 
-    @Autowired
+    @Resource
     private CommentRepository commentRepository;
 
     /**

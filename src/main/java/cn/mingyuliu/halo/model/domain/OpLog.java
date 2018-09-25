@@ -1,5 +1,6 @@
 package cn.mingyuliu.halo.model.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,10 @@ import java.util.Date;
 public class OpLog extends BaseEntity {
 
     private static final long serialVersionUID = -2571815432301283171L;
+
+    public OpLog() {
+
+    }
 
     @NotBlank(message = "摘要不能为空")
     @Column(columnDefinition = "CHAR(32) NOT NULL COMMENT '摘要'")

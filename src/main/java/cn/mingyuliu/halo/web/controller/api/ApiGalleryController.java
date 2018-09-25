@@ -2,7 +2,7 @@ package cn.mingyuliu.halo.web.controller.api;
 
 import cn.mingyuliu.halo.model.domain.Gallery;
 import cn.mingyuliu.halo.model.dto.JsonResult;
-import cn.mingyuliu.halo.model.enums.ResponseStatusEnum;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
 import cn.mingyuliu.halo.service.GalleryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ import java.util.Optional;
 @RequestMapping(value = "/api/galleries")
 public class ApiGalleryController {
 
-    @Autowired
+    @Resource
     private GalleryService galleryService;
 
     /**
@@ -37,9 +38,9 @@ public class ApiGalleryController {
     public JsonResult galleries() {
         List<Gallery> galleries = galleryService.findAllGalleries();
         if (null != galleries && galleries.size() > 0) {
-            return new JsonResult(ResponseStatusEnum.SUCCESS.getCode(), ResponseStatusEnum.SUCCESS.getMsg(), galleries);
+            return new JsonResult<>(ResponseStatus.SUCCESS, ResponseStatus.SUCCESS.getMsg(), galleries);
         } else {
-            return new JsonResult(ResponseStatusEnum.EMPTY.getCode(), ResponseStatusEnum.EMPTY.getMsg());
+            return new JsonResult<>(ResponseStatus.EMPTY, ResponseStatus.EMPTY.getMsg());
         }
     }
 
@@ -53,9 +54,9 @@ public class ApiGalleryController {
     public JsonResult galleries(@PathVariable("id") Long id) {
         Optional<Gallery> gallery = galleryService.findByGalleryId(id);
         if (gallery.isPresent()) {
-            return new JsonResult(ResponseStatusEnum.SUCCESS.getCode(), ResponseStatusEnum.SUCCESS.getMsg(), gallery.get());
+            return new JsonResult<>(ResponseStatus.SUCCESS, ResponseStatus.SUCCESS.getMsg(), gallery.get());
         } else {
-            return new JsonResult(ResponseStatusEnum.NOTFOUND.getCode(), ResponseStatusEnum.NOTFOUND.getMsg());
+            return new JsonResult<>(ResponseStatus.NOT_FOUND, ResponseStatus.NOT_FOUND.getMsg());
         }
     }
 }

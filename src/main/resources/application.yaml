@@ -1,3 +1,6 @@
+application:
+  name: halo
+  formatted-version: 1.0.0-SNAPSHOT
 http:
   port: 80
 server:
@@ -7,15 +10,8 @@ server:
     key-store: 214948636630345.jks
     key-store-type: JKS
     key-password: 214948636630345
-  undertow:
-    io-threads: 1
-    worker-threads: 5
-    buffer-size: 512
-    directBuffers: true
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    # H2database 配置
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/halo?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
     username: root
@@ -53,4 +49,4 @@ spring:
   thymeleaf:
     cache: false
 logging:
-  file: ./logs/log.log
+  config: classpath:logback.xml

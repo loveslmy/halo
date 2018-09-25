@@ -68,20 +68,20 @@
                                         <div class="form-group">
                                             <label for="blogTitle" class="col-lg-2 col-sm-4 control-label">博客标题：</label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="text" class="form-control" id="blogTitle" name="blog_title" value="${options.blog_title?if_exists}">
+                                                <input type="text" class="form-control" id="blogTitle" name="blog_title" code="${options.blog_title?if_exists}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="blogUrl" class="col-lg-2 col-sm-4 control-label">博客地址：</label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="url" class="form-control" id="blogUrl" name="blog_url" value="${options.blog_url?default('http://localhost:8080')}">
+                                                <input type="url" class="form-control" id="blogUrl" name="blog_url" code="${options.blog_url?default('http://localhost:8080')}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="blogLogo" class="col-lg-2 col-sm-4 control-label">LOGO：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control selectData" id="blogLogo" name="blog_logo" value="${options.blog_logo?if_exists}">
+                                                    <input type="text" class="form-control selectData" id="blogLogo" name="blog_logo" code="${options.blog_logo?if_exists}">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-default " type="button" onclick="openAttach('blogLogo')">选择</button>
                                                     </span>
@@ -92,7 +92,7 @@
                                             <label for="blogFavicon" class="col-lg-2 col-sm-4 control-label">Favicon：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control selectData" id="blogFavicon" name="blog_favicon" value="${options.blog_favicon?if_exists}">
+                                                    <input type="text" class="form-control selectData" id="blogFavicon" name="blog_favicon" code="${options.blog_favicon?if_exists}">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-default " type="button" onclick="openAttach('blogFavicon')">选择</button>
                                                     </span>
@@ -126,13 +126,13 @@
                                                 </span>
                                             </label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="text" class="form-control" id="keywords" name="seo_keywords" value="${options.seo_keywords?if_exists}">
+                                                <input type="text" class="form-control" id="keywords" name="seo_keywords" code="${options.seo_keywords?if_exists}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="desc" class="col-lg-2 col-sm-4 control-label">博客描述：</label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="text" class="form-control" id="desc" name="seo_desc" value="${options.seo_desc?if_exists}">
+                                                <input type="text" class="form-control" id="desc" name="seo_desc" code="${options.seo_desc?if_exists}">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -143,7 +143,7 @@
                                             </label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" id="baiduToken" name="seo_baidu_token" value="${options.seo_baidu_token?if_exists}">
+                                                    <input type="text" class="form-control" id="baiduToken" name="seo_baidu_token" code="${options.seo_baidu_token?if_exists}">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-default " id="btn_push_baidu" onclick="pushAllToBaidu()" type="button">推送</button>
                                                     </span>
@@ -167,20 +167,20 @@
                                                 </span>
                                             </label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="number" class="form-control" id="indexPosts" name="index_posts" value="${options.index_posts?default('10')}">
+                                                <input type="number" class="form-control" id="indexPosts" name="index_posts" code="${options.index_posts?default('10')}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="rssPosts" class="col-lg-2 col-sm-4 control-label">RSS显示条数：</label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="number" class="form-control" id="rssPosts" name="rss_posts" value="${options.rss_posts?if_exists}">
+                                                <input type="number" class="form-control" id="rssPosts" name="rss_posts" code="${options.rss_posts?if_exists}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="postSummary" class="col-lg-2 col-sm-4 control-label">文章摘要字数：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control" id="postSummary" name="post_summary" value="${options.post_summary?default('50')}">
+                                                    <input type="number" class="form-control" id="postSummary" name="post_summary" code="${options.post_summary?default('50')}">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-default " id="btn_update_summary" onclick="updateAllSummary()" type="button">更新</button>
                                                     </span>
@@ -206,19 +206,19 @@
                                             </label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="comment_system" value="native" ${((options.comment_system?default('native'))=='native')?string('checked','')}> 原生
+                                                    <input type="radio" name="comment_system" code="native" ${((options.comment_system?default('native'))=='native')?string('checked','')}> 原生
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="comment_system" value="valine" ${((options.comment_system?default('native'))=='valine')?string('checked','')}> Valine
+                                                    <input type="radio" name="comment_system" code="valine" ${((options.comment_system?default('native'))=='valine')?string('checked','')}> Valine
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="comment_system" value="disqus" ${((options.comment_system?default('native'))=='disqus')?string('checked','')}> Disqus
+                                                    <input type="radio" name="comment_system" code="disqus" ${((options.comment_system?default('native'))=='disqus')?string('checked','')}> Disqus
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="comment_system" value="livere" ${((options.comment_system?default('native'))=='livere')?string('checked','')}> Livere
+                                                    <input type="radio" name="comment_system" code="livere" ${((options.comment_system?default('native'))=='livere')?string('checked','')}> Livere
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="comment_system" value="changyan" ${((options.comment_system?default('native'))=='changyan')?string('checked','')}> 畅言
+                                                    <input type="radio" name="comment_system" code="changyan" ${((options.comment_system?default('native'))=='changyan')?string('checked','')}> 畅言
                                                 </label>
                                             </div>
                                         </div>
@@ -233,13 +233,13 @@
                                                 </label>
                                                 <div class="col-lg-4 col-sm-8">
                                                     <select class="form-control" id="nativeCommentAvatar" name="native_comment_avatar">
-                                                        <option value="mm" ${((options.native_comment_avatar?default('default'))=='mm')?string('selected','')}>默认</option>
-                                                        <option value="identicon" ${((options.native_comment_avatar?default('default'))=='identicon')?string('selected','')}>抽象几何图形</option>
-                                                        <option value="monsterid" ${((options.native_comment_avatar?default('default'))=='monsterid')?string('selected','')}>小怪物</option>
-                                                        <option value="wavatar" ${((options.native_comment_avatar?default('default'))=='wavatar')?string('selected','')}>Wavatar</option>
-                                                        <option value="retro" ${((options.native_comment_avatar?default('default'))=='retro')?string('selected','')}>复古</option>
-                                                        <option value="robohash" ${((options.native_comment_avatar?default('default'))=='robohash')?string('selected','')}>机器人</option>
-                                                        <option value="blank" ${((options.native_comment_avatar?default('default'))=='blank')?string('selected','')}>不显示头像</option>
+                                                        <option code="mm" ${((options.native_comment_avatar?default('default'))=='mm')?string('selected','')}>默认</option>
+                                                        <option code="identicon" ${((options.native_comment_avatar?default('default'))=='identicon')?string('selected','')}>抽象几何图形</option>
+                                                        <option code="monsterid" ${((options.native_comment_avatar?default('default'))=='monsterid')?string('selected','')}>小怪物</option>
+                                                        <option code="wavatar" ${((options.native_comment_avatar?default('default'))=='wavatar')?string('selected','')}>Wavatar</option>
+                                                        <option code="retro" ${((options.native_comment_avatar?default('default'))=='retro')?string('selected','')}>复古</option>
+                                                        <option code="robohash" ${((options.native_comment_avatar?default('default'))=='robohash')?string('selected','')}>机器人</option>
+                                                        <option code="blank" ${((options.native_comment_avatar?default('default'))=='blank')?string('selected','')}>不显示头像</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -247,10 +247,10 @@
                                                 <label class="col-lg-2 col-sm-4 control-label">评论审核后才显示：</label>
                                                 <div class="col-lg-4 col-sm-8">
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="new_comment_need_check" value="true" ${((options.new_comment_need_check?default("true"))=='true')?string('checked','')}> 开启
+                                                        <input type="radio" name="new_comment_need_check" code="true" ${((options.new_comment_need_check?default("true"))=='true')?string('checked','')}> 开启
                                                     </label>
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="new_comment_need_check" value="false" ${((options.new_comment_need_check?if_exists)=='false')?string('checked','')}> 关闭
+                                                        <input type="radio" name="new_comment_need_check" code="false" ${((options.new_comment_need_check?if_exists)=='false')?string('checked','')}> 关闭
                                                     </label>
                                                 </div>
                                             </div>
@@ -258,10 +258,10 @@
                                                 <label class="col-lg-2 col-sm-4 control-label">新评论通知：</label>
                                                 <div class="col-lg-4 col-sm-8">
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="new_comment_notice" value="true" ${((options.new_comment_notice?if_exists)=='true')?string('checked','')}> 启用
+                                                        <input type="radio" name="new_comment_notice" code="true" ${((options.new_comment_notice?if_exists)=='true')?string('checked','')}> 启用
                                                     </label>
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="new_comment_notice" value="false" ${((options.new_comment_notice?if_exists)=='false')?string('checked','')}> 禁用
+                                                        <input type="radio" name="new_comment_notice" code="false" ${((options.new_comment_notice?if_exists)=='false')?string('checked','')}> 禁用
                                                     </label>
                                                 </div>
                                             </div>
@@ -269,10 +269,10 @@
                                                 <label class="col-lg-2 col-sm-4 control-label">评论审核通过通知对方：</label>
                                                 <div class="col-lg-4 col-sm-8">
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="comment_pass_notice" value="true" ${((options.comment_pass_notice?if_exists)=='true')?string('checked','')}> 启用
+                                                        <input type="radio" name="comment_pass_notice" code="true" ${((options.comment_pass_notice?if_exists)=='true')?string('checked','')}> 启用
                                                     </label>
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="comment_pass_notice" value="false" ${((options.comment_pass_notice?if_exists)=='false')?string('checked','')}> 禁用
+                                                        <input type="radio" name="comment_pass_notice" code="false" ${((options.comment_pass_notice?if_exists)=='false')?string('checked','')}> 禁用
                                                     </label>
                                                 </div>
                                             </div>
@@ -280,17 +280,17 @@
                                                 <label class="col-lg-2 col-sm-4 control-label">评论回复通知对方：</label>
                                                 <div class="col-lg-4 col-sm-8">
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="comment_reply_notice" value="true" ${((options.comment_reply_notice?if_exists)=='true')?string('checked','')}> 启用
+                                                        <input type="radio" name="comment_reply_notice" code="true" ${((options.comment_reply_notice?if_exists)=='true')?string('checked','')}> 启用
                                                     </label>
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="comment_reply_notice" value="false" ${((options.comment_reply_notice?if_exists)=='false')?string('checked','')}> 禁用
+                                                        <input type="radio" name="comment_reply_notice" code="false" ${((options.comment_reply_notice?if_exists)=='false')?string('checked','')}> 禁用
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="nativeCommentPlaceholder" class="col-lg-2 col-sm-4 control-label">占位提示：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="url" class="form-control" id="nativeCommentPlaceholder" name="native_comment_placeholder" value="${options.native_comment_placeholder?default('赶快评论一个吧！')}">
+                                                    <input type="url" class="form-control" id="nativeCommentPlaceholder" name="native_comment_placeholder" code="${options.native_comment_placeholder?default('赶快评论一个吧！')}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -310,25 +310,25 @@
                                             <div class="form-group">
                                                 <label for="valineAppId" class="col-lg-2 col-sm-4 control-label">APP ID：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="valineAppId" name="valine_appid" value="${options.valine_appid?if_exists}">
+                                                    <input type="text" class="form-control" id="valineAppId" name="valine_appid" code="${options.valine_appid?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="valineAppKey" class="col-lg-2 col-sm-4 control-label">APP KEY：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="valineAppKey" name="valine_appkey" value="${options.valine_appkey?if_exists}">
+                                                    <input type="text" class="form-control" id="valineAppKey" name="valine_appkey" code="${options.valine_appkey?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="valineAvatar" class="col-lg-2 col-sm-4 control-label">头像类型：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="valineAvatar" name="valine_avatar" value="${options.valine_avatar?if_exists}">
+                                                    <input type="text" class="form-control" id="valineAvatar" name="valine_avatar" code="${options.valine_avatar?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="valinePlaceholder" class="col-lg-2 col-sm-4 control-label">占位提示：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="valinePlaceholder" name="valine_placeholder" value="${options.valine_placeholder?if_exists}">
+                                                    <input type="text" class="form-control" id="valinePlaceholder" name="valine_placeholder" code="${options.valine_placeholder?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -348,7 +348,7 @@
                                             <div class="form-group">
                                                 <label for="disqusShortname" class="col-lg-2 col-sm-4 control-label">Disqus ShortName：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="disqusShortname" name="disqus_shortname" value="${options.disqus_shortname?if_exists}">
+                                                    <input type="text" class="form-control" id="disqusShortname" name="disqus_shortname" code="${options.disqus_shortname?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -368,7 +368,7 @@
                                             <div class="form-group">
                                                 <label for="livereDataUid" class="col-lg-2 col-sm-4 control-label">livere data-uid：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="livereDataUid" name="livere_data_uid" value="${options.livere_data_uid?if_exists}">
+                                                    <input type="text" class="form-control" id="livereDataUid" name="livere_data_uid" code="${options.livere_data_uid?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -388,13 +388,13 @@
                                             <div class="form-group">
                                                 <label for="changyanAppId" class="col-lg-2 col-sm-4 control-label">APP ID：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="changyanAppId" name="changyan_appid" value="${options.changyan_appid?if_exists}">
+                                                    <input type="text" class="form-control" id="changyanAppId" name="changyan_appid" code="${options.changyan_appid?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="changyanConf" class="col-lg-2 col-sm-4 control-label">CONF：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="changyanConf" name="changyan_conf" value="${options.changyan_conf?if_exists}">
+                                                    <input type="text" class="form-control" id="changyanConf" name="changyan_conf" code="${options.changyan_conf?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -422,13 +422,13 @@
                                             <label class="col-lg-2 col-sm-4 control-label">存储位置：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="attach_loc" value="server" ${((options.attach_loc?default('server'))=='server')?string('checked','')}> 本地服务器
+                                                    <input type="radio" name="attach_loc" code="server" ${((options.attach_loc?default('server'))=='server')?string('checked','')}> 本地服务器
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="attach_loc" value="upyun" ${((options.attach_loc?if_exists)=='upyun')?string('checked','')} disabled="disabled"> 又拍云
+                                                    <input type="radio" name="attach_loc" code="upyun" ${((options.attach_loc?if_exists)=='upyun')?string('checked','')} disabled="disabled"> 又拍云
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="attach_loc" value="qiniu" ${((options.attach_loc?if_exists)=='qiniu')?string('checked','')} disabled="disabled"> 七牛云
+                                                    <input type="radio" name="attach_loc" code="qiniu" ${((options.attach_loc?if_exists)=='qiniu')?string('checked','')} disabled="disabled"> 七牛云
                                                 </label>
                                             </div>
                                         </div>
@@ -443,31 +443,31 @@
                                             <div class="form-group">
                                                 <label for="upyunOssDomain" class="col-lg-2 col-sm-4 control-label">域名绑定：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="upyunOssDomain" name="upyun_oss_domain" value="${options.upyun_oss_domain?if_exists}">
+                                                    <input type="text" class="form-control" id="upyunOssDomain" name="upyun_oss_domain" code="${options.upyun_oss_domain?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="upyunOssBucket" class="col-lg-2 col-sm-4 control-label">空间名称：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="upyunOssBucket" name="upyun_oss_bucket" value="${options.upyun_oss_bucket?if_exists}">
+                                                    <input type="text" class="form-control" id="upyunOssBucket" name="upyun_oss_bucket" code="${options.upyun_oss_bucket?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="upyunOssOperator" class="col-lg-2 col-sm-4 control-label">操作员名称：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="upyunOssOperator" name="upyun_oss_operator" value="${options.upyun_oss_operator?if_exists}">
+                                                    <input type="text" class="form-control" id="upyunOssOperator" name="upyun_oss_operator" code="${options.upyun_oss_operator?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="upyunOssPwd" class="col-lg-2 col-sm-4 control-label">操作员密码：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="upyunOssPwd" name="upyun_oss_pwd" value="${options.upyun_oss_pwd?if_exists}">
+                                                    <input type="text" class="form-control" id="upyunOssPwd" name="upyun_oss_pwd" code="${options.upyun_oss_pwd?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="upyunOssSrc" class="col-lg-2 col-sm-4 control-label">文件目录：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="upyunOssSrc" name="upyun_oss_src" value="${options.upyun_oss_src?if_exists}">
+                                                    <input type="text" class="form-control" id="upyunOssSrc" name="upyun_oss_src" code="${options.upyun_oss_src?if_exists}">
                                                 </div>
                                             </div>
                                         </div>
@@ -477,25 +477,25 @@
                                             <div class="form-group">
                                                 <label for="qiniuDomain" class="col-lg-2 col-sm-4 control-label">域名：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="qiniuDomain" name="qiniu_domain" value="${options.qiniu_domain?if_exists}">
+                                                    <input type="text" class="form-control" id="qiniuDomain" name="qiniu_domain" code="${options.qiniu_domain?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="qiniuAccessKey" class="col-lg-2 col-sm-4 control-label">Access Key：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="qiniuAccessKey" name="qiniu_access_key" value="${options.qiniu_access_key?if_exists}">
+                                                    <input type="text" class="form-control" id="qiniuAccessKey" name="qiniu_access_key" code="${options.qiniu_access_key?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="qiniuSecretKey" class="col-lg-2 col-sm-4 control-label">Secret Key：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="qiniuSecretKey" name="qiniu_secret_key" value="${options.qiniu_secret_key?if_exists}">
+                                                    <input type="text" class="form-control" id="qiniuSecretKey" name="qiniu_secret_key" code="${options.qiniu_secret_key?if_exists}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="qiniuBucket" class="col-lg-2 col-sm-4 control-label">Bucket：</label>
                                                 <div class="col-lg-4 col-sm-8">
-                                                    <input type="text" class="form-control" id="qiniuBucket" name="qiniu_bucket" value="${options.qiniu_bucket?if_exists}">
+                                                    <input type="text" class="form-control" id="qiniuBucket" name="qiniu_bucket" code="${options.qiniu_bucket?if_exists}">
                                                 </div>
                                             </div>
                                         </div>
@@ -513,10 +513,10 @@
                                             <label class="col-lg-2 col-sm-4 control-label">启用pjax：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="admin_pjax" value="true" ${((options.admin_pjax?default('true'))=='true')?string('checked','')}> 启用
+                                                    <input type="radio" name="admin_pjax" code="true" ${((options.admin_pjax?default('true'))=='true')?string('checked','')}> 启用
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="admin_pjax" value="false" ${((options.admin_pjax?if_exists)=='false')?string('checked','')}> 禁用
+                                                    <input type="radio" name="admin_pjax" code="false" ${((options.admin_pjax?if_exists)=='false')?string('checked','')}> 禁用
                                                 </label>
                                             </div>
                                         </div>
@@ -524,10 +524,10 @@
                                             <label class="col-lg-2 col-sm-4 control-label">后台加载动画：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="admin_loading" value="true" ${((options.admin_loading?if_exists)=='true')?string('checked','')}> 启用
+                                                    <input type="radio" name="admin_loading" code="true" ${((options.admin_loading?if_exists)=='true')?string('checked','')}> 启用
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="admin_loading" value="false" ${((options.admin_loading?default('false'))=='false')?string('checked','')}> 禁用
+                                                    <input type="radio" name="admin_loading" code="false" ${((options.admin_loading?default('false'))=='false')?string('checked','')}> 禁用
                                                 </label>
                                             </div>
                                         </div>
@@ -535,10 +535,10 @@
                                             <label class="col-lg-2 col-sm-4 control-label">后台布局：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="admin_layout" value="" ${((options.admin_layout?default(''))=='')?string('checked','')}> 正常布局
+                                                    <input type="radio" name="admin_layout" code="" ${((options.admin_layout?default(''))=='')?string('checked','')}> 正常布局
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="admin_layout" value="layout-boxed" ${((options.admin_layout?default(''))=='layout-boxed')?string('checked','')}> 盒子布局
+                                                    <input type="radio" name="admin_layout" code="layout-boxed" ${((options.admin_layout?default(''))=='layout-boxed')?string('checked','')}> 盒子布局
                                                 </label>
                                             </div>
                                         </div>
@@ -546,18 +546,18 @@
                                             <label for="adminTheme" class="col-lg-2 col-sm-4 control-label">后台主题：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <select class="form-control" id="adminTheme" name="admin_theme">
-                                                    <option value="skin-blue" ${((options.admin_theme?default('skin-blue'))=='skin-blue')?string('selected','')}>默认主题</option>
-                                                    <option value="skin-blue-light" ${((options.admin_theme?if_exists)=='skin-blue-light')?string('selected','')}>上蓝左白</option>
-                                                    <option value="skin-black" ${((options.admin_theme?if_exists)=='skin-black')?string('selected','')}>上白左黑</option>
-                                                    <option value="skin-black-light" ${((options.admin_theme?if_exists)=='skin-black-light')?string('selected','')}>上白左白</option>
-                                                    <option value="skin-green" ${((options.admin_theme?if_exists)=='skin-green')?string('selected','')}>上绿左黑</option>
-                                                    <option value="skin-green-light" ${((options.admin_theme?if_exists)=='skin-green-light')?string('selected','')}>上绿左白</option>
-                                                    <option value="skin-purple" ${((options.admin_theme?if_exists)=='skin-purple')?string('selected','')}>上紫左黑</option>
-                                                    <option value="skin-purple-light" ${((options.admin_theme?if_exists)=='skin-purple-light')?string('selected','')}>上紫左白</option>
-                                                    <option value="skin-red" ${((options.admin_theme?if_exists)=='skin-red')?string('selected','')}>上红左黑</option>
-                                                    <option value="skin-red-light" ${((options.admin_theme?if_exists)=='skin-red-light')?string('selected','')}>上红左白</option>
-                                                    <option value="skin-yellow" ${((options.admin_theme?if_exists)=='skin-yellow')?string('selected','')}>上黄左黑</option>
-                                                    <option value="skin-yellow-light" ${((options.admin_theme?if_exists)=='skin-yellow-light')?string('selected','')}>上黄左白</option>
+                                                    <option code="skin-blue" ${((options.admin_theme?default('skin-blue'))=='skin-blue')?string('selected','')}>默认主题</option>
+                                                    <option code="skin-blue-light" ${((options.admin_theme?if_exists)=='skin-blue-light')?string('selected','')}>上蓝左白</option>
+                                                    <option code="skin-black" ${((options.admin_theme?if_exists)=='skin-black')?string('selected','')}>上白左黑</option>
+                                                    <option code="skin-black-light" ${((options.admin_theme?if_exists)=='skin-black-light')?string('selected','')}>上白左白</option>
+                                                    <option code="skin-green" ${((options.admin_theme?if_exists)=='skin-green')?string('selected','')}>上绿左黑</option>
+                                                    <option code="skin-green-light" ${((options.admin_theme?if_exists)=='skin-green-light')?string('selected','')}>上绿左白</option>
+                                                    <option code="skin-purple" ${((options.admin_theme?if_exists)=='skin-purple')?string('selected','')}>上紫左黑</option>
+                                                    <option code="skin-purple-light" ${((options.admin_theme?if_exists)=='skin-purple-light')?string('selected','')}>上紫左白</option>
+                                                    <option code="skin-red" ${((options.admin_theme?if_exists)=='skin-red')?string('selected','')}>上红左黑</option>
+                                                    <option code="skin-red-light" ${((options.admin_theme?if_exists)=='skin-red-light')?string('selected','')}>上红左白</option>
+                                                    <option code="skin-yellow" ${((options.admin_theme?if_exists)=='skin-yellow')?string('selected','')}>上黄左黑</option>
+                                                    <option code="skin-yellow-light" ${((options.admin_theme?if_exists)=='skin-yellow-light')?string('selected','')}>上黄左白</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -565,10 +565,10 @@
                                             <label class="col-lg-2 col-sm-4 control-label">侧边栏样式：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="sidebar_style" value="" ${((options.sidebar_style?default(''))=='')?string('checked','')}> 展开
+                                                    <input type="radio" name="sidebar_style" code="" ${((options.sidebar_style?default(''))=='')?string('checked','')}> 展开
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="sidebar_style" value="sidebar-collapse" ${((options.sidebar_style?default(''))=='sidebar-collapse')?string('checked','')}> 收拢
+                                                    <input type="radio" name="sidebar_style" code="sidebar-collapse" ${((options.sidebar_style?default(''))=='sidebar-collapse')?string('checked','')}> 收拢
                                                 </label>
                                             </div>
                                         </div>
@@ -587,35 +587,35 @@
                                             <label class="col-lg-2 col-sm-4 control-label">是否启用：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="smtp_email_enable" value="true" ${((options.smtp_email_enable?default('false'))=='true')?string('checked','')}> 启用
+                                                    <input type="radio" name="smtp_email_enable" code="true" ${((options.smtp_email_enable?default('false'))=='true')?string('checked','')}> 启用
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="smtp_email_enable" value="false" ${((options.smtp_email_enable?if_exists)=='false')?string('checked','')}> 禁用
+                                                    <input type="radio" name="smtp_email_enable" code="false" ${((options.smtp_email_enable?if_exists)=='false')?string('checked','')}> 禁用
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="emSmtpHost" class="col-lg-2 col-sm-4 control-label">SMTP地址：</label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="text" class="form-control" id="emailSmtpHost" name="mail_smtp_host" value="${options.mail_smtp_host?if_exists}" autocomplete='address-line1'>
+                                                <input type="text" class="form-control" id="emailSmtpHost" name="mail_smtp_host" code="${options.mail_smtp_host?if_exists}" autocomplete='address-line1'>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="emailSmtpUserName" class="col-lg-2 col-sm-4 control-label">邮箱账号：</label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="email" class="form-control" id="emailSmtpUserName" name="mail_smtp_username" value="${options.mail_smtp_username?if_exists}" autocomplete="email">
+                                                <input type="email" class="form-control" id="emailSmtpUserName" name="mail_smtp_username" code="${options.mail_smtp_username?if_exists}" autocomplete="email">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="emailSmtpPassword" class="col-lg-2 col-sm-4 control-label">邮箱密码：</label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="password" class="form-control" id="emailSmtpPassword" name="mail_smtp_password" value="${options.mail_smtp_password?if_exists}" current-password>
+                                                <input type="password" class="form-control" id="emailSmtpPassword" name="mail_smtp_password" code="${options.mail_smtp_password?if_exists}" current-password>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="emailFromName" class="col-lg-2 col-sm-4 control-label">发件姓名：</label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="text" class="form-control" id="emailFromName" name="mail_from_name" value="${options.mail_from_name?if_exists}" autocomplete="name">
+                                                <input type="text" class="form-control" id="emailFromName" name="mail_from_name" code="${options.mail_from_name?if_exists}" autocomplete="name">
                                             </div>
                                         </div>
                                     </div>
@@ -632,10 +632,10 @@
                                             <label class="col-lg-2 col-sm-4 control-label">API服务：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="api_status" value="true" ${((options.api_status?if_exists)=='true')?string('checked','')}> 启用
+                                                    <input type="radio" name="api_status" code="true" ${((options.api_status?if_exists)=='true')?string('checked','')}> 启用
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="api_status" value="false" ${((options.api_status?default('false'))=='false')?string('checked','')}> 禁用
+                                                    <input type="radio" name="api_status" code="false" ${((options.api_status?default('false'))=='false')?string('checked','')}> 禁用
                                                 </label>
                                             </div>
                                         </div>
@@ -740,11 +740,11 @@
              * 评论选项切换
              */
             function checkCommentOption() {
-                var native = $('input:radio[value=native]:checked').val();
-                var valine = $('input:radio[value=valine]:checked').val();
-                var disqus = $('input:radio[value=disqus]:checked').val();
-                var livere = $('input:radio[value=livere]:checked').val();
-                var changyan = $('input:radio[value=changyan]:checked').val();
+                var native = $('input:radio[code=native]:checked').val();
+                var valine = $('input:radio[code=valine]:checked').val();
+                var disqus = $('input:radio[code=disqus]:checked').val();
+                var livere = $('input:radio[code=livere]:checked').val();
+                var changyan = $('input:radio[code=changyan]:checked').val();
                 if(native!=null){
                     $('.native-options').show();
                 }else{
@@ -776,9 +776,9 @@
              * 附件选项切换
              */
             function checkAttachOption() {
-                var server = $('input:radio[value=server]:checked').val();
-                var upyun = $('input:radio[value=upyun]:checked').val();
-                var qiniu = $('input:radio[value=qiniu]:checked').val();
+                var server = $('input:radio[code=server]:checked').val();
+                var upyun = $('input:radio[code=upyun]:checked').val();
+                var qiniu = $('input:radio[code=qiniu]:checked').val();
                 if(server!=null){
                     $('.server-options').show();
                 }else{
@@ -800,7 +800,7 @@
              * 后台布局切换
              */
             function viewLayout() {
-                var layout = $('input:radio[value=layout-boxed]:checked').val();
+                var layout = $('input:radio[code=layout-boxed]:checked').val();
                 if(layout!=null){
                     $('body').addClass('layout-boxed');
                 }else{
@@ -812,7 +812,7 @@
              * 预览侧边栏
              */
             function viewSideBar() {
-                var layout = $('input:radio[value=sidebar-collapse]:checked').val();
+                var layout = $('input:radio[code=sidebar-collapse]:checked').val();
                 if(layout!=null){
                     $('body').addClass('sidebar-collapse');
                 }else{

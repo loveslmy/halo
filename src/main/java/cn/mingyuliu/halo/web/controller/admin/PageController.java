@@ -1,9 +1,12 @@
 package cn.mingyuliu.halo.web.controller.admin;
 
-import cn.mingyuliu.halo.model.domain.*;
+import cn.mingyuliu.halo.model.domain.Gallery;
+import cn.mingyuliu.halo.model.domain.Link;
+import cn.mingyuliu.halo.model.domain.OpLog;
+import cn.mingyuliu.halo.model.domain.Post;
 import cn.mingyuliu.halo.model.dto.JsonResult;
 import cn.mingyuliu.halo.model.dto.LogsRecord;
-import cn.mingyuliu.halo.model.enums.ResultCodeEnum;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
 import cn.mingyuliu.halo.service.GalleryService;
 import cn.mingyuliu.halo.service.LinkService;
 import cn.mingyuliu.halo.service.LogsService;
@@ -20,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
@@ -32,27 +36,27 @@ import java.util.Optional;
  *     后台页面管理控制器
  * </pre>
  *
- * @author : RYAN0UP
- * @date : 2017/12/10
+ * @author : liumy2009@126.com
+ * @date : 2018/09/03
  */
 @Slf4j
 @Controller
 @RequestMapping(value = "/admin/page")
 public class PageController {
 
-    @Autowired
+    @Resource
     private LinkService linkService;
 
-    @Autowired
+    @Resource
     private GalleryService galleryService;
 
-    @Autowired
+    @Resource
     private PostService postService;
 
-    @Autowired
+    @Resource
     private LogsService logsService;
 
-    @Autowired
+    @Resource
     private HttpServletRequest request;
 
     /**
@@ -189,9 +193,9 @@ public class PageController {
             galleryService.removeByGalleryId(galleryId);
         } catch (Exception e) {
             log.error("删除图片失败：{}", e.getMessage());
-            return new JsonResult(ResultCodeEnum.FAIL.getCode(), "删除失败！");
+            return new JsonResult<>(ResponseStatus.FAIL, "删除失败！");
         }
-        return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "删除成功！");
+        return new JsonResult<>(ResponseStatus.SUCCESS, "删除成功！");
     }
 
 
@@ -230,10 +234,10 @@ public class PageController {
             postService.saveByPost(post);
             logsService.saveByLogs(new OpLog(LogsRecord.PUSH_PAGE, post.getPostTitle(), HaloUtils.getClientIP(request),
                     currentDate));
-            return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), msg);
+            return new JsonResult<>(ResponseStatus.SUCCESS, msg);
         } catch (Exception e) {
             log.error("保存页面失败：{}", e.getMessage());
-            return new JsonResult(ResultCodeEnum.FAIL.getCode(), "保存失败");
+            return new JsonResult<>(ResponseStatus.FAIL, "保存失败");
         }
     }
 
@@ -263,9 +267,9 @@ public class PageController {
         Post post = postService.findByPostUrl(postUrl);
         // TODO 还没写完
         if (null != post || StringUtils.equals("archives", postUrl) || StringUtils.equals("galleries", postUrl)) {
-            return new JsonResult(ResultCodeEnum.FAIL.getCode(), "该路径已经存在！");
+            return new JsonResult<>(ResponseStatus.FAIL, "该路径已经存在！");
         }
-        return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "");
+        return new JsonResult<>(ResponseStatus.SUCCESS);
     }
 
 }

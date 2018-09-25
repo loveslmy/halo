@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>cc.ryanc</groupId>
+    <groupId>cn.mingyuliu</groupId>
     <artifactId>halo</artifactId>
-    <version>latest</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>halo</name>
 
     <description>
-        halo，一个基于SpringBoot的博客系统，轻快，易用，以内容为中心。
+        mingyuliu personal website
     </description>
 
     <developers>
@@ -32,14 +32,17 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <oh-my-email.version>0.0.3</oh-my-email.version>
-        <druid.version>1.1.10</druid.version>
         <lombok.version>1.18.0</lombok.version>
         <ehcache.version>3.5.2</ehcache.version>
         <rome.version>1.0</rome.version>
         <commons-lang3.version>3.7</commons-lang3.version>
+        <commons-text.version>1.4</commons-text.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
         <thumbnailator.version>0.4.8</thumbnailator.version>
         <guava.version>26.0-jre</guava.version>
         <fastutil.version>5.0.9</fastutil.version>
+        <mokito.version>2.5.5</mokito.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
@@ -47,12 +50,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <!-- JPA -->
@@ -66,13 +63,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-        </dependency>
-
-        <!-- druid数据源 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid.version}</version>
         </dependency>
 
         <dependency>
@@ -126,7 +116,14 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.4</version>
+            <version>${commons-text.version}</version>
+        </dependency>
+
+        <!-- commons-collections -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections.version}</version>
         </dependency>
 
         <!-- 图片操作 -->
@@ -150,6 +147,22 @@
             <version>${fastutil.version}</version>
         </dependency>
 
+        <!-- mokito -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mokito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <repositories>
@@ -166,96 +179,4 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <profiles>
-        <!-- 生产环境打包配置 -->
-        <profile>
-            <id>prod</id>
-            <build>
-                <finalName>halo</finalName>
-                <resources>
-                    <resource>
-                        <directory>src/main/java</directory>
-                        <filtering>false</filtering>
-                        <excludes>
-                            <exclude>**/*.java</exclude>
-                        </excludes>
-                    </resource>
-                </resources>
-                <plugins>
-                    <!-- 跳过单元测试，不然打包的时候会因为加载不了application.yaml报错 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <source>1.8</source>
-                            <target>1.8</target>
-                            <encoding>UTF-8</encoding>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <configuration>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <descriptors>
-                                <descriptor>assembly.xml</descriptor>
-                            </descriptors>
-                            <outputDirectory>${project.build.directory}/dist/</outputDirectory>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>make-assembly</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- 打包成jar文件，并指定lib文件夹以及resources资源文件夹 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <configuration>
-                            <archive>
-                                <manifest>
-                                    <mainClass>cc.ryanc.halo.Application</mainClass>
-                                    <classpathPrefix>lib/</classpathPrefix>
-                                    <addClasspath>true</addClasspath>
-                                </manifest>
-                                <manifestEntries>
-                                    <Class-Path>resources/</Class-Path>
-                                </manifestEntries>
-                            </archive>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!-- 开发环境 -->
-        <profile>
-            <id>dev</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <fork>true</fork>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

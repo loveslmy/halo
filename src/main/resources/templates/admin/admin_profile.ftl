@@ -42,8 +42,8 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="general">
                                 <form method="post" class="form-horizontal" id="profileForm">
-                                    <input type="hidden" name="userId" value="${user.userId?if_exists}">
-                                    <input type="hidden" id="userPass" name="userPass" value="${user.userPass?if_exists}">
+                                    <input type="hidden" name="userId" code="${user.userId?if_exists}">
+                                    <input type="hidden" id="userPass" name="userPass" code="${user.userPass?if_exists}">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="userName" class="col-lg-2 col-sm-4 control-label">用户名：
@@ -52,7 +52,7 @@
                                                 </span>
                                             </label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="text" class="form-control" id="userName" name="userName" value="${user.userName?if_exists}">
+                                                <input type="text" class="form-control" id="userName" name="userName" code="${user.userName?if_exists}">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -62,20 +62,20 @@
                                                 </span>
                                             </label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="text" class="form-control" id="userDisplayName" name="userDisplayName" value="${user.userDisplayName?if_exists}">
+                                                <input type="text" class="form-control" id="userDisplayName" name="userDisplayName" code="${user.userDisplayName?if_exists}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="userEmail" class="col-lg-2 col-sm-4 control-label">邮箱：</label>
                                             <div class="col-lg-4 col-sm-8">
-                                                <input type="email" class="form-control" id="userEmail" name="userEmail" value="${user.userEmail?if_exists}">
+                                                <input type="email" class="form-control" id="userEmail" name="userEmail" code="${user.userEmail?if_exists}">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="userAvatar" class="col-lg-2 col-sm-4 control-label">头像：</label>
                                             <div class="col-lg-4 col-sm-8">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" id="userAvatar" name="userAvatar" value="${user.userAvatar?if_exists}">
+                                                    <input type="text" class="form-control" id="userAvatar" name="userAvatar" code="${user.userAvatar?if_exists}">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-default " type="button" onclick="openAttach('userAvatar')">选择</button>
                                                     </span>
@@ -100,7 +100,7 @@
                             </div>
                             <div class="tab-pane" id="pass">
                                 <form method="post" class="form-horizontal" id="passForm">
-                                    <input type="hidden" name="userId" value="${user.userId?c}">
+                                    <input type="hidden" name="userId" code="${user.userId?c}">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="beforePass" class="col-sm-2 control-label">原密码：</label>

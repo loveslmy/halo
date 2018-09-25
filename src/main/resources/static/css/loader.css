@@ -4,8 +4,8 @@
     width: 100%;
     position: fixed;
     z-index: 9999;
-    margin-top: 0px;
-    top: 0px;
+    margin-top: 0;
+    top: 0;
 }
 #loading-center{
     width: 100%;
@@ -36,7 +36,7 @@
     margin-bottom: 20px;
 }
 .object:nth-child(2n+0) {
-    margin-right: 0px;
+    margin-right: 0;
 
 }
 #object_one{

@@ -2,27 +2,47 @@ package cn.mingyuliu.halo.service.impl;
 
 import cn.mingyuliu.halo.model.domain.Category;
 import cn.mingyuliu.halo.repository.CategoryRepository;
-import cn.mingyuliu.halo.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.mingyuliu.halo.service.ICategoryService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static cn.mingyuliu.halo.model.dto.HaloConst.DEFAULT_CATEGORY_URL;
+
 /**
  * <pre>
- *     分类业务逻辑实现类
+ *     分类服务实现类
  * </pre>
  *
- * @author : RYAN0UP
- * @date : 2017/11/30
+ * @author : liumy2009@126.com
+ * @date : 2018/09/03
  */
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl implements ICategoryService {
 
-    @Autowired
+    @Resource
     private CategoryRepository categoryRepository;
+
+    /**
+     * (non-Javadoc)
+     *
+     * @see ICategoryService#createDefaultCategory()
+     */
+    @Override
+    public Category createDefaultCategory() {
+        Category category = categoryRepository.findCategoryByCateUrl(DEFAULT_CATEGORY_URL);
+        if (category == null) {
+            category = new Category();
+            category.setCateName("默认分类");
+            category.setCateUrl("all");
+            category.setCateDesc("默认分类");
+            return categoryRepository.save(category);
+        }
+        return category;
+    }
 
     /**
      * 保存/修改分类目录
@@ -43,9 +63,13 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public Category removeByCateId(Long cateId) {
-        Optional<Category> category = this.findByCateId(cateId);
-        categoryRepository.delete(category.get());
-        return category.get();
+        Optional<Category> categoryOpt = this.findByCateId(cateId);
+        if (!categoryOpt.isPresent()) {
+            return null;
+        }
+        Category category = categoryOpt.get();
+        categoryRepository.delete(category);
+        return category;
     }
 
     /**
@@ -92,7 +116,7 @@ public class CategoryServiceImpl implements CategoryService {
             return null;
         }
         List<Category> categories = new ArrayList<>();
-        Optional<Category> category = null;
+        Optional<Category> category;
         for (String str : strings) {
             category = findByCateId(Long.parseLong(str));
             categories.add(category.get());

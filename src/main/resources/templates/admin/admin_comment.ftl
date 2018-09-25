@@ -134,9 +134,9 @@
                             <div class="OwO"></div>
                         </div>
                         <div class="modal-footer">
-                            <input type="hidden" id="commentId" name="commentId" value=""/>
-                            <input type="hidden" id="userAgent" name="userAgent" value=""/>
-                            <input type="hidden" id="postId" name="postId" value="" />
+                            <input type="hidden" id="commentId" name="commentId" code=""/>
+                            <input type="hidden" id="userAgent" name="userAgent" code=""/>
+                            <input type="hidden" id="postId" name="postId" code="" />
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                             <button type="submit" class="btn btn-primary">确定</button>
                         </div>

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     private static final String ATTACHMENTS_CACHE_NAME = "attachments";
 
-    @Autowired
+    @Resource
     private AttachmentRepository attachmentRepository;
 
     /**

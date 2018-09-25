@@ -1,18 +1,16 @@
 package cn.mingyuliu.halo.web.controller.admin;
 
-import cn.mingyuliu.halo.config.OptionHolder;
+import cn.mingyuliu.halo.config.sys.OptionHolder;
 import cn.mingyuliu.halo.model.domain.OpLog;
 import cn.mingyuliu.halo.model.dto.HaloConst;
 import cn.mingyuliu.halo.model.dto.JsonResult;
 import cn.mingyuliu.halo.model.dto.LogsRecord;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
-import cn.mingyuliu.halo.model.enums.ResultCodeEnum;
+import cn.mingyuliu.halo.model.enums.Option;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
 import cn.mingyuliu.halo.service.LogsService;
-import cn.mingyuliu.halo.service.IOptionService;
 import cn.mingyuliu.halo.utils.HaloUtils;
 import cn.mingyuliu.halo.web.controller.core.BaseController;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +42,7 @@ public class ThemeController extends BaseController {
     private OptionHolder optionHolder;
 
 
-    @Autowired
+    @Resource
     private LogsService logsService;
 
     /**
@@ -76,7 +74,7 @@ public class ThemeController extends BaseController {
                                   HttpServletRequest request) {
         try {
             //保存主题设置项
-            optionHolder.set(OptionEnum.THEME, siteTheme);
+            optionHolder.set(Option.THEME, siteTheme);
             //设置主题
             BaseController.THEME = siteTheme;
             log.info("已将主题改变为：{}", siteTheme);
@@ -84,10 +82,10 @@ public class ThemeController extends BaseController {
                     new OpLog(LogsRecord.CHANGE_THEME, "更换为" + siteTheme,
                             HaloUtils.getClientIP(request), new Date())
             );
-            return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "主题已设置为" + siteTheme);
+            return new JsonResult<>(ResponseStatus.SUCCESS, "主题已设置为" + siteTheme);
         } catch (Exception e) {
             log.error("主题设置失败，当前主题为：{}", siteTheme);
-            return new JsonResult(ResultCodeEnum.FAIL.getCode(), "主题设置失败");
+            return new JsonResult<>(ResponseStatus.FAIL, "主题设置失败");
         }
     }
 

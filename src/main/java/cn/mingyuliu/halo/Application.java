@@ -1,4 +1,4 @@
-package cc.ryanc.halo;
+package cn.mingyuliu.halo;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -8,16 +8,17 @@ import org.springframework.context.ApplicationContext;
 
 /**
  * <pre>
- *     Halo run!
+ *     Halo Application
  * </pre>
  *
- * @author : RYAN0UP
- * @date : 2017/11/14
+ * @author : liumy2009@126.com
+ * @date : 2018/09/03
  */
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(excludeName = {"cn.mingyuliu.halo.web.controller.*"} )
 @EnableCaching
 public class Application {
+
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(Application.class, args);
         String serverPort = context.getEnvironment().getProperty("http.port");

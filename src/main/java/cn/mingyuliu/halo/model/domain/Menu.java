@@ -1,10 +1,9 @@
 package cn.mingyuliu.halo.model.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -13,22 +12,16 @@ import java.io.Serializable;
  *     菜单
  * </pre>
  *
- * @author : RYAN0UP
- * @date : 2018/1/24
+ * @author : liumy2009@126.com
+ * @date : 2018/09/06
  */
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "halo_menu")
-public class Menu implements Serializable {
+public class Menu extends BaseEntity {
 
     private static final long serialVersionUID = -7726233157376388786L;
-
-    /**
-     * 编号 自增
-     */
-    @Id
-    @GeneratedValue
-    private Long menuId;
 
     /**
      * 菜单名称
@@ -43,7 +36,7 @@ public class Menu implements Serializable {
     /**
      * 排序编号
      */
-    private Integer menuSort;
+    private int menuSort;
 
     /**
      * 图标，可选，部分主题可显示

@@ -1,12 +1,12 @@
 package cn.mingyuliu.halo.model.tag;
 
-import cn.mingyuliu.halo.model.enums.PostStatusEnum;
+import cn.mingyuliu.halo.model.enums.PostStatus;
 import cn.mingyuliu.halo.service.PostService;
 import freemarker.core.Environment;
 import freemarker.template.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Map;
 
@@ -23,7 +23,7 @@ public class ArticleTagDirective implements TemplateDirectiveModel {
 
     private static final String METHOD_KEY = "method";
 
-    @Autowired
+    @Resource
     private PostService postService;
 
     @Override
@@ -35,7 +35,7 @@ public class ArticleTagDirective implements TemplateDirectiveModel {
             switch (method) {
                 case "postsCount":
                     environment.setVariable("postsCount", builder.build().wrap(postService
-                            .findPostByStatus(PostStatusEnum.PUBLISHED).size()));
+                            .findPostByStatus(PostStatus.PUBLISHED).size()));
                     break;
                 case "archives":
                     environment.setVariable("archives", builder.build().wrap(postService

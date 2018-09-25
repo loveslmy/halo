@@ -2,13 +2,14 @@ package cn.mingyuliu.halo.web.controller.api;
 
 import cn.mingyuliu.halo.model.domain.Link;
 import cn.mingyuliu.halo.model.dto.JsonResult;
-import cn.mingyuliu.halo.model.enums.ResponseStatusEnum;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
 import cn.mingyuliu.halo.service.LinkService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,14 +17,14 @@ import java.util.List;
  *     友情链接API
  * </pre>
  *
- * @author : RYAN0UP
- * @date : 2018/6/6
+ * @author : liumy2009@126.com
+ * @date : 2018/09/03
  */
 @RestController
 @RequestMapping(value = "/api/links")
 public class ApiLinkController {
 
-    @Autowired
+    @Resource
     private LinkService linkService;
 
     /**
@@ -32,12 +33,12 @@ public class ApiLinkController {
      * @return JsonResult
      */
     @GetMapping
-    public JsonResult links() {
+    public JsonResult<List<Link>> links() {
         List<Link> links = linkService.findAllLinks();
-        if (null != links && links.size() > 0) {
-            return new JsonResult(ResponseStatusEnum.SUCCESS.getCode(), ResponseStatusEnum.SUCCESS.getMsg(), links);
-        } else {
-            return new JsonResult(ResponseStatusEnum.EMPTY.getCode(), ResponseStatusEnum.EMPTY.getMsg());
+        if (CollectionUtils.isNotEmpty(links)) {
+            new JsonResult<>(ResponseStatus.SUCCESS, links);
         }
+        return new JsonResult<>(ResponseStatus.EMPTY);
     }
+
 }

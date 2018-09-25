@@ -102,12 +102,12 @@ throw new Error('AdminLTE requires jQuery')
       var data  = $this.data(DataKey);
 
       if (!data) {
-        var options = $.extend({}, Default, $this.data(), typeof option == 'object' && option);
+        var options = $.extend({}, Default, $this.data(), typeof option === 'object' && option);
         $this.data(DataKey, (data = new BoxRefresh($this, options)));
       }
 
-      if (typeof data == 'string') {
-        if (typeof data[option] == 'undefined') {
+      if (typeof data === 'string') {
+        if (typeof data[option] === 'undefined') {
           throw new Error('No method named ' + option);
         }
         data[option]();

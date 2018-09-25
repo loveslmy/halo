@@ -3,7 +3,7 @@ package cn.mingyuliu.halo.repository;
 import cn.mingyuliu.halo.model.domain.Category;
 import cn.mingyuliu.halo.model.domain.Post;
 import cn.mingyuliu.halo.model.domain.Tag;
-import cn.mingyuliu.halo.model.enums.PostStatusEnum;
+import cn.mingyuliu.halo.model.enums.PostStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -47,7 +47,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * @param pageable 分页信息
      * @return Page
      */
-    Page<Post> findPostsByPostStatus(PostStatusEnum status, Pageable pageable);
+    Page<Post> findPostsByPostStatus(PostStatus status, Pageable pageable);
 
     /**
      * 根据文章的状态查询
@@ -55,7 +55,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * @param status 0,1,2
      * @return List
      */
-    List<Post> findPostsByPostStatus(PostStatusEnum status);
+    List<Post> findPostsByPostStatus(PostStatus status);
 
     /**
      * 根据路径查询文章
@@ -69,20 +69,20 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * 查询之后文章
      *
      * @param postDate 发布时间
-     * @param status   {@link PostStatusEnum}
+     * @param status   {@link PostStatus}
      * @return List
      */
-    List<Post> findByPostDateAfterAndPostStatusOrderByPostDateDesc(Date postDate, PostStatusEnum status);
+    List<Post> findByPostDateAfterAndPostStatusOrderByPostDateDesc(Date postDate, PostStatus status);
 
 
     /**
      * 查询之前的文章
      *
      * @param postDate 发布时间
-     * @param status   {@link PostStatusEnum}
+     * @param status   {@link PostStatus}
      * @return List
      */
-    List<Post> findByPostDateBeforeAndPostStatusOrderByPostDateAsc(Date postDate, PostStatusEnum status);
+    List<Post> findByPostDateBeforeAndPostStatusOrderByPostDateAsc(Date postDate, PostStatus status);
 
     /**
      * 查询文章归档信息 根据年份和月份
@@ -134,21 +134,21 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * 根据分类目录查询文章
      *
      * @param category category
-     * @param status   {@link PostStatusEnum}
+     * @param status   {@link PostStatus}
      * @param pageable pageable
      * @return Page
      */
-    Page<Post> findPostByCategoriesAndPostStatus(Category category, PostStatusEnum status, Pageable pageable);
+    Page<Post> findPostByCategoriesAndPostStatus(Category category, PostStatus status, Pageable pageable);
 
     /**
      * 根据标签查询文章，分页
      *
      * @param tag      tag
-     * @param status   {@link PostStatusEnum}
+     * @param status   {@link PostStatus}
      * @param pageable pageable
      * @return Page
      */
-    Page<Post> findPostsByTagsAndPostStatus(Tag tag, PostStatusEnum status, Pageable pageable);
+    Page<Post> findPostsByTagsAndPostStatus(Tag tag, PostStatus status, Pageable pageable);
 
     /**
      * 根据标签查询文章
@@ -190,6 +190,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * @param status 文章状态
      * @return 文章数量
      */
-    int countAllByPostStatus(PostStatusEnum status);
+    int countAllByPostStatus(PostStatus status);
 
 }

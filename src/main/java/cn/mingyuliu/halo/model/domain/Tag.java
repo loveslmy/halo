@@ -1,6 +1,5 @@
 package cn.mingyuliu.halo.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +34,6 @@ public class Tag extends BaseEntity{
     private String tagUrl;
 
     @ManyToMany(mappedBy = "tags" , targetEntity = Post.class)
-    @JsonIgnore
     private List<Post> posts;
 
 }

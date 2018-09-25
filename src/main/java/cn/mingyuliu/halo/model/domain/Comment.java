@@ -1,7 +1,6 @@
 package cn.mingyuliu.halo.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,7 +44,6 @@ public class Comment extends BaseEntity {
      * 评论人的邮箱
      */
     @Email(message = "邮箱格式不正确")
-    @JsonIgnore
     private String commentAuthorEmail;
 
     /**

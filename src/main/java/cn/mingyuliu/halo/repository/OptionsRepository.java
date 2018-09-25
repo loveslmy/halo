@@ -1,7 +1,7 @@
 package cn.mingyuliu.halo.repository;
 
 import cn.mingyuliu.halo.model.domain.Options;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
+import cn.mingyuliu.halo.model.enums.Option;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -17,8 +17,9 @@ public interface OptionsRepository extends JpaRepository<Options, Long> {
     /**
      * 根据name查询单个option
      *
-     * @param option {@link OptionEnum}
+     * @param option {@link Option}
      * @return Options
      */
-    Options findOptionsByOptionName(OptionEnum option);
+    Options findOptionsByOptionName(Option option);
+
 }

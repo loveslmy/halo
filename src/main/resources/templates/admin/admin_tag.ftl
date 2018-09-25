@@ -34,16 +34,16 @@
                                 <h3 class="box-title">修改标签<#if updateTag??>[${updateTag.tagName}]</#if></h3>
                             </div>
                             <form action="/admin/tag/save" method="post" role="form">
-                                <input type="hidden" name="tagId" value="${updateTag.tagId?c}">
+                                <input type="hidden" name="tagId" code="${updateTag.tagId?c}">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="tagName">名称</label>
-                                        <input type="text" class="form-control" id="tagName" name="tagName" value="${updateTag.tagName}">
+                                        <input type="text" class="form-control" id="tagName" name="tagName" code="${updateTag.tagName}">
                                         <small>页面上所显示的名称</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="tagUrl">路径名称</label>
-                                        <input type="text" class="form-control" id="tagUrl" name="tagUrl" value="${updateTag.tagUrl}">
+                                        <input type="text" class="form-control" id="tagUrl" name="tagUrl" code="${updateTag.tagUrl}">
                                         <small>*这是文章路径上显示的名称，最好为英文</small>
                                     </div>
                                 </div>
@@ -135,7 +135,7 @@
             function checkTag() {
                 var name = $('#tagName').val();
                 var url = $('#tagUrl').val();
-                var result = true;
+                var datas = true;
                 if(name==""||url==""){
                     showMsg("请输入完整信息！","info",2000);
                     result = false;

@@ -1,38 +1,35 @@
 package cn.mingyuliu.halo.web.interceptor;
 
-import cn.mingyuliu.halo.model.dto.HaloConst;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
-import org.apache.commons.lang3.StringUtils;
+import cn.mingyuliu.halo.config.sys.OptionHolder;
+import cn.mingyuliu.halo.model.enums.Option;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * <pre>
- *     博客初始化拦截器
+ *     博客安装拦截器
  * </pre>
  *
- * @author : RYAN0UP
- * @date : 2018/1/28
+ * @author : liumy2009@126.com
+ * @date : 2018/09/03
  */
 @Component
 public class InstallInterceptor implements HandlerInterceptor {
 
-    private boolean install = false;
+    @Resource
+    private OptionHolder optionHolder;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-/*        if (!install) {
-            if (StringUtils.equals(Boolean.TRUE.toString(),
-                    HaloConst.OPTIONS.get(OptionEnum.IS_INSTALL.getValue()))) {
-                install = true;
-                return true;
-            }
+        if (optionHolder.getBoolean(Option.IS_INSTALL)) {
+            return true;
         }
-        response.sendRedirect("/install");*/
+        response.sendRedirect("/install");
         return false;
     }
 

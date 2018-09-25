@@ -84,9 +84,9 @@ $(document).ready(function() {
         return false;
     });
 
-    // Click anywhere to remove local search result
+    // Click anywhere to remove local search datas
     $(document).click(function() {
-        $("#local-search-result ul").css("display", "none");
+        $("#local-search-datas ul").css("display", "none");
     });
 });
 

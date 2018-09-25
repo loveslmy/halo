@@ -6,6 +6,7 @@ import cn.mingyuliu.halo.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,7 @@ import java.util.Optional;
 @Service
 public class TagServiceImpl implements TagService {
 
-    @Autowired
+    @Resource
     private TagRepository tagRepository;
 
     /**

@@ -1,32 +1,61 @@
 package cn.mingyuliu.halo.service.impl;
 
 import cn.mingyuliu.halo.model.domain.User;
+import cn.mingyuliu.halo.model.dto.InstallDto;
+import cn.mingyuliu.halo.model.enums.UserType;
 import cn.mingyuliu.halo.repository.UserRepository;
-import cn.mingyuliu.halo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.mingyuliu.halo.service.IUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
 /**
  * <pre>
- *     用户业务逻辑实现类
+ *     用户服务实现类
  * </pre>
  *
- * @author : RYAN0UP
- * @date : 2017/11/14
+ * @author : liumy2009@126.com
+ * @date : 2018/09/03
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 
-    @Autowired
+    @Resource
     private UserRepository userRepository;
 
     /**
-     * 保存个人资料
+     * (non-Javadoc)
      *
-     * @param user user
+     * @see IUserService#createOwnerUser(InstallDto)
+     */
+    @Override
+    public void createOwnerUser(InstallDto installDto) {
+        String userName = installDto.getUserName();
+        User user = userRepository.findByUserNameAndUserType(userName, UserType.OWNER);
+
+        if (user == null) {
+            user = userRepository.findByUserType(UserType.OWNER);
+        }
+
+        if (user == null) {
+            user = new User();
+        }
+
+        user.setUserName(installDto.getUserName());
+        user.setUserDisplayName(installDto.getUserDisplayName());
+        user.setUserEmail(installDto.getUserEmail());
+        user.setUserPass(DigestUtils.md5DigestAsHex(installDto.getUserPwd().getBytes()));
+        user.setUserType(UserType.OWNER);
+        userRepository.save(user);
+    }
+
+    /**
+     * (non-Javadoc)
+     *
+     * @see IUserService#saveByUser(User)
      */
     @Override
     public void saveByUser(User user) {
@@ -34,11 +63,9 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 根据用户名和密码查询
+     * (non-Javadoc)
      *
-     * @param userName userName
-     * @param userPass userPass
-     * @return User
+     * @see IUserService#userLoginByName(String userName, String userPass)
      */
     @Override
     public User userLoginByName(String userName, String userPass) {
@@ -46,11 +73,9 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 根据邮箱和密码查询，用户登录
+     * (non-Javadoc)
      *
-     * @param userEmail userEmail
-     * @param userPass  userPass
-     * @return User
+     * @see IUserService#userLoginByEmail(String userEmail, String userPass)
      */
     @Override
     public User userLoginByEmail(String userEmail, String userPass) {
@@ -58,18 +83,13 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 查询所有用户
+     * (non-Javadoc)
      *
-     * @return User
+     * @see IUserService#findOwnerUser()
      */
     @Override
-    public User findUser() {
-        List<User> users = userRepository.findAll();
-        if (users.size() > 0) {
-            return users.get(0);
-        } else {
-            return new User();
-        }
+    public User findOwnerUser() {
+        return userRepository.findByUserType(UserType.OWNER);
     }
 
     /**
@@ -91,7 +111,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void updateUserLoginEnable(boolean enable) {
-        User user = this.findUser();
+        User user = this.findOwnerUser();
         user.setLoginEnable(enable);
         userRepository.save(user);
     }
@@ -104,7 +124,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User updateUserLoginLast(Date lastDate) {
-        User user = this.findUser();
+        User user = this.findOwnerUser();
         user.setLoginLast(lastDate);
         userRepository.save(user);
         return user;
@@ -117,10 +137,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public byte updateUserLoginError() {
-        User user = this.findUser();
+        User user = this.findOwnerUser();
         int loginError = user.getLoginError();
         if (loginError != 0) {
-            user.setLoginError((byte)++loginError);
+            user.setLoginError((byte) ++loginError);
         }
         userRepository.save(user);
         return user.getLoginError();
@@ -133,9 +153,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User updateUserNormal() {
-        User user = this.findUser();
+        User user = this.findOwnerUser();
         user.setLoginEnable(true);
-        user.setLoginError((byte)0);
+        user.setLoginError((byte) 0);
         user.setLoginLast(new Date());
         userRepository.save(user);
         return user;

@@ -1,13 +1,13 @@
 package cn.mingyuliu.halo.web.controller.front;
 
-import cn.mingyuliu.halo.config.OptionHolder;
+import cn.mingyuliu.halo.config.sys.OptionHolder;
 import cn.mingyuliu.halo.model.domain.Comment;
 import cn.mingyuliu.halo.model.domain.Post;
 import cn.mingyuliu.halo.model.domain.Tag;
 import cn.mingyuliu.halo.model.dto.HaloConst;
 import cn.mingyuliu.halo.model.enums.CommentStatusEnum;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
-import cn.mingyuliu.halo.model.enums.PostStatusEnum;
+import cn.mingyuliu.halo.model.enums.Option;
+import cn.mingyuliu.halo.model.enums.PostStatus;
 import cn.mingyuliu.halo.service.CommentService;
 import cn.mingyuliu.halo.service.PostService;
 import cn.mingyuliu.halo.utils.CommentUtil;
@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,7 +75,7 @@ public class FrontArchiveController extends BaseController {
 
         //所有文章数据，分页，material主题适用
         Pageable pageable = PageRequest.of(page - 1, 5, POST_SORT);
-        Page<Post> posts = postService.findPostByStatus(PostStatusEnum.PUBLISHED, pageable);
+        Page<Post> posts = postService.findPostByStatus(PostStatus.PUBLISHED, pageable);
         if (null == posts) {
             return this.renderNotFound();
         }
@@ -116,7 +115,7 @@ public class FrontArchiveController extends BaseController {
     @GetMapping(value = "{postUrl}")
     public String getPost(@PathVariable String postUrl, Model model) {
         Post post = postService.findByPostUrl(postUrl);
-        if (null == post || PostStatusEnum.PUBLISHED != post.getPostStatus()) {
+        if (null == post || PostStatus.PUBLISHED != post.getPostStatus()) {
             return this.renderNotFound();
         }
         //获得当前文章的发布日期
@@ -133,7 +132,7 @@ public class FrontArchiveController extends BaseController {
             model.addAttribute("afterPost", afterPosts.get(afterPosts.size() - 1));
         }
         List<Comment> comments;
-        if (!optionHolder.getBoolean(OptionEnum.NEW_COMMENT_NEED_CHECK)) {
+        if (!optionHolder.getBoolean(Option.NEW_COMMENT_NEED_CHECK)) {
             comments = commentService.findCommentsByPostAndCommentStatus(post, CommentStatusEnum.PUBLISHED.getCode());
         } else {
             comments = commentService.findCommentsByPostAndCommentStatusNot(post, CommentStatusEnum.RECYCLE.getCode());

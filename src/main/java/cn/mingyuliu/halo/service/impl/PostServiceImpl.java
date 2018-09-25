@@ -1,17 +1,16 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.config.OptionHolder;
+import cn.mingyuliu.halo.config.sys.OptionHolder;
 import cn.mingyuliu.halo.model.domain.Category;
 import cn.mingyuliu.halo.model.domain.Post;
 import cn.mingyuliu.halo.model.domain.Tag;
 import cn.mingyuliu.halo.model.dto.Archive;
-import cn.mingyuliu.halo.model.dto.HaloConst;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
-import cn.mingyuliu.halo.model.enums.PostStatusEnum;
+import cn.mingyuliu.halo.model.enums.Option;
+import cn.mingyuliu.halo.model.enums.PostStatus;
 import cn.mingyuliu.halo.repository.PostRepository;
 import cn.mingyuliu.halo.service.PostService;
 import cn.mingyuliu.halo.utils.HaloUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -85,7 +84,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     @CacheEvict(value = POSTS_CACHE_NAME, allEntries = true, beforeInvocation = true)
-    public Post updatePostStatus(long postId, PostStatusEnum status) {
+    public Post updatePostStatus(long postId, PostStatus status) {
         Optional<Post> post = this.findByPostId(postId);
         post.get().setPostStatus(status);
         return postRepository.save(post.get());
@@ -164,7 +163,7 @@ public class PostServiceImpl implements PostService {
      * @return Page
      */
     @Override
-    public Page<Post> findPostByStatus(PostStatusEnum status, Pageable pageable) {
+    public Page<Post> findPostByStatus(PostStatus status, Pageable pageable) {
         return postRepository.findPostsByPostStatus(status, pageable);
     }
 
@@ -177,7 +176,7 @@ public class PostServiceImpl implements PostService {
     @Override
     @Cacheable(value = POSTS_CACHE_NAME, key = "'posts_page_'+#pageable.pageNumber")
     public Page<Post> findPostByStatus(Pageable pageable) {
-        return postRepository.findPostsByPostStatus(PostStatusEnum.PUBLISHED, pageable);
+        return postRepository.findPostsByPostStatus(PostStatus.PUBLISHED, pageable);
     }
 
     /**
@@ -188,7 +187,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     @Cacheable(value = POSTS_CACHE_NAME, key = "'posts_status_type_'+#status")
-    public List<Post> findPostByStatus(PostStatusEnum status) {
+    public List<Post> findPostByStatus(PostStatus status) {
         return postRepository.findPostsByPostStatus(status);
     }
 
@@ -234,7 +233,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public List<Post> findByPostDateAfter(Date postDate) {
-        return postRepository.findByPostDateAfterAndPostStatusOrderByPostDateDesc(postDate, PostStatusEnum.PUBLISHED);
+        return postRepository.findByPostDateAfterAndPostStatusOrderByPostDateDesc(postDate, PostStatus.PUBLISHED);
     }
 
     /**
@@ -245,7 +244,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public List<Post> findByPostDateBefore(Date postDate) {
-        return postRepository.findByPostDateBeforeAndPostStatusOrderByPostDateAsc(postDate, PostStatusEnum.PUBLISHED);
+        return postRepository.findByPostDateBeforeAndPostStatusOrderByPostDateAsc(postDate, PostStatus.PUBLISHED);
     }
 
 
@@ -340,7 +339,7 @@ public class PostServiceImpl implements PostService {
     @Override
     @CachePut(value = POSTS_CACHE_NAME, key = "'posts_category_'+#category.cateId+'_'+#pageable.pageNumber")
     public Page<Post> findPostByCategories(Category category, Pageable pageable) {
-        return postRepository.findPostByCategoriesAndPostStatus(category, PostStatusEnum.PUBLISHED, pageable);
+        return postRepository.findPostByCategoriesAndPostStatus(category, PostStatus.PUBLISHED, pageable);
     }
 
     /**
@@ -353,7 +352,7 @@ public class PostServiceImpl implements PostService {
     @Override
     @CachePut(value = POSTS_CACHE_NAME, key = "'posts_tag_'+#tag.tagId+'_'+#pageable.pageNumber")
     public Page<Post> findPostsByTags(Tag tag, Pageable pageable) {
-        return postRepository.findPostsByTagsAndPostStatus(tag, PostStatusEnum.PUBLISHED, pageable);
+        return postRepository.findPostsByTagsAndPostStatus(tag, PostStatus.PUBLISHED, pageable);
     }
 
     /**
@@ -423,7 +422,7 @@ public class PostServiceImpl implements PostService {
      * @return 文章数量
      */
     @Override
-    public int getCountByStatus(PostStatusEnum status) {
+    public int getCountByStatus(PostStatus status) {
         return postRepository.countAllByPostStatus(status);
     }
 
@@ -454,13 +453,14 @@ public class PostServiceImpl implements PostService {
     public String buildSiteMap(List<Post> posts) {
         String head = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset " +
                 "xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
-        String urlBody = "";
+        StringBuilder urlBody = new StringBuilder();
         String urlItem;
-        String urlPath = optionHolder.get(OptionEnum.BLOG_URL) + "/archives/";
+        String urlPath = optionHolder.get(Option.BLOG_URL) + "/archives/";
         for (Post post : posts) {
-            urlItem = "<url><loc>" + urlPath + post.getPostUrl() + "</loc><lastmod>" + HaloUtils
-                    .getStringDate(post.getPostDate(), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX") + "</lastmod>" + "</url>";
-            urlBody += urlItem;
+            urlItem = "<url><loc>" + urlPath + post.getPostUrl() + "</loc><lastmod>" +
+                    DateFormatUtils.format(post.getPostDate(), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+                    + "</lastmod>" + "</url>";
+            urlBody.append(urlItem);
         }
         return head + urlBody + "</urlset>";
     }

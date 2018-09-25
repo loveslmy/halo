@@ -1,12 +1,12 @@
 package cn.mingyuliu.halo.web.controller.admin;
 
-import cn.mingyuliu.halo.config.OptionHolder;
+import cn.mingyuliu.halo.config.sys.OptionHolder;
 import cn.mingyuliu.halo.model.domain.Comment;
 import cn.mingyuliu.halo.model.domain.Post;
 import cn.mingyuliu.halo.model.domain.User;
 import cn.mingyuliu.halo.model.dto.HaloConst;
 import cn.mingyuliu.halo.model.enums.CommentStatusEnum;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
+import cn.mingyuliu.halo.model.enums.Option;
 import cn.mingyuliu.halo.service.CommentService;
 import cn.mingyuliu.halo.service.MailService;
 import cn.mingyuliu.halo.service.PostService;
@@ -182,7 +182,7 @@ public class CommentController extends BaseController {
             comment.setPost(post);
             comment.setCommentAuthor(user.getUserDisplayName());
             comment.setCommentAuthorEmail(user.getUserEmail());
-            comment.setCommentAuthorUrl(optionHolder.get(OptionEnum.BLOG_URL));
+            comment.setCommentAuthorUrl(optionHolder.get(Option.BLOG_URL));
             comment.setCommentAuthorIp(HaloUtils.getClientIP(request));
             comment.setCommentAuthorAvatarMd5(DigestUtils.md5DigestAsHex(user.getUserEmail().getBytes()));
             comment.setCommentDate(new Date());
@@ -224,29 +224,29 @@ public class CommentController extends BaseController {
 
         @Override
         public void run() {
-            if (StringUtils.equals(optionHolder.get(OptionEnum.SMTP_EMAIL_ENABLE),
+            if (StringUtils.equals(optionHolder.get(Option.SMTP_EMAIL_ENABLE),
                     Boolean.TRUE.toString())
-                    && StringUtils.equals(optionHolder.get(OptionEnum.COMMENT_REPLY_NOTICE),
+                    && StringUtils.equals(optionHolder.get(Option.COMMENT_REPLY_NOTICE),
                     Boolean.TRUE.toString())) {
                 if (HaloUtils.isEmail(lastComment.getCommentAuthorEmail())) {
                     Map<String, Object> map = new HashMap<>();
-                    map.put("blogTitle", optionHolder.get(OptionEnum.BLOG_TITLE));
+                    map.put("blogTitle", optionHolder.get(Option.BLOG_TITLE));
                     map.put("commentAuthor", lastComment.getCommentAuthor());
                     map.put("pageName", lastComment.getPost().getPostTitle());
  /*                   if (StringUtils.equals(post.getPostType(), PostTypeEnum.POST.getDesc())) {
-                        map.put("pageUrl", optionHolder.get(OptionEnum.BLOG_URL)
+                        map.put("pageUrl", optionHolder.get(Option.BLOG_URL)
                                 + "/archives/" + post.getPostUrl() + "#comment-id-" + comment.getCommentId());
                     } else {
-                        map.put("pageUrl", optionHolder.get(OptionEnum.BLOG_URL)
+                        map.put("pageUrl", optionHolder.get(Option.BLOG_URL)
                                 + "/p/" + post.getPostUrl() + "#comment-id-" + comment.getCommentId());
                     }*/
                     map.put("commentContent", lastComment.getCommentContent());
                     map.put("replyAuthor", user.getUserDisplayName());
                     map.put("replyContent", commentContent);
-                    map.put("blogUrl", optionHolder.get(OptionEnum.BLOG_URL));
+                    map.put("blogUrl", optionHolder.get(Option.BLOG_URL));
                     mailService.sendTemplateMail(
                             lastComment.getCommentAuthorEmail(), "您在"
-                                    + optionHolder.get(OptionEnum.BLOG_URL)
+                                    + optionHolder.get(Option.BLOG_URL)
                                     + "的评论有了新回复", map, "common/mail_template/mail_reply.ftl");
                 }
             }
@@ -272,28 +272,28 @@ public class CommentController extends BaseController {
 
         @Override
         public void run() {
-            if (StringUtils.equals(optionHolder.get(OptionEnum.SMTP_EMAIL_ENABLE),
+            if (StringUtils.equals(optionHolder.get(Option.SMTP_EMAIL_ENABLE),
                     Boolean.TRUE.toString())
-                    && StringUtils.equals(optionHolder.get(OptionEnum.COMMENT_REPLY_NOTICE),
+                    && StringUtils.equals(optionHolder.get(Option.COMMENT_REPLY_NOTICE),
                     Boolean.TRUE.toString())) {
                 try {
                     if (status == 1 && HaloUtils.isEmail(comment.getCommentAuthorEmail())) {
                         Map<String, Object> map = new HashMap<>();
     /*                    if (StringUtils.equals(post.getPostType(), PostTypeEnum.POST.getDesc())) {
-                            map.put("pageUrl", optionHolder.get(OptionEnum.BLOG_URL)
+                            map.put("pageUrl", optionHolder.get(Option.BLOG_URL)
                                     + "/archives/" + post.getPostUrl() + "#comment-id-" + comment.getCommentId());
                         } else {
-                            map.put("pageUrl", optionHolder.get(OptionEnum.BLOG_URL)
+                            map.put("pageUrl", optionHolder.get(Option.BLOG_URL)
                                     + "/p/" + post.getPostUrl() + "#comment-id-" + comment.getCommentId());
                         }*/
                         map.put("pageName", post.getPostTitle());
                         map.put("commentContent", comment.getCommentContent());
-                        map.put("blogUrl", optionHolder.get(OptionEnum.BLOG_URL));
-                        map.put("blogTitle", optionHolder.get(OptionEnum.BLOG_TITLE));
+                        map.put("blogUrl", optionHolder.get(Option.BLOG_URL));
+                        map.put("blogTitle", optionHolder.get(Option.BLOG_TITLE));
                         map.put("author", user.getUserDisplayName());
                         mailService.sendTemplateMail(
                                 comment.getCommentAuthorEmail(),
-                                "您在" + optionHolder.get(OptionEnum.BLOG_TITLE)
+                                "您在" + optionHolder.get(Option.BLOG_TITLE)
                                         + "的评论已审核通过！", map, "common/mail_template/mail_passed.ftl");
                     }
                 } catch (Exception e) {

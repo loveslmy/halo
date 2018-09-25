@@ -1,9 +1,7 @@
 package cn.mingyuliu.halo.web.controller.admin;
 
-import cn.mingyuliu.halo.model.dto.HaloConst;
 import cn.mingyuliu.halo.model.dto.JsonResult;
-import cn.mingyuliu.halo.model.enums.ResultCodeEnum;
-import cn.mingyuliu.halo.service.IOptionService;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
 import cn.mingyuliu.halo.web.controller.core.BaseController;
 import freemarker.template.Configuration;
 import lombok.extern.slf4j.Slf4j;
@@ -54,10 +52,10 @@ public class OptionController extends BaseController {
             optionHolder.loadOptions();
             configuration.setSharedVariable("options", optionHolder.getOptions());
             log.info("所保存的设置选项列表：" + options);
-            return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "操作成功！");
+            return new JsonResult<>(ResponseStatus.SUCCESS, "操作成功！");
         } catch (Exception e) {
             log.error("保存设置选项失败：{}", e.getMessage(), e);
-            return new JsonResult(ResultCodeEnum.FAIL.getCode(), "操作失败" + e.getMessage());
+            return new JsonResult<>(ResponseStatus.FAIL, "操作失败" + e.getMessage());
         }
     }
 }

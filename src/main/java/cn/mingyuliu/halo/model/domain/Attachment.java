@@ -3,6 +3,7 @@ package cn.mingyuliu.halo.model.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -22,29 +23,19 @@ public class Attachment extends BaseEntity {
 
     private static final long serialVersionUID = 3060117944880138064L;
 
-    /**
-     * 附件名
-     */
+    @Column(length = 48, columnDefinition = "VARCHAR(48) NOT NULL COMMENT '附件名称'")
     private String attachName;
 
-    /**
-     * 附件路径
-     */
+    @Column(columnDefinition = "MEDIUMBLOB NOT NULL COMMENT '附件数据'")
     private byte[] data;
 
-    /**
-     * 附件类型
-     */
+    @Column(length = 8, columnDefinition = "VARCHAR(8) DEFAULT '' COMMENT '附件类型'")
     private String attachType;
 
-    /**
-     * 附件后缀
-     */
+    @Column(length = 8, columnDefinition = "VARCHAR(8) NOT NULL COMMENT '附件后缀'")
     private String attachSuffix;
 
-    /**
-     * 附件大小
-     */
-    private String attachSize;
+    @Column(columnDefinition = "INT UNSIGNED NOT NULL COMMENT '附件大小'")
+    private long attachSize;
 
 }

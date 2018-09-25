@@ -4,7 +4,7 @@ import cn.mingyuliu.halo.model.domain.Category;
 import cn.mingyuliu.halo.model.domain.Post;
 import cn.mingyuliu.halo.model.domain.Tag;
 import cn.mingyuliu.halo.model.dto.Archive;
-import cn.mingyuliu.halo.model.enums.PostStatusEnum;
+import cn.mingyuliu.halo.model.enums.PostStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -45,7 +45,7 @@ public interface PostService {
      * @param status status
      * @return Post
      */
-    Post updatePostStatus(long postId, PostStatusEnum status);
+    Post updatePostStatus(long postId, PostStatus status);
 
     /**
      * 修改文章阅读量
@@ -91,7 +91,7 @@ public interface PostService {
      * @param pageable 分页信息
      * @return Page
      */
-    Page<Post> findPostByStatus(PostStatusEnum status, Pageable pageable);
+    Page<Post> findPostByStatus(PostStatus status, Pageable pageable);
 
     /**
      * 根据文章状态查询 分页，首页分页
@@ -107,7 +107,7 @@ public interface PostService {
      * @param status   0，1，2
      * @return List
      */
-    List<Post> findPostByStatus(PostStatusEnum status);
+    List<Post> findPostByStatus(PostStatus status);
 
     /**
      * 根据编号查询文章
@@ -244,7 +244,7 @@ public interface PostService {
      * @param status 文章状态
      * @return 文章数量
      */
-    int getCountByStatus(PostStatusEnum status);
+    int getCountByStatus(PostStatus status);
 
     /**
      * 生成rss

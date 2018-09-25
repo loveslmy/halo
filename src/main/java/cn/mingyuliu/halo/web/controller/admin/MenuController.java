@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.websocket.server.PathParam;
 
 /**
@@ -23,7 +24,7 @@ import javax.websocket.server.PathParam;
 @RequestMapping(value = "/admin/menus")
 public class MenuController {
 
-    @Autowired
+    @Resource
     private MenuService menuService;
 
     /**

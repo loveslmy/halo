@@ -18,10 +18,22 @@ import java.util.Map;
  */
 public class HaloConst {
 
+    /**
+     * 文章排序
+     */
     public static Sort POST_SORT = new Sort(Sort.Direction.DESC, "postDate");
+    /**
+     * 逗号String链接器
+     */
     public static final Joiner DOT_JOINER = Joiner.on(",");
+    /**
+     * 默认分页记录数
+     */
     public static final int DEFAULT_PAGE_SIZE = 10;
-
+    /**
+     * 默认category url
+     */
+    public static final String DEFAULT_CATEGORY_URL = "all";
 
     /**
      * OwO表情

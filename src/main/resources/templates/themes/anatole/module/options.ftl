@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/plugins/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/plugins/toast/css/jquery.toast.min.css">
-    <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/static/plugins/admin-lte/2.4.5/AdminLTE.min.css">
     <style>
         .themeSetting, .themeImg {
             padding-top: 15px;
@@ -47,12 +47,12 @@
                                     <div class="col-sm-8">
                                         <label class="radio-inline">
                                             <input type="radio" name="theme_anatole_sns_rss" id="anatoleSnsRss"
-                                                   value="true" ${((options.theme_anatole_sns_rss?default('true'))=='true')?string('checked','')}>
+                                                   code="true" ${((options.theme_anatole_sns_rss?default('true'))=='true')?string('checked','')}>
                                             显示
                                         </label>
                                         <label class="radio-inline">
                                             <input type="radio" name="theme_anatole_sns_rss" id="anatoleSnsRss"
-                                                   value="false" ${((options.theme_anatole_sns_rss?if_exists)=='false')?string('checked','')}>
+                                                   code="false" ${((options.theme_anatole_sns_rss?if_exists)=='false')?string('checked','')}>
                                             隐藏
                                         </label>
                                     </div>
@@ -62,7 +62,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleSnsTwitter"
                                                name="theme_anatole_sns_twitter"
-                                               value="${options.theme_anatole_sns_twitter?if_exists}">
+                                               code="${options.theme_anatole_sns_twitter?if_exists}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -70,7 +70,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleSnsFacebook"
                                                name="theme_anatole_sns_facebook"
-                                               value="${options.theme_anatole_sns_facebook?if_exists}">
+                                               code="${options.theme_anatole_sns_facebook?if_exists}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -78,7 +78,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleSnsInstagram"
                                                name="theme_anatole_sns_instagram"
-                                               value="${options.theme_anatole_sns_instagram?if_exists}">
+                                               code="${options.theme_anatole_sns_instagram?if_exists}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -86,7 +86,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleSnsDribbble"
                                                name="theme_anatole_sns_dribbble"
-                                               value="${options.theme_anatole_sns_dribbble?if_exists}">
+                                               code="${options.theme_anatole_sns_dribbble?if_exists}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -94,7 +94,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleSnsWeibo"
                                                name="theme_anatole_sns_weibo"
-                                               value="${options.theme_anatole_sns_weibo?if_exists}">
+                                               code="${options.theme_anatole_sns_weibo?if_exists}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -102,7 +102,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleSnsEmail"
                                                name="theme_anatole_sns_email"
-                                               value="${options.theme_anatole_sns_email?if_exists}">
+                                               code="${options.theme_anatole_sns_email?if_exists}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -110,7 +110,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleSnsGithub"
                                                name="theme_anatole_sns_github"
-                                               value="${options.theme_anatole_sns_github?if_exists}">
+                                               code="${options.theme_anatole_sns_github?if_exists}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -118,7 +118,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleSnsQQ"
                                                name="theme_anatole_sns_qq"
-                                               value="${options.theme_anatole_sns_qq?if_exists}">
+                                               code="${options.theme_anatole_sns_qq?if_exists}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -126,7 +126,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleSnsTelegram"
                                                name="theme_anatole_sns_telegram"
-                                               value="${options.theme_anatole_sns_telegram?if_exists}">
+                                               code="${options.theme_anatole_sns_telegram?if_exists}">
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="anatoleStyleRightIcon"
                                                    name="anatole_style_right_icon"
-                                                   value="${options.anatole_style_right_icon?default("/anatole/source/images/logo.png")}">
+                                                   code="${options.anatole_style_right_icon?default("/anatole/source/images/logo.png")}">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default btn-flat" type="button"
                                                         onclick="openAttach('anatoleStyleRightIcon')">选择</button>
@@ -162,13 +162,13 @@
                                         <label class="radio-inline">
                                             <input type="radio" name="anatole_style_post_title_lower"
                                                    id="anatoleStylePostTitleLower"
-                                                   value="true" ${((options.anatole_style_post_title_lower?default('true'))=='true')?string('checked','')}>
+                                                   code="true" ${((options.anatole_style_post_title_lower?default('true'))=='true')?string('checked','')}>
                                             开启
                                         </label>
                                         <label class="radio-inline">
                                             <input type="radio" name="anatole_style_post_title_lower"
                                                    id="anatoleStylePostTitleLower"
-                                                   value="false" ${((options.anatole_style_post_title_lower?if_exists)=='false')?string('checked','')}>
+                                                   code="false" ${((options.anatole_style_post_title_lower?if_exists)=='false')?string('checked','')}>
                                             关闭
                                         </label>
                                     </div>
@@ -180,13 +180,13 @@
                                         <label class="radio-inline">
                                             <input type="radio" name="anatole_style_blog_title_lower"
                                                    id="anatoleStyleBlogTitleLower"
-                                                   value="true" ${((options.anatole_style_blog_title_lower?default('true'))=='true')?string('checked','')}>
+                                                   code="true" ${((options.anatole_style_blog_title_lower?default('true'))=='true')?string('checked','')}>
                                             开启
                                         </label>
                                         <label class="radio-inline">
                                             <input type="radio" name="anatole_style_blog_title_lower"
                                                    id="anatoleStyleBlogTitleLower"
-                                                   value="false" ${((options.anatole_style_blog_title_lower?if_exists)=='false')?string('checked','')}>
+                                                   code="false" ${((options.anatole_style_blog_title_lower?if_exists)=='false')?string('checked','')}>
                                             关闭
                                         </label>
                                     </div>
@@ -197,13 +197,13 @@
                                         <label class="radio-inline">
                                             <input type="radio" name="anatole_style_avatar_circle"
                                                    id="anatoleStyleAvatarCircle"
-                                                   value="true" ${((options.anatole_style_avatar_circle?if_exists)=='true')?string('checked','')}>
+                                                   code="true" ${((options.anatole_style_avatar_circle?if_exists)=='true')?string('checked','')}>
                                             开启
                                         </label>
                                         <label class="radio-inline">
                                             <input type="radio" name="anatole_style_avatar_circle"
                                                    id="anatoleStyleAvatarCircle"
-                                                   value="false" ${((options.anatole_style_avatar_circle?default('false'))=='false')?string('checked','')}>
+                                                   code="false" ${((options.anatole_style_avatar_circle?default('false'))=='false')?string('checked','')}>
                                             关闭
                                         </label>
                                     </div>
@@ -213,12 +213,12 @@
                                     <div class="col-sm-8">
                                         <label class="radio-inline">
                                             <input type="radio" name="anatole_style_hitokoto" id="anatoleStyleHitokoto"
-                                                   value="true" ${((options.anatole_style_hitokoto?if_exists)=='true')?string('checked','')}>
+                                                   code="true" ${((options.anatole_style_hitokoto?if_exists)=='true')?string('checked','')}>
                                             开启
                                         </label>
                                         <label class="radio-inline">
                                             <input type="radio" name="anatole_style_hitokoto" id="anatoleStyleHitokoto"
-                                                   value="false" ${((options.anatole_style_hitokoto?default('false'))=='false')?string('checked','')}>
+                                                   code="false" ${((options.anatole_style_hitokoto?default('false'))=='false')?string('checked','')}>
                                             关闭
                                         </label>
                                     </div>
@@ -228,7 +228,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleStyleGoogleColor"
                                                name="anatole_style_google_color"
-                                               value="${options.anatole_style_google_color?default("#fff")}">
+                                               code="${options.anatole_style_google_color?default("#fff")}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -236,7 +236,7 @@
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="anatoleStyleScrollbar"
                                                name="anatole_style_scrollbar"
-                                               value="${options.anatole_style_scrollbar?default("#3798e8")}">
+                                               code="${options.anatole_style_scrollbar?default("#3798e8")}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -280,8 +280,8 @@
     </div>
 </div>
 </body>
-<script src="/static/plugins/jquery/jquery.min.js"></script>
-<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/plugins/jquery/3.2.1/jquery.min.js"></script>
+<script src="/static/plugins/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/static/plugins/toast/js/jquery.toast.min.js"></script>
 <script src="/static/plugins/layer/layer.js"></script>
 <script src="/static/js/app.js"></script>

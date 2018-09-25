@@ -10,9 +10,9 @@ package cn.mingyuliu.halo.model.dto;
  */
 public interface LogsRecord {
 
-    String INSTALL = "初始化博客";
+    String INSTALL = "安装博客";
 
-    String LOGIN = "登录后台";
+    String LOGIN = "登录管理控制台";
 
     String LOGIN_SUCCESS = "登录成功";
 

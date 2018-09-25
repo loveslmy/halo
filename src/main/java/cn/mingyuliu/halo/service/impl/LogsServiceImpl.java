@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ import java.util.Optional;
 @Service
 public class LogsServiceImpl implements LogsService {
 
-    @Autowired
+    @Resource
     private LogsRepository logsRepository;
 
     /**

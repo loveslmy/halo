@@ -2,14 +2,15 @@ package cn.mingyuliu.halo.web.controller.api;
 
 import cn.mingyuliu.halo.model.domain.Category;
 import cn.mingyuliu.halo.model.dto.JsonResult;
-import cn.mingyuliu.halo.model.enums.ResponseStatusEnum;
-import cn.mingyuliu.halo.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
+import cn.mingyuliu.halo.service.ICategoryService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -24,8 +25,8 @@ import java.util.List;
 @RequestMapping(value = "/api/categories")
 public class ApiCategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+    @Resource
+    private ICategoryService categoryService;
 
     /**
      * 获取所有分类
@@ -33,13 +34,12 @@ public class ApiCategoryController {
      * @return JsonResult
      */
     @GetMapping
-    public JsonResult categories() {
+    public JsonResult<List<Category>> categories() {
         List<Category> categories = categoryService.findAllCategories();
-        if (null != categories && categories.size() > 0) {
-            return new JsonResult(ResponseStatusEnum.SUCCESS.getCode(), ResponseStatusEnum.SUCCESS.getMsg(), categories);
-        } else {
-            return new JsonResult(ResponseStatusEnum.EMPTY.getCode(), ResponseStatusEnum.EMPTY.getMsg());
+        if (CollectionUtils.isNotEmpty(categories)) {
+            new JsonResult<>(ResponseStatus.SUCCESS, categories);
         }
+        return new JsonResult<>(ResponseStatus.EMPTY);
     }
 
     /**
@@ -49,12 +49,12 @@ public class ApiCategoryController {
      * @return JsonResult
      */
     @GetMapping(value = "/{cateUrl}")
-    public JsonResult categories(@PathVariable("cateUrl") String cateUrl) {
+    public JsonResult<Category> categories(@PathVariable("cateUrl") String cateUrl) {
         Category category = categoryService.findByCateUrl(cateUrl);
         if (null != category) {
-            return new JsonResult(ResponseStatusEnum.SUCCESS.getCode(), ResponseStatusEnum.SUCCESS.getMsg(), category);
-        } else {
-            return new JsonResult(ResponseStatusEnum.EMPTY.getCode(), ResponseStatusEnum.EMPTY.getMsg());
+            new JsonResult<>(ResponseStatus.SUCCESS, ResponseStatus.SUCCESS.getMsg(), category);
         }
+        return new JsonResult<>(ResponseStatus.EMPTY);
     }
+
 }

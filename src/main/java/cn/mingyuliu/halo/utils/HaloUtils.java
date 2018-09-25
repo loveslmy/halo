@@ -1,9 +1,7 @@
 package cn.mingyuliu.halo.utils;
 
 import cn.mingyuliu.halo.model.domain.Post;
-import cn.mingyuliu.halo.model.dto.HaloConst;
 import cn.mingyuliu.halo.model.dto.Theme;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
 import cn.mingyuliu.halo.model.enums.CommonParamsEnum;
 import com.sun.syndication.io.FeedException;
 import io.github.biezhi.ome.OhMyEmail;
@@ -19,11 +17,7 @@ import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -232,12 +226,6 @@ public class HaloUtils {
         return tpls;
     }
 
-    public static String getStringDate(Date date, String format) {
-        long unixTime = Long.parseLong(String.valueOf(date.getTime() / 1000));
-        return Instant.ofEpochSecond(unixTime).atZone(ZoneId.systemDefault())
-                .format(DateTimeFormatter.ofPattern(format));
-    }
-
     /**
      * 导出为文件
      *
@@ -277,20 +265,20 @@ public class HaloUtils {
      */
     public static String getRss(List<Post> posts) throws FeedException {
     /*    Channel channel = new Channel("rss_2.0");
-        if (null == HaloConst.OPTIONS.get(OptionEnum.BLOG_TITLE.getProp())) {
+        if (null == HaloConst.OPTIONS.get(Option.BLOG_TITLE.getProp())) {
             channel.setTitle("");
         } else {
-            channel.setTitle(HaloConst.OPTIONS.get(OptionEnum.BLOG_TITLE.getProp()));
+            channel.setTitle(HaloConst.OPTIONS.get(Option.BLOG_TITLE.getProp()));
         }
-        if (null == HaloConst.OPTIONS.get(OptionEnum.BLOG_URL.getProp())) {
+        if (null == HaloConst.OPTIONS.get(Option.BLOG_URL.getProp())) {
             channel.setLink("");
         } else {
-            channel.setLink(HaloConst.OPTIONS.get(OptionEnum.BLOG_URL.getProp()));
+            channel.setLink(HaloConst.OPTIONS.get(Option.BLOG_URL.getProp()));
         }
-        if (null == HaloConst.OPTIONS.get(OptionEnum.SEO_DESC.getProp())) {
+        if (null == HaloConst.OPTIONS.get(Option.SEO_DESC.getProp())) {
             channel.setDescription("");
         } else {
-            channel.setDescription(HaloConst.OPTIONS.get(OptionEnum.SEO_DESC.getProp()));
+            channel.setDescription(HaloConst.OPTIONS.get(Option.SEO_DESC.getProp()));
         }
         channel.setLanguage("zh-CN");
         List<Item> items = new ArrayList<>();
@@ -310,7 +298,7 @@ public class HaloUtils {
             value = new String(xmlChar);
             content.set(value);
             item.setContent(content);
-            item.setLink(HaloConst.OPTIONS.get(OptionEnum.BLOG_URL.getProp()) + "/archives/"
+            item.setLink(HaloConst.OPTIONS.get(Option.BLOG_URL.getProp()) + "/archives/"
                     + post.getPostUrl());
             item.setPubDate(post.getPostDate());
             items.add(item);

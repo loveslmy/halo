@@ -108,7 +108,7 @@
                     codeFold         : true,
                     searchReplace    : true,
                     placeholder      : "Enjoy coding!",
-                    value            : (localStorage.mode) ? $("#"+localStorage.mode.replace("text/", "")+"-code").val() : $("#html-code").val(),
+                    code            : (localStorage.mode) ? $("#"+localStorage.mode.replace("text/", "")+"-code").val() : $("#html-code").val(),
                     theme            : (localStorage.theme) ? localStorage.theme : "default",
                     mode             : (localStorage.mode) ? localStorage.mode : "text/html"
                 });

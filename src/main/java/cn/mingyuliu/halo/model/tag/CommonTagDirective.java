@@ -3,9 +3,9 @@ package cn.mingyuliu.halo.model.tag;
 import cn.mingyuliu.halo.service.*;
 import freemarker.core.Environment;
 import freemarker.template.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Map;
 
@@ -22,19 +22,19 @@ public class CommonTagDirective implements TemplateDirectiveModel {
 
     private static final String METHOD_KEY = "method";
 
-    @Autowired
+    @Resource
     private MenuService menuService;
 
-    @Autowired
-    private CategoryService categoryService;
+    @Resource
+    private ICategoryService categoryService;
 
-    @Autowired
+    @Resource
     private CommentService commentService;
 
-    @Autowired
+    @Resource
     private TagService tagService;
 
-    @Autowired
+    @Resource
     private LinkService linkService;
 
     @Override

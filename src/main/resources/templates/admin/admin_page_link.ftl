@@ -23,21 +23,21 @@
                         <#if updateLink??>
                             <div class="box-header with-border"><h3 class="box-title">修改友情链接</h3></div>
                             <form action="/admin/page/links/save" method="post" role="form" onsubmit="return isNull()">
-                                <input type="hidden" name="linkId" value="${updateLink.linkId?c}">
+                                <input type="hidden" name="linkId" code="${updateLink.linkId?c}">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">网站名称</label>
-                                        <input type="text" class="form-control" id="linkName" name="linkName" value="${updateLink.linkName}">
+                                        <input type="text" class="form-control" id="linkName" name="linkName" code="${updateLink.linkName}">
                                         <small>好友的网站名称</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">网址</label>
-                                        <input type="url" class="form-control" id="linkUrl" name="linkUrl" value="${updateLink.linkUrl}">
+                                        <input type="url" class="form-control" id="linkUrl" name="linkUrl" code="${updateLink.linkUrl}">
                                         <small>*需要加上http://或https://</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">LOGO</label>
-                                        <input type="text" class="form-control" id="linkPic" name="linkPic" value="${updateLink.linkPic}">
+                                        <input type="text" class="form-control" id="linkPic" name="linkPic" code="${updateLink.linkPic}">
                                         <small>*LOGO链接地址，需要加上http://或https://，在部分主题可显示</small>
                                     </div>
                                     <div class="form-group">

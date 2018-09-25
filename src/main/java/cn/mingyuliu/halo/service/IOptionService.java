@@ -1,10 +1,9 @@
 package cn.mingyuliu.halo.service;
 
 import cn.mingyuliu.halo.model.domain.Options;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
+import cn.mingyuliu.halo.model.enums.Option;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <pre>
@@ -19,18 +18,18 @@ public interface IOptionService {
     /**
      * 保存单个选项
      *
-     * @param option {@link OptionEnum}
+     * @param option {@link Option}
      * @param value  value
      */
-    Options saveOption(OptionEnum option, String value);
+    Options saveOption(Option option, String value);
 
     /**
      * 根据OptionEnum查询选项
      *
-     * @param option {@link OptionEnum}
+     * @param option {@link Option}
      * @return {@link Options}
      */
-    Options findOneOption(OptionEnum option);
+    Options findOneOption(Option option);
 
     /**
      * 查询所有选项

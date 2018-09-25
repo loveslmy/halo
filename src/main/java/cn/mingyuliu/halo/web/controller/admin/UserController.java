@@ -2,8 +2,8 @@ package cn.mingyuliu.halo.web.controller.admin;
 
 import cn.mingyuliu.halo.model.domain.User;
 import cn.mingyuliu.halo.model.dto.JsonResult;
-import cn.mingyuliu.halo.model.enums.ResultCodeEnum;
-import cn.mingyuliu.halo.service.UserService;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
+import cn.mingyuliu.halo.service.IUserService;
 import freemarker.template.Configuration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -29,10 +30,10 @@ import javax.validation.Valid;
 @RequestMapping(value = "/admin/profile")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    @Resource
+    private IUserService userService;
 
-    @Autowired
+    @Resource
     private Configuration configuration;
 
     /**
@@ -58,17 +59,17 @@ public class UserController {
         try {
             if (result.hasErrors()) {
                 for (ObjectError error : result.getAllErrors()) {
-                    return new JsonResult(ResultCodeEnum.FAIL.getCode(), error.getDefaultMessage());
+                    return new JsonResult<>(ResponseStatus.FAIL, error.getDefaultMessage());
                 }
             }
             userService.saveByUser(user);
-            configuration.setSharedVariable("user", userService.findUser());
+            configuration.setSharedVariable("user", userService.findOwnerUser());
             session.invalidate();
         } catch (Exception e) {
             log.error("修改用户资料失败：{}", e.getMessage());
-            return new JsonResult(ResultCodeEnum.FAIL.getCode(), "修改失败！");
+            return new JsonResult<>(ResponseStatus.FAIL, "修改失败！");
         }
-        return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "修改成功！");
+        return new JsonResult<>(ResponseStatus.SUCCESS, "修改成功！");
     }
 
     /**
@@ -93,13 +94,13 @@ public class UserController {
                 userService.saveByUser(user);
                 session.invalidate();
             } else {
-                return new JsonResult(ResultCodeEnum.FAIL.getCode(), "原密码错误！");
+                return new JsonResult<>(ResponseStatus.FAIL, "原密码错误！");
             }
         } catch (Exception e) {
             log.error("修改密码失败：{}", e.getMessage());
-            return new JsonResult(ResultCodeEnum.FAIL.getCode(), "密码修改失败！");
+            return new JsonResult<>(ResponseStatus.FAIL, "密码修改失败！");
         }
-        return new JsonResult(ResultCodeEnum.SUCCESS.getCode(), "修改密码成功！");
+        return new JsonResult<>(ResponseStatus.SUCCESS, "修改密码成功！");
     }
 
 }

@@ -2,13 +2,14 @@ package cn.mingyuliu.halo.web.controller.api;
 
 import cn.mingyuliu.halo.model.dto.Archive;
 import cn.mingyuliu.halo.model.dto.JsonResult;
-import cn.mingyuliu.halo.model.enums.ResponseStatusEnum;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
 import cn.mingyuliu.halo.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ import java.util.List;
 @RequestMapping(value = "/api/archives")
 public class ApiArchivesController {
 
-    @Autowired
+    @Resource
     private PostService postService;
 
     /**
@@ -34,11 +35,10 @@ public class ApiArchivesController {
     @GetMapping(value = "/year")
     public JsonResult archivesYear() {
         List<Archive> archives = postService.findPostGroupByYear();
-        if (null != archives && archives.size() > 0) {
-            return new JsonResult(ResponseStatusEnum.SUCCESS.getCode(), ResponseStatusEnum.SUCCESS.getMsg(), archives);
-        } else {
-            return new JsonResult(ResponseStatusEnum.EMPTY.getCode(), ResponseStatusEnum.EMPTY.getMsg());
+        if (CollectionUtils.isNotEmpty(archives)) {
+            new JsonResult<>(ResponseStatus.SUCCESS, archives);
         }
+        return JsonResult.EMPTY;
     }
 
     /**
@@ -49,10 +49,10 @@ public class ApiArchivesController {
     @GetMapping(value = "/year/month")
     public JsonResult archivesYearAndMonth() {
         List<Archive> archives = postService.findPostGroupByYearAndMonth();
-        if (null != archives && archives.size() > 0) {
-            return new JsonResult(ResponseStatusEnum.SUCCESS.getCode(), ResponseStatusEnum.SUCCESS.getMsg(), archives);
-        } else {
-            return new JsonResult(ResponseStatusEnum.EMPTY.getCode(), ResponseStatusEnum.EMPTY.getMsg());
+        if (CollectionUtils.isNotEmpty(archives)) {
+            new JsonResult<>(ResponseStatus.SUCCESS, archives);
         }
+        return JsonResult.EMPTY;
     }
+
 }

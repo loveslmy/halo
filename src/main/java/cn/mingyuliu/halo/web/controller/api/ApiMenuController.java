@@ -2,13 +2,14 @@ package cn.mingyuliu.halo.web.controller.api;
 
 import cn.mingyuliu.halo.model.domain.Menu;
 import cn.mingyuliu.halo.model.dto.JsonResult;
-import cn.mingyuliu.halo.model.enums.ResponseStatusEnum;
+import cn.mingyuliu.halo.model.enums.ResponseStatus;
 import cn.mingyuliu.halo.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ import java.util.List;
 @RequestMapping(value = "/api/menus")
 public class ApiMenuController {
 
-    @Autowired
+    @Resource
     private MenuService menuService;
 
     /**
@@ -35,9 +36,9 @@ public class ApiMenuController {
     public JsonResult menus() {
         List<Menu> menus = menuService.findAllMenus();
         if (null != menus && menus.size() > 0) {
-            return new JsonResult(ResponseStatusEnum.SUCCESS.getCode(), ResponseStatusEnum.SUCCESS.getMsg(), menus);
+            return new JsonResult<>(ResponseStatus.SUCCESS, ResponseStatus.SUCCESS.getMsg(), menus);
         } else {
-            return new JsonResult(ResponseStatusEnum.EMPTY.getCode(), ResponseStatusEnum.EMPTY.getMsg());
+            return new JsonResult<>(ResponseStatus.EMPTY, ResponseStatus.EMPTY.getMsg());
         }
     }
 }

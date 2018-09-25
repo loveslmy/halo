@@ -1,12 +1,11 @@
 package cn.mingyuliu.halo.web.controller.front;
 
-import cn.mingyuliu.halo.config.OptionHolder;
+import cn.mingyuliu.halo.config.sys.OptionHolder;
 import cn.mingyuliu.halo.model.domain.Post;
-import cn.mingyuliu.halo.model.enums.OptionEnum;
-import cn.mingyuliu.halo.model.enums.PostStatusEnum;
+import cn.mingyuliu.halo.model.enums.Option;
+import cn.mingyuliu.halo.model.enums.PostStatus;
 import cn.mingyuliu.halo.service.PostService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,14 +42,14 @@ public class FrontOthersController {
     @GetMapping(value = {"feed", "feed.xml", "atom", "atom.xml"}, produces = "application/xml;charset=UTF-8")
     @ResponseBody
     public String feed() {
-        String rssPosts = optionHolder.get(OptionEnum.RSS_POSTS);
+        String rssPosts = optionHolder.get(Option.RSS_POSTS);
         if (StringUtils.isBlank(rssPosts)) {
             rssPosts = "20";
         }
         //获取文章列表并根据时间排序
         Sort sort = new Sort(Sort.Direction.DESC, "postDate");
         Pageable pageable = PageRequest.of(0, Integer.parseInt(rssPosts), sort);
-        Page<Post> postsPage = postService.findPostByStatus(PostStatusEnum.PUBLISHED, pageable);
+        Page<Post> postsPage = postService.findPostByStatus(PostStatus.PUBLISHED, pageable);
         List<Post> posts = postsPage.getContent();
         return postService.buildRss(posts);
     }
@@ -66,7 +65,7 @@ public class FrontOthersController {
         //获取文章列表并根据时间排序
         Sort sort = new Sort(Sort.Direction.DESC, "postDate");
         Pageable pageable = PageRequest.of(0, 999, sort);
-        Page<Post> postsPage = postService.findPostByStatus(PostStatusEnum.PUBLISHED, pageable);
+        Page<Post> postsPage = postService.findPostByStatus(PostStatus.PUBLISHED, pageable);
         List<Post> posts = postsPage.getContent();
         return postService.buildSiteMap(posts);
     }
