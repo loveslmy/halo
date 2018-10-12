@@ -15,13 +15,13 @@ import org.springframework.context.ApplicationContext;
  * @date : 2018/09/03
  */
 @Slf4j
-@SpringBootApplication(excludeName = {"cn.mingyuliu.halo.web.controller.*"} )
+@SpringBootApplication(excludeName = {"cn.mingyuliu.halo.controller.*"} )
 @EnableCaching
 public class Application {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(Application.class, args);
-        String serverPort = context.getEnvironment().getProperty("http.port");
+        String serverPort = context.getEnvironment().getProperty("server.port");
         log.info("Halo started at http://127.0.0.1:" + serverPort);
     }
 

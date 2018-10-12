@@ -1,15 +1,9 @@
 application:
   name: halo
   formatted-version: 1.0.0-SNAPSHOT
-http:
-  port: 80
 server:
-  port: 443
+  port: 2080
   use-forward-headers: true
-  ssl:
-    key-store: 214948636630345.jks
-    key-store-type: JKS
-    key-password: 214948636630345
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -32,16 +26,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-  freemarker:
-    allow-request-override: false
-    cache: false
-    check-template-location: true
-    charset: utf-8
-    content-type: text/html
-    expose-request-attributes: false
-    expose-session-attributes: false
-    expose-spring-macro-helpers: false
-    suffix: .ftl
   servlet:
     multipart:
       max-file-size: 10MB

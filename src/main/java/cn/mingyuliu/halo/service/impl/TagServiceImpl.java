@@ -1,9 +1,8 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.model.domain.Tag;
-import cn.mingyuliu.halo.repository.TagRepository;
+import cn.mingyuliu.halo.common.entity.Tag;
+import cn.mingyuliu.halo.common.repository.TagRepository;
 import cn.mingyuliu.halo.service.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -1,9 +1,8 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.model.domain.OpLog;
-import cn.mingyuliu.halo.repository.LogsRepository;
+import cn.mingyuliu.halo.common.entity.OpLog;
+import cn.mingyuliu.halo.common.repository.LogsRepository;
 import cn.mingyuliu.halo.service.LogsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

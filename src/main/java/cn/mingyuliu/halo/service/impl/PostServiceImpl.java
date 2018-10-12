@@ -1,13 +1,13 @@
 package cn.mingyuliu.halo.service.impl;
 
 import cn.mingyuliu.halo.config.sys.OptionHolder;
-import cn.mingyuliu.halo.model.domain.Category;
-import cn.mingyuliu.halo.model.domain.Post;
-import cn.mingyuliu.halo.model.domain.Tag;
-import cn.mingyuliu.halo.model.dto.Archive;
-import cn.mingyuliu.halo.model.enums.Option;
-import cn.mingyuliu.halo.model.enums.PostStatus;
-import cn.mingyuliu.halo.repository.PostRepository;
+import cn.mingyuliu.halo.common.entity.Category;
+import cn.mingyuliu.halo.common.entity.Post;
+import cn.mingyuliu.halo.common.entity.Tag;
+import cn.mingyuliu.halo.common.dto.Archive;
+import cn.mingyuliu.halo.common.enums.Option;
+import cn.mingyuliu.halo.common.enums.PostStatus;
+import cn.mingyuliu.halo.common.repository.PostRepository;
 import cn.mingyuliu.halo.service.PostService;
 import cn.mingyuliu.halo.utils.HaloUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;

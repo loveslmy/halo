@@ -1,9 +1,8 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.model.domain.Link;
-import cn.mingyuliu.halo.repository.LinkRepository;
+import cn.mingyuliu.halo.common.entity.Link;
+import cn.mingyuliu.halo.common.repository.LinkRepository;
 import cn.mingyuliu.halo.service.LinkService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

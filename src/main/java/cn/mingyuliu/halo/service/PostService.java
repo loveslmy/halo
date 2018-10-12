@@ -1,10 +1,10 @@
 package cn.mingyuliu.halo.service;
 
-import cn.mingyuliu.halo.model.domain.Category;
-import cn.mingyuliu.halo.model.domain.Post;
-import cn.mingyuliu.halo.model.domain.Tag;
-import cn.mingyuliu.halo.model.dto.Archive;
-import cn.mingyuliu.halo.model.enums.PostStatus;
+import cn.mingyuliu.halo.common.entity.Category;
+import cn.mingyuliu.halo.common.entity.Post;
+import cn.mingyuliu.halo.common.entity.Tag;
+import cn.mingyuliu.halo.common.dto.Archive;
+import cn.mingyuliu.halo.common.enums.PostStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

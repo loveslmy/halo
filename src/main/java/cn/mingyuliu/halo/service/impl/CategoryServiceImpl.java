@@ -1,7 +1,7 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.model.domain.Category;
-import cn.mingyuliu.halo.repository.CategoryRepository;
+import cn.mingyuliu.halo.common.entity.Category;
+import cn.mingyuliu.halo.common.repository.CategoryRepository;
 import cn.mingyuliu.halo.service.ICategoryService;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static cn.mingyuliu.halo.model.dto.HaloConst.DEFAULT_CATEGORY_URL;
+import static cn.mingyuliu.halo.common.dto.HaloConst.DEFAULT_CATEGORY_URL;
 
 /**
  * <pre>

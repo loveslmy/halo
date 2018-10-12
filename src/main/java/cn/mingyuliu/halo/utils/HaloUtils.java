@@ -1,8 +1,8 @@
 package cn.mingyuliu.halo.utils;
 
-import cn.mingyuliu.halo.model.domain.Post;
-import cn.mingyuliu.halo.model.dto.Theme;
-import cn.mingyuliu.halo.model.enums.CommonParamsEnum;
+import cn.mingyuliu.halo.common.entity.Post;
+import cn.mingyuliu.halo.common.dto.Theme;
+import cn.mingyuliu.halo.common.enums.CommonParams;
 import com.sun.syndication.io.FeedException;
 import io.github.biezhi.ome.OhMyEmail;
 import lombok.extern.slf4j.Slf4j;
@@ -116,17 +116,17 @@ public class HaloUtils {
      * @return String
      */
     public static String parseSize(long size) {
-        if (size < CommonParamsEnum.NOT_FOUND.getValue()) {
+        if (size < CommonParams.NOT_FOUND.getValue()) {
             return String.valueOf(size) + "B";
         } else {
             size = size / 1024;
         }
-        if (size < CommonParamsEnum.NOT_FOUND.getValue()) {
+        if (size < CommonParams.NOT_FOUND.getValue()) {
             return String.valueOf(size) + "KB";
         } else {
             size = size / 1024;
         }
-        if (size < CommonParamsEnum.NOT_FOUND.getValue()) {
+        if (size < CommonParams.NOT_FOUND.getValue()) {
             size = size * 100;
             return String.valueOf((size / 100)) + "." + String.valueOf((size % 100)) + "MB";
         } else {

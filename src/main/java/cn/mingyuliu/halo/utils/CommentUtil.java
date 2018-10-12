@@ -1,6 +1,6 @@
 package cn.mingyuliu.halo.utils;
 
-import cn.mingyuliu.halo.model.domain.Comment;
+import cn.mingyuliu.halo.common.entity.Comment;
 
 import java.util.ArrayList;
 import java.util.List;

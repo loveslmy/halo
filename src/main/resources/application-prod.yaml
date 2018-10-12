@@ -1,0 +1,27 @@
+http:
+  port: 80
+server:
+  port: 443
+  ssl:
+    key-store: 214948636630345.jks
+    key-store-type: JKS
+    key-password: 214948636630345
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/halo?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+    username: root
+    password: Loveslmy_520
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 5
+      max-wait: 2000
+      validation-query: select 1 from dual
+      test-while-idle: false
+      test-on-borrow: true
+      test-on-return: false
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false

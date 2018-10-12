@@ -1,8 +1,8 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.model.domain.Options;
-import cn.mingyuliu.halo.model.enums.Option;
-import cn.mingyuliu.halo.repository.OptionsRepository;
+import cn.mingyuliu.halo.common.entity.Options;
+import cn.mingyuliu.halo.common.enums.Option;
+import cn.mingyuliu.halo.common.repository.OptionsRepository;
 import cn.mingyuliu.halo.service.IOptionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

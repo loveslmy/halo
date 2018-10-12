@@ -1,9 +1,8 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.model.domain.Gallery;
-import cn.mingyuliu.halo.repository.GalleryRepository;
+import cn.mingyuliu.halo.common.entity.Gallery;
+import cn.mingyuliu.halo.common.repository.GalleryRepository;
 import cn.mingyuliu.halo.service.GalleryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;

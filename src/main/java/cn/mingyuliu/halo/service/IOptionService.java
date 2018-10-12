@@ -1,7 +1,7 @@
 package cn.mingyuliu.halo.service;
 
-import cn.mingyuliu.halo.model.domain.Options;
-import cn.mingyuliu.halo.model.enums.Option;
+import cn.mingyuliu.halo.common.entity.Options;
+import cn.mingyuliu.halo.common.enums.Option;
 
 import java.util.List;
 

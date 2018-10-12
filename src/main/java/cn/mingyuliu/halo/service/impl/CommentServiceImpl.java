@@ -1,10 +1,9 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.model.domain.Comment;
-import cn.mingyuliu.halo.model.domain.Post;
-import cn.mingyuliu.halo.repository.CommentRepository;
+import cn.mingyuliu.halo.common.entity.Comment;
+import cn.mingyuliu.halo.common.entity.Post;
+import cn.mingyuliu.halo.common.repository.CommentRepository;
 import cn.mingyuliu.halo.service.CommentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;

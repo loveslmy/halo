@@ -1,6 +1,6 @@
 package cn.mingyuliu.halo.utils;
 
-import cn.mingyuliu.halo.model.dto.HaloConst;
+import cn.mingyuliu.halo.common.dto.HaloConst;
 import lombok.extern.slf4j.Slf4j;
 
 /**

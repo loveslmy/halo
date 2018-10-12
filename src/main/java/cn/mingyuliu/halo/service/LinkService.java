@@ -1,6 +1,6 @@
 package cn.mingyuliu.halo.service;
 
-import cn.mingyuliu.halo.model.domain.Link;
+import cn.mingyuliu.halo.common.entity.Link;
 
 import java.util.List;
 import java.util.Optional;

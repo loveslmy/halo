@@ -1,9 +1,8 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.model.domain.Attachment;
-import cn.mingyuliu.halo.repository.AttachmentRepository;
+import cn.mingyuliu.halo.common.entity.Attachment;
+import cn.mingyuliu.halo.common.repository.AttachmentRepository;
 import cn.mingyuliu.halo.service.AttachmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;

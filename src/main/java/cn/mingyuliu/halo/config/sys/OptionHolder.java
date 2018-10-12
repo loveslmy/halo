@@ -1,7 +1,7 @@
 package cn.mingyuliu.halo.config.sys;
 
-import cn.mingyuliu.halo.model.domain.Options;
-import cn.mingyuliu.halo.model.enums.Option;
+import cn.mingyuliu.halo.common.entity.Options;
+import cn.mingyuliu.halo.common.enums.Option;
 import cn.mingyuliu.halo.service.IOptionService;
 import cn.mingyuliu.halo.utils.Int2ObjectLockMap;
 import cn.mingyuliu.halo.utils.VariableHelper;

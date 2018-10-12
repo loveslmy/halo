@@ -1,16 +1,15 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.model.domain.User;
-import cn.mingyuliu.halo.model.dto.InstallDto;
-import cn.mingyuliu.halo.model.enums.UserType;
-import cn.mingyuliu.halo.repository.UserRepository;
+import cn.mingyuliu.halo.common.entity.User;
+import cn.mingyuliu.halo.common.dto.InstallDto;
+import cn.mingyuliu.halo.common.enums.UserType;
+import cn.mingyuliu.halo.common.repository.UserRepository;
 import cn.mingyuliu.halo.service.IUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <pre>

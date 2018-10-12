@@ -885,7 +885,7 @@ jQuery.ready.promise = function( obj ) {
 			// A fallback to window.onload, that will always work
 			window.addEventListener( "load", jQuery.ready, false );
 
-		// If IE event model is used
+		// If IE event entity is used
 		} else {
 			// Ensure firing before onload, maybe late but safe also for iframes
 			document.attachEvent( "onreadystatechange", DOMContentLoaded );
@@ -1521,7 +1521,7 @@ jQuery.support = (function() {
 
 var rbrace = /(?:\{[\s\S]*\}|\[[\s\S]*\])$/,
 	rmultiDash = /([A-Z])/g;
-	
+
 function internalData( elem, name, data, pvt /* Internal Use Only */ ){
 	if ( !jQuery.acceptData( elem ) ) {
 		return;
@@ -1737,7 +1737,7 @@ jQuery.extend({
 	_data: function( elem, name, data ) {
 		return internalData( elem, name, data, true );
 	},
-	
+
 	_removeData: function( elem, name ) {
 		return internalRemoveData( elem, name, true );
 	},
@@ -7063,7 +7063,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		val = parseFloat( val ) || 0;
 	}
 
-	// use the active box-sizing model to add/subtract irrelevant styles
+	// use the active box-sizing entity to add/subtract irrelevant styles
 	return ( val +
 		augmentWidthOrHeight(
 			elem,
@@ -7365,7 +7365,7 @@ var
 	// Document location
 	ajaxLocParts,
 	ajaxLocation,
-	
+
 	ajax_nonce = jQuery.now(),
 
 	ajax_rquery = /\?/,

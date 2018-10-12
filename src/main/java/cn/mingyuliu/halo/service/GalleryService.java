@@ -1,6 +1,6 @@
 package cn.mingyuliu.halo.service;
 
-import cn.mingyuliu.halo.model.domain.Gallery;
+import cn.mingyuliu.halo.common.entity.Gallery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

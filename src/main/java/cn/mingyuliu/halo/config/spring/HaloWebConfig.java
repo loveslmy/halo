@@ -1,14 +1,10 @@
 package cn.mingyuliu.halo.config.spring;
 
-import cn.mingyuliu.halo.web.interceptor.InstallInterceptor;
-import cn.mingyuliu.halo.web.interceptor.LoginInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.*;
-
-import javax.annotation.Resource;
 
 /**
  * <pre>
@@ -21,15 +17,10 @@ import javax.annotation.Resource;
 @Slf4j
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "cn.mingyuliu.halo.web.controller")
+@ComponentScan(basePackages = "cn.mingyuliu.halo.controller")
 @PropertySource(value = "classpath:application.yaml", ignoreResourceNotFound = true, encoding = "UTF-8")
 public class HaloWebConfig implements WebMvcConfigurer {
 
-    @Resource
-    private LoginInterceptor loginInterceptor;
-
-    @Resource
-    private InstallInterceptor installInterceptor;
 
     /**
      * 注册拦截器
@@ -38,19 +29,6 @@ public class HaloWebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
-        registry.addInterceptor(installInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/install")
-                .excludePathPatterns("/install/do")
-                .excludePathPatterns("/static/**");
-
-        registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/admin/**")
-                .addPathPatterns("/backup/**")
-                .excludePathPatterns("/admin/login")
-                .excludePathPatterns("/admin/getLogin")
-                .excludePathPatterns("/static/**");
     }
 
     /**

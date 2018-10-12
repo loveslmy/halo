@@ -1,6 +1,6 @@
 package cn.mingyuliu.halo.service;
 
-import cn.mingyuliu.halo.model.domain.OpLog;
+import cn.mingyuliu.halo.common.entity.OpLog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

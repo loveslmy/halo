@@ -1,6 +1,6 @@
 package cn.mingyuliu.halo.service;
 
-import cn.mingyuliu.halo.model.domain.Category;
+import cn.mingyuliu.halo.common.entity.Category;
 
 import java.util.List;
 import java.util.Optional;
