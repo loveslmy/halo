@@ -18,7 +18,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "halo_gallery")
+@Table(name = "gallery")
 public class Gallery implements Serializable {
 
     private static final long serialVersionUID = 1646093266970933841L;

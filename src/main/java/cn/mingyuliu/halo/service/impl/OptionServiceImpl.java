@@ -42,7 +42,7 @@ public class OptionServiceImpl implements IOptionService {
         if (null != dbOption) {
             return dbOption;
         }
-        return saveOption(option,StringUtils.EMPTY);
+        return saveOption(option, StringUtils.EMPTY);
     }
 
     @Override

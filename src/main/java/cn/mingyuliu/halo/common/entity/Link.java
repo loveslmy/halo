@@ -18,7 +18,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name = "halo_link")
+@Table(name = "link")
 public class Link implements Serializable {
 
     private static final long serialVersionUID = 5441686055841177588L;

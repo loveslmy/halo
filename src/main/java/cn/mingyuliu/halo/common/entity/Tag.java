@@ -21,8 +21,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "halo_tag")
-public class Tag extends BaseEntity{
+@Table(name = "tag")
+public class Tag extends BaseEntity {
 
     private static final long serialVersionUID = -7501342327884372194L;
 
@@ -33,7 +33,7 @@ public class Tag extends BaseEntity{
     @Column(columnDefinition = "VARCHAR(255) NOT NULL COMMENT '标签路径'", unique = true)
     private String tagUrl;
 
-    @ManyToMany(mappedBy = "tags" , targetEntity = Post.class)
+    @ManyToMany(mappedBy = "tags", targetEntity = Post.class)
     private List<Post> posts;
 
 }

@@ -1,9 +1,9 @@
 package cn.mingyuliu.halo.service;
 
+import cn.mingyuliu.halo.common.dto.Archive;
 import cn.mingyuliu.halo.common.entity.Category;
 import cn.mingyuliu.halo.common.entity.Post;
 import cn.mingyuliu.halo.common.entity.Tag;
-import cn.mingyuliu.halo.common.dto.Archive;
 import cn.mingyuliu.halo.common.enums.PostStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -71,6 +71,7 @@ public interface PostService {
 
     /**
      * 获取文章列表 不分页
+     *
      * @return List
      */
     List<Post> findAllPosts();
@@ -104,7 +105,7 @@ public interface PostService {
     /**
      * 根据文章状态查询
      *
-     * @param status   0，1，2
+     * @param status 0，1，2
      * @return List
      */
     List<Post> findPostByStatus(PostStatus status);
@@ -120,7 +121,7 @@ public interface PostService {
     /**
      * 根据文章路径查询
      *
-     * @param postUrl  路径
+     * @param postUrl 路径
      * @return Post
      */
     Post findByPostUrl(String postUrl);

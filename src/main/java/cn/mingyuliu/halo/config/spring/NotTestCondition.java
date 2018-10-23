@@ -1,4 +1,5 @@
 package cn.mingyuliu.halo.config.spring;
+
 import cn.mingyuliu.halo.common.enums.AllProfiles;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.context.annotation.Condition;

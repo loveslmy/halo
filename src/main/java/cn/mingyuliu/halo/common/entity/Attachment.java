@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Entity
-@Table(name = "halo_attachment")
+@Table(name = "attachment")
 public class Attachment extends BaseEntity {
 
     private static final long serialVersionUID = 3060117944880138064L;

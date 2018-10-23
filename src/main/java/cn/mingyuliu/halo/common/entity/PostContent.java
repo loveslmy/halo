@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Setter
 @ToString(callSuper = true)
 @Entity
-@Table(name = "halo_post_content")
+@Table(name = "post_content")
 public class PostContent extends BaseEntity {
 
     @Lob

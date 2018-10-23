@@ -2,12 +2,14 @@ package cn.mingyuliu.halo.controller.api;
 
 import cn.mingyuliu.halo.common.dto.JsonResult;
 import cn.mingyuliu.halo.common.entity.Menu;
-import cn.mingyuliu.halo.common.enums.MenuType;
 import cn.mingyuliu.halo.common.repository.MenuRepository;
-import cn.mingyuliu.halo.controller.core.BaseController;
+import cn.mingyuliu.halo.controller.BaseController;
 import cn.mingyuliu.halo.service.IMenuService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,7 +33,7 @@ public class MenuController extends BaseController {
     private IMenuService menuService;
 
     /**
-     * 新增或修改菜单
+     * 新增/修改菜单
      *
      * @param menu {@link Menu}
      * @return {@link JsonResult<Menu>}
@@ -48,15 +50,13 @@ public class MenuController extends BaseController {
     /**
      * 根据上级id查询所有子菜单
      *
-     * @param menuType {@link MenuType}
-     * @param parentId parentId
      * @return {@link JsonResult<List<Menu>>}
      */
     @RequestMapping("/findByParentId")
-    public JsonResult<List<Menu>> findByParentId(@RequestParam MenuType menuType, @RequestParam long parentId) {
+    public JsonResult<List<Menu>> findByParentId() {
         try {
             return new JsonResult<>(HttpStatus.OK, menuRepository
-                    .findByMenuTypeAndParentIdOrderByOrderSeq(menuType, parentId));
+                    .findByParentIdIsNullOrderByOrderSeq());
         } catch (Exception e) {
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
         }

@@ -1,7 +1,6 @@
 package cn.mingyuliu.halo.common.repository;
 
 import cn.mingyuliu.halo.common.entity.Menu;
-import cn.mingyuliu.halo.common.enums.MenuType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -17,13 +16,11 @@ import java.util.List;
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     /**
-     * 根据菜单类型和上级id查询所有子菜单
+     * 查找菜单根节点
      *
-     * @param menuType {@link MenuType}
-     * @param parentId parentId
      * @return List<Menu>
      */
-    List<Menu> findByMenuTypeAndParentIdOrderByOrderSeq(MenuType menuType, long parentId);
+    List<Menu> findByParentIdIsNullOrderByOrderSeq();
 
 
 }

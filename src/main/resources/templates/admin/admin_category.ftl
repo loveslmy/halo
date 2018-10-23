@@ -157,8 +157,8 @@
                 window.location.href=url;
             }
             function checkCate() {
-                var name = $('#cateName').val();
-                var url = $('#cateUrl').val();
+                var name = $('#name').val();
+                var url = $('#url').val();
                 var desc = $('#cateDesc').val();
                 var datas = true;
                 if(name==""||url==""||desc==""){

@@ -23,8 +23,8 @@ public interface IMenuService {
     /**
      * 删除菜单
      *
-     * @param menuId menuId
+     * @param id 菜单id
      */
-    void removeByMenuId(long menuId);
+    void removeById(long id);
 
 }

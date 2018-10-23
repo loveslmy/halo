@@ -20,7 +20,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "halo_op_log")
+@Table(name = "op_log")
 public class OpLog extends BaseEntity {
 
     private static final long serialVersionUID = -2571815432301283171L;

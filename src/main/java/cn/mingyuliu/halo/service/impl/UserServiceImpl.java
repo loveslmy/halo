@@ -1,7 +1,7 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.common.entity.User;
 import cn.mingyuliu.halo.common.dto.InstallDto;
+import cn.mingyuliu.halo.common.entity.User;
 import cn.mingyuliu.halo.common.enums.UserType;
 import cn.mingyuliu.halo.common.repository.UserRepository;
 import cn.mingyuliu.halo.service.IUserService;

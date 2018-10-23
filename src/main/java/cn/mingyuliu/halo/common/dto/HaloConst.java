@@ -17,7 +17,6 @@ import java.util.Map;
  * @date : 2017/12/29
  */
 public class HaloConst {
-
     /**
      * 文章排序
      */

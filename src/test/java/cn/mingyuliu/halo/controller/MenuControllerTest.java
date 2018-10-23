@@ -1,8 +1,8 @@
 package cn.mingyuliu.halo.controller;
 
+import cn.mingyuliu.halo.common.dto.HaloConst;
 import cn.mingyuliu.halo.common.dto.JsonResult;
 import cn.mingyuliu.halo.common.entity.Menu;
-import cn.mingyuliu.halo.common.enums.MenuType;
 import cn.mingyuliu.halo.common.enums.Target;
 import cn.mingyuliu.halo.common.repository.MenuRepository;
 import cn.mingyuliu.halo.test.BaseTest;
@@ -33,37 +33,42 @@ public class MenuControllerTest extends BaseTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testAddMenus() {
+
+        menuRepository.deleteAll();
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        menuRepository.deleteAll();
         Menu index = new Menu();
-        index.setMenuName("首页");
-        index.setMenuUrl("index");
+        index.setName("首页");
+        index.setUrl("/");
         index.setOrderSeq((short) 1);
         index.setTarget(Target.BLANK);
-        HttpEntity<String> entity = new HttpEntity<>(JacksonSerializer.defaultSerializer().serialize(index), headers);
+        index.setActive(true);
+        HttpEntity entity = new HttpEntity<>(JacksonSerializer.defaultSerializer().serialize(index), headers);
         JsonResult rst = testRestTemplate.postForObject("/api/menus/saveOrModify", entity, JsonResult.class);
         Assert.assertEquals(HttpStatus.OK, rst.getStatus());
 
         Menu link = new Menu();
-        link.setMenuName("技术文章");
-        link.setMenuUrl("Posts");
+        link.setName("技术文章");
+        link.setUrl("/post");
         link.setOrderSeq((short) 1);
         link.setTarget(Target.BLANK);
+        link.setActive(true);
         entity = new HttpEntity<>(JacksonSerializer.defaultSerializer().serialize(link), headers);
         rst = testRestTemplate.postForObject("/api/menus/saveOrModify", entity, JsonResult.class);
         Assert.assertEquals(HttpStatus.OK, rst.getStatus());
 
         Menu life = new Menu();
-        life.setMenuName("生活日记");
-        life.setMenuUrl("lifeNote");
+        life.setName("相册");
+        life.setUrl("/album");
         life.setOrderSeq((short) 1);
         life.setTarget(Target.BLANK);
+        life.setActive(true);
         entity = new HttpEntity<>(JacksonSerializer.defaultSerializer().serialize(life), headers);
         rst = testRestTemplate.postForObject("/api/menus/saveOrModify", entity, JsonResult.class);
         Assert.assertEquals(HttpStatus.OK, rst.getStatus());
 
-        List<Menu> menus = menuRepository.findByMenuTypeAndParentIdOrderByOrderSeq(MenuType.TOP_NAV, 0);
+        List<Menu> menus = menuRepository.findByParentIdIsNullOrderByOrderSeq();
         Assert.assertEquals(3, menus.size());
 
     }

@@ -15,7 +15,7 @@ import org.springframework.context.ApplicationContext;
  * @date : 2018/09/03
  */
 @Slf4j
-@SpringBootApplication(excludeName = {"cn.mingyuliu.halo.controller.*"} )
+@SpringBootApplication(excludeName = {"cn.mingyuliu.halo.controller.*"})
 @EnableCaching
 public class Application {
 

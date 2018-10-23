@@ -21,7 +21,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "halo_comment")
+@Table(name = "comment")
 public class Comment extends BaseEntity {
 
     private static final long serialVersionUID = -6639021627094260505L;

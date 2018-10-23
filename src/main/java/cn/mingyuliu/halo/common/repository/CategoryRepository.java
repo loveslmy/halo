@@ -3,21 +3,24 @@ package cn.mingyuliu.halo.common.repository;
 import cn.mingyuliu.halo.common.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * <pre>
- *     分类持久层
+ *     分类Repository
  * </pre>
  *
- * @author : RYAN0UP
- * @date : 2017/11/30
+ * @author : liumy2009@126.com
+ * @date : 2018/10/22
  */
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     /**
-     * 根据分类目录路径查询，用于验证是否已经存在该路径
+     * 根据菜单类型和上级id查询所有子菜单
      *
-     * @param cateUrl cateUrl 文章url
-     * @return Category
+     * @param parentId parentId
+     * @return List<Menu>
      */
-    Category findCategoryByCateUrl(String cateUrl);
+    List<Category> findByParentIdOrderByOrderSeq(long parentId);
+
 }

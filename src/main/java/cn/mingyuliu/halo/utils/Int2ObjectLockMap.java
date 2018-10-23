@@ -10,7 +10,7 @@ import java.util.concurrent.locks.StampedLock;
  * @author cuiyt
  * @date 2018年2月5日
  */
-public class Int2ObjectLockMap<V> extends Int2ObjectOpenHashMap<V>{
+public class Int2ObjectLockMap<V> extends Int2ObjectOpenHashMap<V> {
     private final StampedLock sl = new StampedLock();
 
     public Int2ObjectLockMap(int expected) {

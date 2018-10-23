@@ -25,7 +25,7 @@ import java.util.Date;
 @Setter
 @ToString(callSuper = true)
 @Entity
-@Table(name = "halo_user")
+@Table(name = "user")
 public class User extends BaseEntity {
 
     private static final long serialVersionUID = -5144055068797033748L;

@@ -1,4 +1,4 @@
-package cn.mingyuliu.halo.controller.core;
+package cn.mingyuliu.halo.controller;
 
 import cn.mingyuliu.halo.config.sys.OptionHolder;
 

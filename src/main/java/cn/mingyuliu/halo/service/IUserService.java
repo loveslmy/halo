@@ -1,7 +1,7 @@
 package cn.mingyuliu.halo.service;
 
-import cn.mingyuliu.halo.common.entity.User;
 import cn.mingyuliu.halo.common.dto.InstallDto;
+import cn.mingyuliu.halo.common.entity.User;
 
 import java.util.Date;
 

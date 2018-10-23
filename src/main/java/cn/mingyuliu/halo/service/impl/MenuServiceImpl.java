@@ -34,13 +34,11 @@ public class MenuServiceImpl implements IMenuService {
     /**
      * (non-Javadoc)
      *
-     * @see IMenuService#removeByMenuId(long)
+     * @see IMenuService#removeById(long)
      */
     @Override
-    public void removeByMenuId(long menuId) {
-        Menu menu = menuRepository.getOne(menuId);
-        menuRepository.delete(menu);
+    public void removeById(long menuId) {
+        menuRepository.deleteById(menuId);
     }
-
 
 }

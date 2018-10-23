@@ -21,7 +21,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "halo_post")
+@Table(name = "post")
 public class Post extends BaseEntity {
 
     private static final long serialVersionUID = -6019684584665869629L;
@@ -62,7 +62,7 @@ public class Post extends BaseEntity {
      * 文章所属分类
      */
     @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, targetEntity = Category.class)
-    @JoinTable(name = "halo_posts_categories",
+    @JoinTable(name = "posts_categories",
             joinColumns = {@JoinColumn(name = "post_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "cate_id", nullable = false)})
     private List<Category> categories;
@@ -71,7 +71,7 @@ public class Post extends BaseEntity {
      * 文章所属标签
      */
     @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, targetEntity = Tag.class)
-    @JoinTable(name = "halo_posts_tags",
+    @JoinTable(name = "posts_tags",
             joinColumns = {@JoinColumn(name = "post_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "tag_id", nullable = false)})
     private List<Tag> tags;

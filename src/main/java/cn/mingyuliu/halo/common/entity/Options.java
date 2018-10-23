@@ -18,12 +18,12 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name = "halo_options")
+@Table(name = "options")
 public class Options implements Serializable {
 
     private static final long serialVersionUID = -4065369084341893446L;
 
-    public Options(){
+    public Options() {
 
     }
 
