@@ -10,13 +10,24 @@ import java.util.Map;
 
 /**
  * <pre>
- *     公共常量
+ *     Halo常量
  * </pre>
  *
- * @author : RYAN0UP
- * @date : 2017/12/29
+ * @author : liumy2009@126.com
+ * @since : 2018/10/25
  */
 public class HaloConst {
+
+    /**
+     * 后台菜单root节点
+     */
+    public static long MANAGEMENT_MENU_ROOT_ID = -1L;
+
+    /**
+     * 前端菜单root节点
+     */
+    public static long FRONT_MENU_ROOT_ID = 0L;
+
     /**
      * 文章排序
      */

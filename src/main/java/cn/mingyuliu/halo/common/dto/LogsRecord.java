@@ -6,7 +6,7 @@ package cn.mingyuliu.halo.common.dto;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2018/1/19
+ * @since : 2018/1/19
  */
 public interface LogsRecord {
 

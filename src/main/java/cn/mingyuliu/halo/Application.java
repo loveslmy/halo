@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/03
+ * @since : 2018/09/03
  */
 @Slf4j
 @SpringBootApplication(excludeName = {"cn.mingyuliu.halo.controller.*"})

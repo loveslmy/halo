@@ -30,7 +30,7 @@ import static org.mockito.Mockito.when;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/03
+ * @since : 2018/09/03
  */
 @RunWith(MockitoJUnitRunner.class)
 public class OptionHolderTest {
@@ -50,7 +50,7 @@ public class OptionHolderTest {
         optionHolder.setOptionService(optionService);
         String value = "true";
         dbOptions = new Options();
-        dbOptions.setOptionName(Option.IS_INSTALL);
+        dbOptions.setOptionName(Option.DATA_IS_INIT);
         dbOptions.setOptionValue(value);
         optionParam = Maps.newHashMap();
         optionParam.put(Option.BLOG_URL.name(), "http://mingyuliu.cn");
@@ -63,8 +63,8 @@ public class OptionHolderTest {
     @Test
     public void testSetAndGet() {
         when(optionsRepository.save(any())).thenReturn(dbOptions);
-        dbOptions = optionHolder.set(Option.IS_INSTALL, dbOptions.getOptionValue());
-        assertTrue(optionHolder.getBoolean(Option.IS_INSTALL));
+        dbOptions = optionHolder.set(Option.DATA_IS_INIT, dbOptions.getOptionValue());
+        assertTrue(optionHolder.getBoolean(Option.DATA_IS_INIT));
     }
 
     @Test
@@ -91,13 +91,13 @@ public class OptionHolderTest {
     @Test
     public void testUnPersistenceGet() {
         when(optionsRepository.findOptionsByOptionName(any())).thenReturn(dbOptions);
-        assertTrue(optionHolder.getBoolean(Option.IS_INSTALL));
+        assertTrue(optionHolder.getBoolean(Option.DATA_IS_INIT));
     }
 
     @Test(expected = NumberFormatException.class)
     public void testParseException() {
         when(optionsRepository.findOptionsByOptionName(any())).thenReturn(dbOptions);
-        optionHolder.getByte(Option.IS_INSTALL);
+        optionHolder.getByte(Option.DATA_IS_INIT);
     }
 
     @Test

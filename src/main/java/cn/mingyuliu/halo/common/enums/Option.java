@@ -8,14 +8,14 @@ import cn.mingyuliu.halo.utils.DataType;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/02
+ * @since : 2018/09/02
  */
 public enum Option {
 
     /**
-     * 是否已经安装
+     * 基础数据是否已经初始化
      */
-    IS_INSTALL(DataType.BOOLEAN, 0),
+    DATA_IS_INIT(DataType.BOOLEAN, 0),
 
 
     /**

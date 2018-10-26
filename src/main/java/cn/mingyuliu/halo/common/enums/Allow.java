@@ -6,7 +6,7 @@ package cn.mingyuliu.halo.common.enums;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/02
+ * @since : 2018/09/02
  */
 public enum Allow {
     /**

@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2017/11/14
+ * @since : 2017/11/14
  */
 public interface OptionsRepository extends JpaRepository<Options, Long> {
 

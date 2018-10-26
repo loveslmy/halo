@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2017/11/14
+ * @since : 2017/11/14
  */
 public interface LinkRepository extends JpaRepository<Link, Long> {
 }

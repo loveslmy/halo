@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2017/12/22
+ * @since : 2017/12/22
  */
 @Slf4j
 public class OwoUtil {

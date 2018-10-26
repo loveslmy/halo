@@ -1,6 +1,5 @@
 package cn.mingyuliu.halo.controller;
 
-import cn.mingyuliu.halo.common.dto.HaloConst;
 import cn.mingyuliu.halo.common.dto.JsonResult;
 import cn.mingyuliu.halo.common.entity.Menu;
 import cn.mingyuliu.halo.common.enums.Target;
@@ -23,7 +22,7 @@ import java.util.List;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/27
+ * @since : 2018/09/27
  */
 public class MenuControllerTest extends BaseTest {
 
@@ -49,7 +48,7 @@ public class MenuControllerTest extends BaseTest {
         Assert.assertEquals(HttpStatus.OK, rst.getStatus());
 
         Menu link = new Menu();
-        link.setName("技术文章");
+        link.setName("文章");
         link.setUrl("/post");
         link.setOrderSeq((short) 1);
         link.setTarget(Target.BLANK);

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
  * 安装信息Model
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/02
+ * @since : 2018/09/02
  */
 @Data
 public class InstallDto {

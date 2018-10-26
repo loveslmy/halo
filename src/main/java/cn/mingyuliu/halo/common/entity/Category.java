@@ -1,5 +1,6 @@
 package cn.mingyuliu.halo.common.entity;
 
+import cn.mingyuliu.halo.common.enums.CategoryType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +14,7 @@ import java.util.Set;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/10/22
+ * @since : 2018/10/22
  */
 @Getter
 @Setter
@@ -32,7 +33,7 @@ public class Category extends TreeEntity {
     private String url;
 
     @Column(columnDefinition = "TINYINT(4) NOT NULL COMMENT '分类类型'")
-    private byte type;
+    private CategoryType type;
 
     /**
      * 子分类

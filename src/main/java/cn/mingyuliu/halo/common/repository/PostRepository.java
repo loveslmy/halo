@@ -19,7 +19,7 @@ import java.util.List;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2017/11/14
+ * @since : 2017/11/14
  */
 public interface PostRepository extends JpaRepository<Post, Long> {
 

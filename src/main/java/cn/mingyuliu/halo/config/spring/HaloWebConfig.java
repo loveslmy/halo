@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.*;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2018/1/2
+ * @since : 2018/1/2
  */
 @Slf4j
 @Configuration
@@ -39,10 +39,6 @@ public class HaloWebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/templates/themes/");
-        registry.addResourceHandler("/upload/**").addResourceLocations("classpath:/upload/");
-        registry.addResourceHandler("/favicon.ico")
-                .addResourceLocations("classpath:/static/images/favicon.ico");
     }
 
     @Override

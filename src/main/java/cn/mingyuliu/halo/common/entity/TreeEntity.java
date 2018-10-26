@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/10/22
+ * @since : 2018/10/22
  */
 @MappedSuperclass
 @Getter

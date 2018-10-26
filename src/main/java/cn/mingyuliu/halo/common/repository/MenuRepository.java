@@ -11,16 +11,22 @@ import java.util.List;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/06
+ * @since : 2018/09/06
  */
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     /**
-     * 查找菜单根节点
+     * 查寻根菜单列表
      *
      * @return List<Menu>
      */
     List<Menu> findByParentIdIsNullOrderByOrderSeq();
 
+    /**
+     * 根据parentId查询所有子菜单
+     *
+     * @return List<Menu>
+     */
+    List<Menu> findByParentIdOrderByOrderSeq(Long parentId);
 
 }

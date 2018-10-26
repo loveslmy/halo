@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2017/12/22
+ * @since : 2017/12/22
  */
 @Slf4j
 public class HaloUtils {

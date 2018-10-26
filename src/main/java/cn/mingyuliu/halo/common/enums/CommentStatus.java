@@ -6,7 +6,7 @@ package cn.mingyuliu.halo.common.enums;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2018/7/1
+ * @since : 2018/7/1
  */
 public enum CommentStatus {
 

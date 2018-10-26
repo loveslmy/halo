@@ -24,7 +24,7 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="org.hibernate" level="TRACE"/>
+    <logger name="org.hibernate" level="INFO"/>
     <logger name="root" level="info">
         <appender-ref ref="console"/>
         <appender-ref ref="info"/>

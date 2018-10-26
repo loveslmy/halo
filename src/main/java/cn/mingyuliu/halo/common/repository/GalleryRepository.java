@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2018/2/26
+ * @since : 2018/2/26
  */
 public interface GalleryRepository extends JpaRepository<Gallery, Long> {
 }

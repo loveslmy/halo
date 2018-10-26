@@ -11,14 +11,13 @@ import java.util.List;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/10/22
+ * @since : 2018/10/22
  */
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     /**
-     * 根据菜单类型和上级id查询所有子菜单
+     * 查找菜单根节点
      *
-     * @param parentId parentId
      * @return List<Menu>
      */
     List<Category> findByParentIdOrderByOrderSeq(long parentId);

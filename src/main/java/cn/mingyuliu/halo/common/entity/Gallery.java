@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2018/2/26
+ * @since : 2018/2/26
  */
 @Data
 @Entity

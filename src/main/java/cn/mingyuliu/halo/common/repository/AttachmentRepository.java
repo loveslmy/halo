@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2018/1/10
+ * @since : 2018/1/10
  */
 public interface AttachmentRepository extends JpaRepository<Attachment, Long> {
 

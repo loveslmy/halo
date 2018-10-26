@@ -8,7 +8,7 @@ import cn.mingyuliu.halo.common.entity.Menu;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/06
+ * @since : 2018/09/06
  */
 public interface IMenuService {
 

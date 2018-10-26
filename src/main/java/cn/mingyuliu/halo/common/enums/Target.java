@@ -6,7 +6,7 @@ package cn.mingyuliu.halo.common.enums;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/27
+ * @since : 2018/09/27
  */
 public enum Target {
     // 在一个新窗口打开载入目标页面

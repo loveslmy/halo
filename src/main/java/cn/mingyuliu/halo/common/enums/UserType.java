@@ -6,7 +6,7 @@ package cn.mingyuliu.halo.common.enums;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/08/31
+ * @since : 2018/08/31
  */
 public enum UserType {
     VISITOR,

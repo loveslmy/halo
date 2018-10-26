@@ -12,7 +12,7 @@ import java.util.List;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2018/1/19
+ * @since : 2018/1/19
  */
 public interface LogsRepository extends JpaRepository<OpLog, Long> {
 

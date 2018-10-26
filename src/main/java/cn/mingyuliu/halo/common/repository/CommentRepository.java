@@ -15,7 +15,7 @@ import java.util.List;
  * </pre>
  *
  * @author : RYAN0UP
- * @date : 2018/1/22
+ * @since : 2018/1/22
  */
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 

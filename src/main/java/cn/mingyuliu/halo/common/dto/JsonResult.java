@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/02
+ * @since : 2018/09/02
  */
 @Getter
 @Setter
@@ -20,7 +20,7 @@ public class JsonResult<T> {
     }
 
     /**
-     * 返回的状态码，0：失败，1：成功
+     * {@link HttpStatus}
      */
     private HttpStatus status;
 

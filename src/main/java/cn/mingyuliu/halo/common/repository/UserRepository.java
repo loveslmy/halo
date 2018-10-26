@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * </pre>
  *
  * @author : liumy2009@126.com
- * @date : 2018/09/03
+ * @since : 2018/09/03
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 
