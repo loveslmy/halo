@@ -30,6 +30,41 @@ public class CategoryController extends BaseController {
     private ICategoryService categoryService;
 
     /**
+     * 查询分类列表
+     *
+     * @return {@link JsonResult<List<Category >>}
+     */
+    @RequestMapping("/listCategories")
+    public JsonResult<List<Category>> listCategory() {
+        try {
+            return new JsonResult<>(HttpStatus.OK, categoryRepository
+                    .findAll());
+        } catch (Exception e) {
+            return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
+        }
+    }
+
+    /**
+     * 根据上级id查询所有子分类
+     *
+     * @param parentId parentId
+     * @return {@link JsonResult<List<Category>>}
+     */
+    @RequestMapping("/findByParentId")
+    public JsonResult<List<Category>> findByParentId(@RequestParam Long parentId) {
+        try {
+            if (null != parentId) {
+                return new JsonResult<>(HttpStatus.OK, categoryRepository
+                        .findByParentIdAndActiveIsTrueOrderByOrderSeq(parentId));
+            }
+            return new JsonResult<>(HttpStatus.OK, categoryRepository
+                    .findByParentIdIsNullAndActiveIsTrueOrderByOrderSeq());
+        } catch (Exception e) {
+            return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
+        }
+    }
+
+    /**
      * 新增/修改分类
      *
      * @param menu {@link Category}
@@ -43,24 +78,5 @@ public class CategoryController extends BaseController {
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
         }
     }
-
-    /**
-     * 根据上级id查询所有子菜单
-     *
-     * @param parentId parentId
-     * @return {@link JsonResult<List<Category>>}
-     */
-    @RequestMapping("/findByParentId")
-    public JsonResult<List<Category>> findByParentId(@RequestParam long parentId) {
-        try {
-            return new JsonResult<>(HttpStatus.OK, categoryRepository
-                    .findByParentIdOrderByOrderSeq(parentId));
-        } catch (Exception e) {
-            return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
-        }
-    }
-
-
-
 
 }

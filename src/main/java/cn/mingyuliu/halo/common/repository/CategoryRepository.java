@@ -16,10 +16,17 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     /**
-     * 查找菜单根节点
+     * 查寻根菜单列表
      *
      * @return List<Menu>
      */
-    List<Category> findByParentIdOrderByOrderSeq(long parentId);
+    List<Category> findByParentIdIsNullAndActiveIsTrueOrderByOrderSeq();
+
+    /**
+     * 根据parentId查询所有子菜单
+     *
+     * @return List<Menu>
+     */
+    List<Category> findByParentIdAndActiveIsTrueOrderByOrderSeq(Long parentId);
 
 }

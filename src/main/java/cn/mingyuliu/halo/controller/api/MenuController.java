@@ -55,11 +55,11 @@ public class MenuController extends BaseController {
         try {
             if (null != parentId) {
                 return new JsonResult<>(HttpStatus.OK, menuRepository
-                        .findByParentIdOrderByOrderSeq(parentId));
+                        .findByParentIdAndActiveIsTrueOrderByOrderSeq(parentId));
             }
 
             return new JsonResult<>(HttpStatus.OK, menuRepository
-                    .findByParentIdIsNullOrderByOrderSeq());
+                    .findByParentIdIsNullAndActiveIsTrueOrderByOrderSeq());
         } catch (Exception e) {
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
         }

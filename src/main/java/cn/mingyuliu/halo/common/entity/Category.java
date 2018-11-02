@@ -1,6 +1,5 @@
 package cn.mingyuliu.halo.common.entity;
 
-import cn.mingyuliu.halo.common.enums.CategoryType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,13 +31,11 @@ public class Category extends TreeEntity {
     @Column(columnDefinition = "VARCHAR(128) NOT NULL COMMENT '分类路径'", unique = true)
     private String url;
 
-    @Column(columnDefinition = "TINYINT(4) NOT NULL COMMENT '分类类型'")
-    private CategoryType type;
-
     /**
      * 子分类
      */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "parentId", targetEntity = Category.class,
+            fetch = FetchType.EAGER)
     private Set<Category> children;
 
 }

@@ -20,13 +20,13 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
      *
      * @return List<Menu>
      */
-    List<Menu> findByParentIdIsNullOrderByOrderSeq();
+    List<Menu> findByParentIdIsNullAndActiveIsTrueOrderByOrderSeq();
 
     /**
      * 根据parentId查询所有子菜单
      *
      * @return List<Menu>
      */
-    List<Menu> findByParentIdOrderByOrderSeq(Long parentId);
+    List<Menu> findByParentIdAndActiveIsTrueOrderByOrderSeq(Long parentId);
 
 }

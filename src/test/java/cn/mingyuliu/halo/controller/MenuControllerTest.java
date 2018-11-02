@@ -67,7 +67,7 @@ public class MenuControllerTest extends BaseTest {
         rst = testRestTemplate.postForObject("/api/menus/saveOrModify", entity, JsonResult.class);
         Assert.assertEquals(HttpStatus.OK, rst.getStatus());
 
-        List<Menu> menus = menuRepository.findByParentIdIsNullOrderByOrderSeq();
+        List<Menu> menus = menuRepository.findByParentIdIsNullAndActiveIsTrueOrderByOrderSeq();
         Assert.assertEquals(3, menus.size());
 
     }
