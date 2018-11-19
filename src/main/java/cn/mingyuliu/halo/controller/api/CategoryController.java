@@ -20,7 +20,7 @@ import java.util.List;
  * @since : 2018/10/22
  */
 @RestController
-@RequestMapping(value = "/api/categories")
+@RequestMapping(value = "/api/category")
 public class CategoryController extends BaseController {
 
     @Resource
@@ -32,9 +32,9 @@ public class CategoryController extends BaseController {
     /**
      * 查询分类列表
      *
-     * @return {@link JsonResult<List<Category >>}
+     * @return {@link JsonResult<List<Category>>}
      */
-    @RequestMapping("/listCategories")
+    @RequestMapping("/listCategory")
     public JsonResult<List<Category>> listCategory() {
         try {
             return new JsonResult<>(HttpStatus.OK, categoryRepository

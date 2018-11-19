@@ -3,7 +3,6 @@ package cn.mingyuliu.halo.common.entity;
 import cn.mingyuliu.halo.common.entity.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,22 +11,20 @@ import javax.persistence.Table;
 
 /**
  * <pre>
- *     文章内容
+ *     文本文件
  * </pre>
  *
  * @author : liumy2009@126.com
- * @since : 2018/09/02
+ * @since : 2018/11/09
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
 @Entity
-@Table(name = "post_content")
-public class PostContent extends BaseEntity {
+@Table(name = "text_file")
+public class TextFile extends BaseEntity {
 
+    @Column(columnDefinition = "MEDIUMTEXT NOT NULL COMMENT '文本内容'")
     @Lob
-    @Column(unique = true, columnDefinition = "MEDIUMTEXT COMMENT '文章内容'")
     private String content;
-
 
 }

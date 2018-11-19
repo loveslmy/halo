@@ -1,5 +1,6 @@
 package cn.mingyuliu.halo.common.entity;
 
+import cn.mingyuliu.halo.common.entity.base.BaseEntity;
 import cn.mingyuliu.halo.common.enums.Allow;
 import cn.mingyuliu.halo.common.enums.PostStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;

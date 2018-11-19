@@ -20,11 +20,4 @@ public interface IMenuService {
      */
     Menu saveOrModify(Menu menu);
 
-    /**
-     * 删除菜单
-     *
-     * @param id 菜单id
-     */
-    void removeById(long id);
-
 }

@@ -248,14 +248,6 @@ public interface PostService {
     int getCountByStatus(PostStatus status);
 
     /**
-     * 生成rss
-     *
-     * @param posts posts
-     * @return String
-     */
-    String buildRss(List<Post> posts);
-
-    /**
      * 生成sitemap
      *
      * @param posts posts

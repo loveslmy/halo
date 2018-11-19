@@ -31,14 +31,5 @@ public class MenuServiceImpl implements IMenuService {
         return menuRepository.save(menu);
     }
 
-    /**
-     * (non-Javadoc)
-     *
-     * @see IMenuService#removeById(long)
-     */
-    @Override
-    public void removeById(long menuId) {
-        menuRepository.deleteById(menuId);
-    }
 
 }

@@ -1,5 +1,6 @@
 package cn.mingyuliu.halo.common.entity;
 
+import cn.mingyuliu.halo.common.entity.base.TreeEntity;
 import cn.mingyuliu.halo.common.enums.Target;
 import lombok.Getter;
 import lombok.Setter;

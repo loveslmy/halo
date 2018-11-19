@@ -1,5 +1,6 @@
 package cn.mingyuliu.halo.common.entity;
 
+import cn.mingyuliu.halo.common.entity.base.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,7 +59,7 @@ public class Comment extends BaseEntity {
     private String commentAuthorIp;
 
     /**
-     * 评论人的头像，用于gavatar
+     * 评论人的头像，用于avatar
      */
     private String commentAuthorAvatarMd5;
 

@@ -9,7 +9,6 @@ import cn.mingyuliu.halo.common.enums.PostStatus;
 import cn.mingyuliu.halo.common.repository.PostRepository;
 import cn.mingyuliu.halo.config.sys.OptionHolder;
 import cn.mingyuliu.halo.service.PostService;
-import cn.mingyuliu.halo.utils.HaloUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -424,23 +423,6 @@ public class PostServiceImpl implements PostService {
     @Override
     public int getCountByStatus(PostStatus status) {
         return postRepository.countAllByPostStatus(status);
-    }
-
-    /**
-     * 生成rss
-     *
-     * @param posts posts
-     * @return String
-     */
-    @Override
-    public String buildRss(List<Post> posts) {
-        String rss = "";
-        try {
-            rss = HaloUtils.getRss(posts);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return rss;
     }
 
     /**

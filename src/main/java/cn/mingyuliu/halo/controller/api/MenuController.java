@@ -20,7 +20,7 @@ import java.util.List;
  * @since : 2018/6/6
  */
 @RestController
-@RequestMapping(value = "/api/menus")
+@RequestMapping(value = "/api/menu")
 public class MenuController extends BaseController {
 
     @Resource
@@ -76,7 +76,7 @@ public class MenuController extends BaseController {
         try {
             return new JsonResult<>(HttpStatus.OK, menuService.saveOrModify(menu));
         } catch (Exception e) {
-            return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
+            return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 

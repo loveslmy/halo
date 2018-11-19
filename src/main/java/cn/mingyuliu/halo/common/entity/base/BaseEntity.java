@@ -1,4 +1,4 @@
-package cn.mingyuliu.halo.common.entity;
+package cn.mingyuliu.halo.common.entity.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -29,7 +29,7 @@ public abstract class BaseEntity implements Serializable {
     protected long id;
 
     @Column(columnDefinition = "BIT NOT NULL DEFAULT b'1' COMMENT '是否有效'")
-    protected boolean active;
+    protected boolean active = Boolean.TRUE;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'")

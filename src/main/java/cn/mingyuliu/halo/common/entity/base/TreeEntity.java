@@ -1,4 +1,4 @@
-package cn.mingyuliu.halo.common.entity;
+package cn.mingyuliu.halo.common.entity.base;
 
 import lombok.Getter;
 import lombok.Setter;

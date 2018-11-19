@@ -20,11 +20,4 @@ public interface ICategoryService {
      */
     Category saveOrModify(Category category);
 
-    /**
-     * 根据分类id删除分类
-     *
-     * @param categoryId 分类id
-     */
-    void removeById(long categoryId);
-
 }

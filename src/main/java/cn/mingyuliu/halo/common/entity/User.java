@@ -1,5 +1,6 @@
 package cn.mingyuliu.halo.common.entity;
 
+import cn.mingyuliu.halo.common.entity.base.BaseEntity;
 import cn.mingyuliu.halo.common.enums.UserType;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,8 +42,7 @@ public class User extends BaseEntity {
     private String userDisplayName;
 
     @NotBlank(message = "密码不能为空")
-    @Column(columnDefinition = "VARCHAR(32) NOT NULL COMMENT '密码'",
-            unique = true)
+    @Column(columnDefinition = "VARCHAR(32) NOT NULL COMMENT '密码'")
     private String userPass;
 
     @Email(message = "邮箱格式不正确")

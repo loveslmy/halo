@@ -31,13 +31,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <oh-my-email.version>0.0.3</oh-my-email.version>
+        <oh.my.email.version>0.0.3</oh.my.email.version>
         <lombok.version>1.18.0</lombok.version>
         <ehcache.version>3.5.2</ehcache.version>
         <rome.version>1.0</rome.version>
-        <commons-lang3.version>3.7</commons-lang3.version>
-        <commons-text.version>1.4</commons-text.version>
-        <commons-collections.version>3.2.2</commons-collections.version>
+        <commons.lang3.version>3.7</commons.lang3.version>
+        <commons.text.version>1.4</commons.text.version>
+        <commons.collections.version>3.2.2</commons.collections.version>
+        <commons.io.version>2.6</commons.io.version>
         <thumbnailator.version>0.4.8</thumbnailator.version>
         <guava.version>26.0-jre</guava.version>
         <fastutil.version>5.0.9</fastutil.version>
@@ -70,13 +71,6 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
-        <!-- 邮件 -->
-        <dependency>
-            <groupId>io.github.biezhi</groupId>
-            <artifactId>oh-my-email</artifactId>
-            <version>${oh-my-email.version}</version>
-        </dependency>
-
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -92,13 +86,6 @@
             <version>${ehcache.version}</version>
         </dependency>
 
-        <!-- rss -->
-        <dependency>
-            <groupId>rome</groupId>
-            <artifactId>rome</artifactId>
-            <version>${rome.version}</version>
-        </dependency>
-
         <!-- commons-lang3工具包 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -106,18 +93,25 @@
             <version>${commons-lang3.version}</version>
         </dependency>
 
+        <!-- commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
+
         <!-- commons-text -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>${commons-text.version}</version>
+            <version>${commons.text.version}</version>
         </dependency>
 
         <!-- commons-collections -->
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>${commons-collections.version}</version>
+            <version>${commons.collections.version}</version>
         </dependency>
 
         <!-- 图片操作 -->
