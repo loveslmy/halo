@@ -3,9 +3,7 @@ package cn.mingyuliu.halo.common.dto;
 import com.google.common.base.Joiner;
 import org.springframework.data.domain.Sort;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,11 +47,6 @@ public class HaloConst {
      * OwO表情
      */
     public static Map<String, String> OWO = new HashMap<>();
-
-    /**
-     * 所有主题
-     */
-    public static List<Theme> THEMES = new ArrayList<>();
 
     /**
      * user_session

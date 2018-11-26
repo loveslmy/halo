@@ -16,9 +16,6 @@ import org.springframework.http.HttpStatus;
 @Setter
 public class JsonResult<T> {
 
-    public JsonResult() {
-    }
-
     /**
      * {@link HttpStatus}
      */
@@ -68,16 +65,6 @@ public class JsonResult<T> {
         this.status = status;
         this.msg = status.name();
         this.datas = result;
-    }
-
-    /**
-     * 返回状态码
-     *
-     * @param status 状态
-     */
-    public JsonResult(HttpStatus status) {
-        this.status = status;
-        this.msg = status.name();
     }
 
 }

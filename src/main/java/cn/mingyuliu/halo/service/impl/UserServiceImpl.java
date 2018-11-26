@@ -1,12 +1,10 @@
 package cn.mingyuliu.halo.service.impl;
 
-import cn.mingyuliu.halo.common.dto.InstallDto;
 import cn.mingyuliu.halo.common.entity.User;
 import cn.mingyuliu.halo.common.enums.UserType;
 import cn.mingyuliu.halo.common.repository.UserRepository;
 import cn.mingyuliu.halo.service.IUserService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -24,32 +22,6 @@ public class UserServiceImpl implements IUserService {
 
     @Resource
     private UserRepository userRepository;
-
-    /**
-     * (non-Javadoc)
-     *
-     * @see IUserService#createOwnerUser(InstallDto)
-     */
-    @Override
-    public void createOwnerUser(InstallDto installDto) {
-        String userName = installDto.getUserName();
-        User user = userRepository.findByUserNameAndUserType(userName, UserType.OWNER);
-
-        if (user == null) {
-            user = userRepository.findByUserType(UserType.OWNER);
-        }
-
-        if (user == null) {
-            user = new User();
-        }
-
-        user.setUserName(installDto.getUserName());
-        user.setUserDisplayName(installDto.getUserDisplayName());
-        user.setUserEmail(installDto.getUserEmail());
-        user.setUserPass(DigestUtils.md5DigestAsHex(installDto.getUserPwd().getBytes()));
-        user.setUserType(UserType.OWNER);
-        userRepository.save(user);
-    }
 
     /**
      * (non-Javadoc)

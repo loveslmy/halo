@@ -1,6 +1,5 @@
 package cn.mingyuliu.halo.service;
 
-import cn.mingyuliu.halo.common.dto.InstallDto;
 import cn.mingyuliu.halo.common.entity.User;
 
 import java.util.Date;
@@ -14,13 +13,6 @@ import java.util.Date;
  * @since : 2018/09/03
  */
 public interface IUserService {
-
-    /**
-     * 创建Owner用户
-     *
-     * @param installDto {@link InstallDto}
-     */
-    void createOwnerUser(InstallDto installDto);
 
     /**
      * 保存个人资料

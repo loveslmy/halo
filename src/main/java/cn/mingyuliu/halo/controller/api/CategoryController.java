@@ -1,15 +1,19 @@
 package cn.mingyuliu.halo.controller.api;
 
+import cn.mingyuliu.halo.common.dto.CategoryDto;
 import cn.mingyuliu.halo.common.dto.JsonResult;
 import cn.mingyuliu.halo.common.entity.Category;
 import cn.mingyuliu.halo.common.repository.CategoryRepository;
 import cn.mingyuliu.halo.controller.BaseController;
 import cn.mingyuliu.halo.service.ICategoryService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <pre>
@@ -53,12 +57,21 @@ public class CategoryController extends BaseController {
     @RequestMapping("/findByParentId")
     public JsonResult<List<Category>> findByParentId(@RequestParam Long parentId) {
         try {
+            List<Category> categories;
+
             if (null != parentId) {
-                return new JsonResult<>(HttpStatus.OK, categoryRepository
-                        .findByParentIdAndActiveIsTrueOrderByOrderSeq(parentId));
+                categories = categoryRepository
+                        .findByParentIdAndActiveIsTrueOrderByOrderSeq(parentId);
+            } else {
+                categories = categoryRepository
+                        .findByParentIdIsNullAndActiveIsTrueOrderByOrderSeq();
             }
-            return new JsonResult<>(HttpStatus.OK, categoryRepository
-                    .findByParentIdIsNullAndActiveIsTrueOrderByOrderSeq());
+
+            if (CollectionUtils.isEmpty(categories)) {
+                return new JsonResult<>(HttpStatus.OK, Collections.emptyList());
+            }
+
+            return new JsonResult<>(HttpStatus.OK, categories);
         } catch (Exception e) {
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
         }

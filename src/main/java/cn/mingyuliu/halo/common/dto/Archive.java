@@ -38,4 +38,5 @@ public class Archive implements Serializable {
      * 对应的文章
      */
     private List<Post> posts;
+
 }
