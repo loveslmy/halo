@@ -60,13 +60,14 @@ public class FileServiceImpl implements IFileService {
             }
         }
 
-        if(CollectionUtils.isEmpty(refMap.keySet())){
+        if (CollectionUtils.isEmpty(refMap.keySet())) {
             return;
         }
 
         List<File> files = fileRepository.findAllById(refMap.keySet());
+        fillContent(files);
         for (File file : files) {
-            List<Site> refSites = refMap.get(file.getRefId());
+            List<Site> refSites = refMap.get(file.getId());
             for (Site site : refSites) {
                 site.setFile(file);
             }

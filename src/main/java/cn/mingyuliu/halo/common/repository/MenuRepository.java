@@ -16,13 +16,6 @@ import java.util.List;
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     /**
-     * 查寻根菜单列表
-     *
-     * @return List<Menu>
-     */
-    List<Menu> findByParentIdIsNullAndActiveIsTrueOrderByOrderSeq();
-
-    /**
      * 根据parentId查询所有子菜单
      *
      * @return List<Menu>

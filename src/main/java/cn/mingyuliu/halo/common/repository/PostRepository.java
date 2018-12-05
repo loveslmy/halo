@@ -18,8 +18,8 @@ import java.util.List;
  *     文章持久层
  * </pre>
  *
- * @author : RYAN0UP
- * @since : 2017/11/14
+ * @author : liumy2009@126.com
+ * @since : 2018/12/04
  */
 public interface PostRepository extends JpaRepository<Post, Long> {
 
@@ -38,7 +38,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * @param pageable pageable
      * @return List
      */
-    List<Post> findByPostTitleLike(String keyWord, Pageable pageable);
+    List<Post> findByNameLike(String keyWord, Pageable pageable);
 
     /**
      * 根据文章的状态查询 分页
@@ -58,21 +58,13 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findPostsByPostStatus(PostStatus status);
 
     /**
-     * 根据路径查询文章
-     *
-     * @param postUrl 路径
-     * @return Post
-     */
-    Post findPostByPostUrl(String postUrl);
-
-    /**
      * 查询之后文章
      *
      * @param postDate 发布时间
      * @param status   {@link PostStatus}
      * @return List
      */
-    List<Post> findByPostDateAfterAndPostStatusOrderByPostDateDesc(Date postDate, PostStatus status);
+    List<Post> findByPubDateAfterAndPostStatusOrderByPubDateDesc(Date postDate, PostStatus status);
 
 
     /**
@@ -82,7 +74,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
      * @param status   {@link PostStatus}
      * @return List
      */
-    List<Post> findByPostDateBeforeAndPostStatusOrderByPostDateAsc(Date postDate, PostStatus status);
+    List<Post> findByPubDateBeforeAndPostStatusOrderByPubDateAsc(Date postDate, PostStatus status);
 
     /**
      * 查询文章归档信息 根据年份和月份

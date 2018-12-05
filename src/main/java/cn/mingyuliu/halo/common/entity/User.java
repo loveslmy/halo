@@ -63,7 +63,7 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "BIT NOT NULL DEFAULT b'1' COMMENT '是否禁用登录'")
     private boolean loginEnable = true;
 
-    @Column(columnDefinition = "TIMESTAMP COMMENT '最后登录时间'")
+    @Column(columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后登录时间'")
     private Date loginLast;
 
     @Column(columnDefinition = "TINYINT(4) DEFAULT 0 COMMENT '登录错误次数记录'")

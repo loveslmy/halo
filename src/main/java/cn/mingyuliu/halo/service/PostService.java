@@ -119,14 +119,6 @@ public interface PostService {
     Optional<Post> findByPostId(long postId);
 
     /**
-     * 根据文章路径查询
-     *
-     * @param postUrl 路径
-     * @return Post
-     */
-    Post findByPostUrl(String postUrl);
-
-    /**
      * 查询前五条数据
      *
      * @return List
@@ -247,11 +239,4 @@ public interface PostService {
      */
     int getCountByStatus(PostStatus status);
 
-    /**
-     * 生成sitemap
-     *
-     * @param posts posts
-     * @return String
-     */
-    String buildSiteMap(List<Post> posts);
 }

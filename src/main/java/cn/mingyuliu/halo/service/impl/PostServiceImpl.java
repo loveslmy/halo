@@ -4,12 +4,10 @@ import cn.mingyuliu.halo.common.dto.Archive;
 import cn.mingyuliu.halo.common.entity.Category;
 import cn.mingyuliu.halo.common.entity.Post;
 import cn.mingyuliu.halo.common.entity.Tag;
-import cn.mingyuliu.halo.common.enums.Option;
 import cn.mingyuliu.halo.common.enums.PostStatus;
 import cn.mingyuliu.halo.common.repository.PostRepository;
 import cn.mingyuliu.halo.config.sys.OptionHolder;
 import cn.mingyuliu.halo.service.PostService;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -151,7 +149,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public List<Post> searchPosts(String keyWord, Pageable pageable) {
-        return postRepository.findByPostTitleLike(keyWord, pageable);
+        return postRepository.findByNameLike(keyWord, pageable);
     }
 
     /**
@@ -202,18 +200,6 @@ public class PostServiceImpl implements PostService {
     }
 
     /**
-     * 根据文章路径查询
-     *
-     * @param postUrl 路径
-     * @return Post
-     */
-    @Override
-    @Cacheable(value = POSTS_CACHE_NAME, key = "'posts_posturl_'+#postUrl")
-    public Post findByPostUrl(String postUrl) {
-        return postRepository.findPostByPostUrl(postUrl);
-    }
-
-    /**
      * 查询最新的5篇文章
      *
      * @return List
@@ -232,7 +218,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public List<Post> findByPostDateAfter(Date postDate) {
-        return postRepository.findByPostDateAfterAndPostStatusOrderByPostDateDesc(postDate, PostStatus.PUBLISHED);
+        return postRepository.findByPubDateAfterAndPostStatusOrderByPubDateDesc(postDate, PostStatus.PUBLISHED);
     }
 
     /**
@@ -243,7 +229,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public List<Post> findByPostDateBefore(Date postDate) {
-        return postRepository.findByPostDateBeforeAndPostStatusOrderByPostDateAsc(postDate, PostStatus.PUBLISHED);
+        return postRepository.findByPubDateBeforeAndPostStatusOrderByPubDateAsc(postDate, PostStatus.PUBLISHED);
     }
 
 
@@ -423,28 +409,6 @@ public class PostServiceImpl implements PostService {
     @Override
     public int getCountByStatus(PostStatus status) {
         return postRepository.countAllByPostStatus(status);
-    }
-
-    /**
-     * 生成siteMap
-     *
-     * @param posts posts
-     * @return String
-     */
-    @Override
-    public String buildSiteMap(List<Post> posts) {
-        String head = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset " +
-                "xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
-        StringBuilder urlBody = new StringBuilder();
-        String urlItem;
-        String urlPath = optionHolder.get(Option.BLOG_URL) + "/archives/";
-        for (Post post : posts) {
-            urlItem = "<url><loc>" + urlPath + post.getPostUrl() + "</loc><lastmod>" +
-                    DateFormatUtils.format(post.getPostDate(), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-                    + "</lastmod>" + "</url>";
-            urlBody.append(urlItem);
-        }
-        return head + urlBody + "</urlset>";
     }
 
 }

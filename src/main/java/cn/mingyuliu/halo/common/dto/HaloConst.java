@@ -3,9 +3,6 @@ package cn.mingyuliu.halo.common.dto;
 import com.google.common.base.Joiner;
 import org.springframework.data.domain.Sort;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * <pre>
  *     Halo常量
@@ -16,42 +13,36 @@ import java.util.Map;
  */
 public class HaloConst {
 
+    public static String PERIOD = ".";
+
     /**
      * 后台菜单root节点
      */
-    public static long MANAGEMENT_MENU_ROOT_ID = -1L;
+    public static byte MANAGEMENT_MENU_ROOT_ID = 1;
 
     /**
      * 前端菜单root节点
      */
-    public static long FRONT_MENU_ROOT_ID = 0L;
+    public static byte FRONT_MENU_ROOT_ID = 2;
+
+    /**
+     * 文章分类根节点
+     */
+    public static byte POST_ROOT_CATEGORY = 1;
+
+    /**
+     * 站点分类根节点
+     */
+    public static byte SITE_ROOT_CATEGORY = 1;
 
     /**
      * 文章排序
      */
-    public static Sort POST_SORT = new Sort(Sort.Direction.DESC, "postDate");
+    public static Sort POST_SORT = new Sort(Sort.Direction.DESC, "pubDate");
+
     /**
      * 逗号String链接器
      */
     public static final Joiner DOT_JOINER = Joiner.on(",");
-    /**
-     * 默认分页记录数
-     */
-    public static final int DEFAULT_PAGE_SIZE = 10;
-    /**
-     * 默认category url
-     */
-    public static final String DEFAULT_CATEGORY_URL = "all";
-
-    /**
-     * OwO表情
-     */
-    public static Map<String, String> OWO = new HashMap<>();
-
-    /**
-     * user_session
-     */
-    public static String USER_SESSION_KEY = "user_session";
-
 
 }

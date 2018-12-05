@@ -47,13 +47,13 @@ import java.util.Set;
 @RequestMapping(value = "/api/file")
 public class FileController extends BaseController {
     private static final Base64.Encoder BASE64_ENCODER = Base64.getEncoder();
-    private static final int WIDTH = 430;
-    private static final int HEIGHT = 270;
+    private static final int WIDTH = 1280;
+    private static final int HEIGHT = 800;
     private static final String SPACE = " ";
     private static final String UNDER_LINE = "_";
     private static final String COMMA = ",";
     private static final String DOT = ".";
-    public static final double ONE = 1.0;
+    private static final double ONE = 1.0;
     private static Set<String> SUPPORT_IMAGES = Sets.newHashSet("jpg","jpeg","tiff","raw","bmp","gif","png");
 
     @Resource
@@ -104,7 +104,7 @@ public class FileController extends BaseController {
      * @return {@link JsonResult<File>}
      */
     @PostMapping(value = "/upload/image")
-    public JsonResult<File> image(@RequestParam("file") MultipartFile file,
+    public JsonResult<File> uploadImage(@RequestParam("file") MultipartFile file,
                                   @RequestParam("thumbnail") boolean thumbnail,
                                   @RequestParam("token") String token) {
         if (file.isEmpty()) {
@@ -128,7 +128,7 @@ public class FileController extends BaseController {
             BufferedImage image = Thumbnails.of(in).scale(ONE).outputQuality(ONE).asBufferedImage();
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
-            if (thumbnail && image.getWidth() > WIDTH || image.getHeight() > HEIGHT) {
+            if (thumbnail && (image.getWidth() > WIDTH || image.getHeight() > HEIGHT)) {
                 Thumbnails.of(image).size(WIDTH, HEIGHT).keepAspectRatio(Boolean.TRUE).outputFormat(fileSuffix).
                         toOutputStream(bos);
             } else {
@@ -147,19 +147,25 @@ public class FileController extends BaseController {
                 return new JsonResult<>(HttpStatus.OK, dbFile);
             }
 
-            newFile = new File();
-            newFile.setName(fileName);
-            newFile.setFileType(FileType.TEXT);
-            newFile.setMd5(md5);
-            newFile.setSuffix(fileSuffix);
-            newFile.setContent("data:image/" + fileSuffix + ";base64," + BASE64_ENCODER.encodeToString(contents));
-            newFile.setSize(newFile.getContent().getBytes().length);
+            newFile = buildFile(fileSuffix, fileName, contents, md5);
             newFile = fileService.saveOrModify(newFile);
         } catch (IOException e) {
             log.error("upload file occur exception：", e);
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
         return new JsonResult<>(HttpStatus.OK, newFile);
+    }
+
+    private File buildFile(String fileSuffix, String fileName, byte[] contents, String md5) {
+        File newFile;
+        newFile = new File();
+        newFile.setName(fileName);
+        newFile.setFileType(FileType.TEXT);
+        newFile.setMd5(md5);
+        newFile.setSuffix(fileSuffix);
+        newFile.setContent("data:image/" + fileSuffix + ";base64," + BASE64_ENCODER.encodeToString(contents));
+        newFile.setSize(newFile.getContent().getBytes().length);
+        return newFile;
     }
 
     private String getMd5(byte[] contents) {

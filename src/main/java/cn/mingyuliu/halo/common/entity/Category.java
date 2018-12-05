@@ -3,10 +3,13 @@ package cn.mingyuliu.halo.common.entity;
 import cn.mingyuliu.halo.common.entity.base.TreeEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
 
 /**
  * <pre>
@@ -19,7 +22,12 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "category")
+@ToString(callSuper = true)
+@Table(name = "category",indexes = {
+        @Index(name = "name_index", columnList = "name"),
+        @Index(name = "tree_seq_index", columnList = "treeSeq"),
+        @Index(name = "create_date_index", columnList = "crtDate"),
+        @Index(name = "update_date_index", columnList = "updDate")})
 public class Category extends TreeEntity {
 
     private static final long serialVersionUID = 8383678847517271505L;
@@ -32,11 +40,18 @@ public class Category extends TreeEntity {
     @Column(columnDefinition = "VARCHAR(128) NOT NULL COMMENT '分类路径'", unique = true)
     private String url;
 
-    /**
-     * 子分类
-     */
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "parentId", targetEntity = Category.class,
-            fetch = FetchType.EAGER)
-    private Set<Category> children;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Category category = (Category) o;
+        return this.id == category.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int)(this.id ^ (this.id >>> 32));
+    }
 
 }

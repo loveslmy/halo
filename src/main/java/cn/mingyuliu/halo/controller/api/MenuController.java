@@ -2,6 +2,7 @@ package cn.mingyuliu.halo.controller.api;
 
 import cn.mingyuliu.halo.common.dto.JsonResult;
 import cn.mingyuliu.halo.common.entity.Menu;
+import cn.mingyuliu.halo.common.entity.base.TreeEntity;
 import cn.mingyuliu.halo.common.repository.MenuRepository;
 import cn.mingyuliu.halo.controller.BaseController;
 import cn.mingyuliu.halo.service.IMenuService;
@@ -16,8 +17,8 @@ import java.util.List;
  *     菜单API
  * </pre>
  *
- * @author : RYAN0UP
- * @since : 2018/6/6
+ * @author : mingyuliu@126.com
+ * @since : 2018/12/02
  */
 @RestController
 @RequestMapping(value = "/api/menu")
@@ -53,13 +54,13 @@ public class MenuController extends BaseController {
     @RequestMapping("/findByParentId")
     public JsonResult<List<Menu>> findByParentId(@RequestParam(required = false) Long parentId) {
         try {
-            if (null != parentId) {
-                return new JsonResult<>(HttpStatus.OK, menuRepository
-                        .findByParentIdAndActiveIsTrueOrderByOrderSeq(parentId));
+            List<Menu> menus = menuRepository.findByParentIdAndActiveIsTrueOrderByOrderSeq(parentId);
+            for (Menu menu : menus) {
+                if (!menu.isLeaf()) {
+                    menu.setChildren(menuRepository.findByParentIdAndActiveIsTrueOrderByOrderSeq(menu.getId()));
+                }
             }
-
-            return new JsonResult<>(HttpStatus.OK, menuRepository
-                    .findByParentIdIsNullAndActiveIsTrueOrderByOrderSeq());
+            return new JsonResult<>(HttpStatus.OK, menus);
         } catch (Exception e) {
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
         }
@@ -68,7 +69,7 @@ public class MenuController extends BaseController {
     /**
      * 新增/修改菜单
      *
-     * @param menu {@link Menu}
+     * @param menu {@link TreeEntity}
      * @return {@link JsonResult<Menu>}
      */
     @PostMapping("/saveOrModify")

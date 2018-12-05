@@ -44,6 +44,7 @@
         <fastutil.version>5.0.9</fastutil.version>
         <mokito.version>2.5.5</mokito.version>
         <junit.version>4.12</junit.version>
+        <flexmark-version>0.34.58</flexmark-version>
     </properties>
 
     <dependencies>
@@ -156,6 +157,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark-all</artifactId>
+            <version>${flexmark-version}</version>
         </dependency>
 
     </dependencies>

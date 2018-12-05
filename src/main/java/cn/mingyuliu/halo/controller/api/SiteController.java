@@ -41,12 +41,15 @@ public class SiteController extends BaseController {
 
     /**
      * 加载站点
+     *
      * @return {@link Page<Site>}
      */
     @RequestMapping("/listSite")
     public JsonResult<List<Site>> listSite() {
         try {
-            return new JsonResult<>(HttpStatus.OK, siteRepository.findAll());
+            List<Site> sites = siteRepository.findAll();
+            fileService.fillFile(sites);
+            return new JsonResult<>(HttpStatus.OK, sites);
         } catch (Exception e) {
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
         }

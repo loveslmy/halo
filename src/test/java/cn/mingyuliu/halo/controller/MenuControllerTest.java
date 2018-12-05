@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * <pre>
@@ -40,7 +39,7 @@ public class MenuControllerTest extends BaseTest {
         Menu index = new Menu();
         index.setName("首页");
         index.setUrl("/");
-        index.setOrderSeq((short) 1);
+        index.setOrderSeq((byte) 1);
         index.setTarget(Target.BLANK);
         index.setActive(true);
         HttpEntity entity = new HttpEntity<>(JacksonSerializer.defaultSerializer().serialize(index), headers);
@@ -50,7 +49,7 @@ public class MenuControllerTest extends BaseTest {
         Menu link = new Menu();
         link.setName("文章");
         link.setUrl("/post");
-        link.setOrderSeq((short) 1);
+        link.setOrderSeq((byte) 1);
         link.setTarget(Target.BLANK);
         link.setActive(true);
         entity = new HttpEntity<>(JacksonSerializer.defaultSerializer().serialize(link), headers);
@@ -60,15 +59,12 @@ public class MenuControllerTest extends BaseTest {
         Menu life = new Menu();
         life.setName("相册");
         life.setUrl("/album");
-        life.setOrderSeq((short) 1);
+        life.setOrderSeq((byte) 1);
         life.setTarget(Target.BLANK);
         life.setActive(true);
         entity = new HttpEntity<>(JacksonSerializer.defaultSerializer().serialize(life), headers);
         rst = testRestTemplate.postForObject("/api/menus/saveOrModify", entity, JsonResult.class);
         Assert.assertEquals(HttpStatus.OK, rst.getStatus());
-
-        List<Menu> menus = menuRepository.findByParentIdIsNullAndActiveIsTrueOrderByOrderSeq();
-        Assert.assertEquals(3, menus.size());
 
     }
 

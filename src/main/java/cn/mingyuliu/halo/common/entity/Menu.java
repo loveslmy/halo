@@ -4,10 +4,13 @@ import cn.mingyuliu.halo.common.entity.base.TreeEntity;
 import cn.mingyuliu.halo.common.enums.Target;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
 
 /**
  * <pre>
@@ -20,7 +23,12 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "menu")
+@ToString(callSuper = true)
+@Table(name = "menu", indexes = {
+        @Index(name = "name_index", columnList = "name"),
+        @Index(name = "tree_seq_index", columnList = "treeSeq"),
+        @Index(name = "create_date_index", columnList = "crtDate"),
+        @Index(name = "update_date_index", columnList = "updDate")})
 public class Menu extends TreeEntity {
 
     private static final long serialVersionUID = -7726233157376388786L;
@@ -35,12 +43,5 @@ public class Menu extends TreeEntity {
 
     @Column(columnDefinition = "BIT(1) NOT NULL DEFAULT b'0' COMMENT '打开方式'")
     private Target target;
-
-    /**
-     * 子菜单
-     */
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "parentId", targetEntity = Menu.class,
-            fetch = FetchType.EAGER)
-    private Set<Menu> children;
 
 }

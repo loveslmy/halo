@@ -1,12 +1,16 @@
 package cn.mingyuliu.halo.service.impl;
 
 import cn.mingyuliu.halo.common.entity.Category;
-import cn.mingyuliu.halo.common.entity.Menu;
 import cn.mingyuliu.halo.common.repository.CategoryRepository;
 import cn.mingyuliu.halo.service.ICategoryService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Optional;
+
+import static cn.mingyuliu.halo.common.dto.HaloConst.PERIOD;
+
 
 /**
  * <pre>
@@ -29,7 +33,20 @@ public class CategoryServiceImpl implements ICategoryService {
      */
     @Override
     public Category saveOrModify(Category category) {
-        return categoryRepository.save(category);
+        Optional<Category> parentOpt = categoryRepository.findById(category.getParentId());
+        if (!parentOpt.isPresent()) {
+            throw new IllegalArgumentException("not found parent category with " + category.toString() + "!");
+        }
+
+        Category parent = parentOpt.get();
+        parent.setLeaf(false);
+        categoryRepository.save(parent);
+
+        category.setLeaf(CollectionUtils.isEmpty(categoryRepository
+                .findByParentIdAndActiveIsTrueOrderByOrderSeq(category.getId())));
+        category.setTreeSeq(parent.getTreeSeq() + parent.getId() + PERIOD);
+        category = categoryRepository.save(category);
+        return category;
     }
 
 }

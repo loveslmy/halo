@@ -3,9 +3,13 @@ package cn.mingyuliu.halo.service.impl;
 import cn.mingyuliu.halo.common.entity.Menu;
 import cn.mingyuliu.halo.common.repository.MenuRepository;
 import cn.mingyuliu.halo.service.IMenuService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Optional;
+
+import static cn.mingyuliu.halo.common.dto.HaloConst.PERIOD;
 
 /**
  * <pre>
@@ -28,7 +32,19 @@ public class MenuServiceImpl implements IMenuService {
      */
     @Override
     public Menu saveOrModify(Menu menu) {
-        return menuRepository.save(menu);
+        Optional<Menu> parentOpt = menuRepository.findById(menu.getParentId());
+        if (!parentOpt.isPresent()) {
+            throw new IllegalArgumentException("not found parent menu with " + menu.toString() + "!");
+        }
+
+        Menu parent = parentOpt.get();
+        parent.setLeaf(false);
+        menuRepository.save(parent);
+        menu.setLeaf(CollectionUtils.isEmpty(menuRepository
+                .findByParentIdAndActiveIsTrueOrderByOrderSeq(menu.getId())));
+        menu.setTreeSeq(parent.getTreeSeq() + parent.getId() + PERIOD);
+        menu = menuRepository.save(menu);
+        return menu;
     }
 
 
