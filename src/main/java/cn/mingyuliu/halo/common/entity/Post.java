@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <pre>
@@ -48,24 +49,24 @@ public class Post extends BaseEntity {
     /**
      * 文章内容
      */
-    private File content;
+    private String content;
 
     /**
      * 文章所属分类
      */
-    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, targetEntity = Category.class)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, targetEntity = Category.class)
     @JoinTable(name = "posts_categories",
             joinColumns = {@JoinColumn(name = "post_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "cate_id", nullable = false)})
-    private List<Category> categories;
+    private Set<Category> categories;
 
     /**
      * 文章所属标签
      */
-    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, targetEntity = Tag.class)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, targetEntity = Tag.class)
     @JoinTable(name = "posts_tags",
             joinColumns = {@JoinColumn(name = "post_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "tag_id", nullable = false)})
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
 }

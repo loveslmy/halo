@@ -22,4 +22,11 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
      */
     List<Menu> findByParentIdAndActiveIsTrueOrderByOrderSeq(Long parentId);
 
+    /**
+     * 根据parentId查询所有子菜单
+     *
+     * @return List<Menu>
+     */
+    List<Menu> findByTreeSeqLikeAndActiveIsTrueOrderByOrderSeq(String treeSeq);
+
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static cn.mingyuliu.halo.common.HaloConst.DOT;
+
 /**
  * <pre>
  *     菜单API
@@ -36,10 +38,15 @@ public class MenuController extends BaseController {
      * @return {@link JsonResult<List<Menu>>}
      */
     @RequestMapping("/listMenu")
-    public JsonResult<List<Menu>> listMenu() {
+    public JsonResult<List<Menu>> listMenu(@RequestParam(required = false) Long parentId) {
         try {
+            if (null == parentId) {
+                return new JsonResult<>(HttpStatus.OK, menuRepository
+                        .findAll());
+            }
+
             return new JsonResult<>(HttpStatus.OK, menuRepository
-                    .findAll());
+                    .findByTreeSeqLikeAndActiveIsTrueOrderByOrderSeq(parentId + DOT + "%"));
         } catch (Exception e) {
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
         }

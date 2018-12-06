@@ -39,10 +39,14 @@ public class CategoryController extends BaseController {
      * @return {@link JsonResult<List<Category>>}
      */
     @RequestMapping("/listCategory")
-    public JsonResult<List<Category>> listCategory() {
+    public JsonResult<List<Category>> listCategory(@RequestParam(required = false) Long parentId) {
         try {
+            if (parentId == null) {
+                return new JsonResult<>(HttpStatus.OK, categoryRepository
+                        .findAll());
+            }
             return new JsonResult<>(HttpStatus.OK, categoryRepository
-                    .findAll());
+                    .findByTreeSeqLikeAndActiveIsTrueOrderByOrderSeq(parentId + DOT + "%"));
         } catch (Exception e) {
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
         }
