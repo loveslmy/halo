@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 
-import static cn.mingyuliu.halo.common.dto.HaloConst.PERIOD;
+import static cn.mingyuliu.halo.common.HaloConst.DOT;
 
 /**
  * <pre>
@@ -80,7 +80,7 @@ public class CategoryController extends BaseController {
                 return new JsonResult<>(HttpStatus.OK, Collections.emptyList());
             }
             return new JsonResult<>(HttpStatus.OK, categoryRepository
-                    .findByTreeSeqLikeAndActiveIsTrueOrderByOrderSeq(parentId.toString() + PERIOD + "%"));
+                    .findByTreeSeqLikeAndActiveIsTrueOrderByOrderSeq(parentId.toString() + DOT + "%"));
         } catch (Exception e) {
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, ERROR_MSG);
         }

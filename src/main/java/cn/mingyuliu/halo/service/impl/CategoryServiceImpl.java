@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Optional;
 
-import static cn.mingyuliu.halo.common.dto.HaloConst.PERIOD;
+import static cn.mingyuliu.halo.common.HaloConst.DOT;
 
 
 /**
@@ -44,7 +44,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
         category.setLeaf(CollectionUtils.isEmpty(categoryRepository
                 .findByParentIdAndActiveIsTrueOrderByOrderSeq(category.getId())));
-        category.setTreeSeq(parent.getTreeSeq() + parent.getId() + PERIOD);
+        category.setTreeSeq(parent.getTreeSeq() + parent.getId() + DOT);
         category = categoryRepository.save(category);
         return category;
     }

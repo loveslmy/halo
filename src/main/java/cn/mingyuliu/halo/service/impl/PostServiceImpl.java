@@ -1,6 +1,4 @@
 package cn.mingyuliu.halo.service.impl;
-
-import cn.mingyuliu.halo.common.dto.Archive;
 import cn.mingyuliu.halo.common.entity.Category;
 import cn.mingyuliu.halo.common.entity.Post;
 import cn.mingyuliu.halo.common.entity.Tag;
@@ -230,50 +228,6 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> findByPostDateBefore(Date postDate) {
         return postRepository.findByPubDateBeforeAndPostStatusOrderByPubDateAsc(postDate, PostStatus.PUBLISHED);
-    }
-
-
-    /**
-     * 查询归档信息 根据年份和月份
-     *
-     * @return List
-     */
-    @Override
-    @Cacheable(value = POSTS_CACHE_NAME, key = "'archives_year_month'")
-    public List<Archive> findPostGroupByYearAndMonth() {
-        List<Object[]> objects = postRepository.findPostGroupByYearAndMonth();
-        List<Archive> archives = new ArrayList<>();
-        Archive archive;
-        for (Object[] obj : objects) {
-            archive = new Archive();
-            archive.setYear(obj[0].toString());
-            archive.setMonth(obj[1].toString());
-            archive.setCount(obj[2].toString());
-            archive.setPosts(this.findPostByYearAndMonth(obj[0].toString(), obj[1].toString()));
-            archives.add(archive);
-        }
-        return archives;
-    }
-
-    /**
-     * 查询归档信息 根据年份
-     *
-     * @return List
-     */
-    @Override
-    @Cacheable(value = POSTS_CACHE_NAME, key = "'archives_year'")
-    public List<Archive> findPostGroupByYear() {
-        List<Object[]> objects = postRepository.findPostGroupByYear();
-        List<Archive> archives = new ArrayList<>();
-        Archive archive;
-        for (Object[] obj : objects) {
-            archive = new Archive();
-            archive.setYear(obj[0].toString());
-            archive.setCount(obj[1].toString());
-            archive.setPosts(this.findPostByYear(obj[0].toString()));
-            archives.add(archive);
-        }
-        return archives;
     }
 
     /**

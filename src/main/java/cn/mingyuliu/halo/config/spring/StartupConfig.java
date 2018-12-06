@@ -21,8 +21,8 @@ import org.springframework.context.annotation.Primary;
  *     应用启动的时候所执行的方法
  * </pre>
  *
- * @author : RYAN0UP
- * @since : 2017/12/22
+ * @author : liumy2009@126.com
+ * @since : 2018/12/05
  */
 @Slf4j
 @Conditional(NotTestCondition.class)

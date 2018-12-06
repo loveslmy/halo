@@ -34,6 +34,8 @@ import java.text.MessageFormat;
 import java.util.Base64;
 import java.util.Set;
 
+import static cn.mingyuliu.halo.common.HaloConst.*;
+
 /**
  * <pre>
  *     文件API
@@ -49,10 +51,6 @@ public class FileController extends BaseController {
     private static final Base64.Encoder BASE64_ENCODER = Base64.getEncoder();
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 800;
-    private static final String SPACE = " ";
-    private static final String UNDER_LINE = "_";
-    private static final String COMMA = ",";
-    private static final String DOT = ".";
     private static final double ONE = 1.0;
     private static Set<String> SUPPORT_IMAGES = Sets.newHashSet("jpg","jpeg","tiff","raw","bmp","gif","png");
 

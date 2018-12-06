@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Optional;
 
-import static cn.mingyuliu.halo.common.dto.HaloConst.PERIOD;
+import static cn.mingyuliu.halo.common.HaloConst.DOT;
 
 /**
  * <pre>
@@ -42,7 +42,7 @@ public class MenuServiceImpl implements IMenuService {
         menuRepository.save(parent);
         menu.setLeaf(CollectionUtils.isEmpty(menuRepository
                 .findByParentIdAndActiveIsTrueOrderByOrderSeq(menu.getId())));
-        menu.setTreeSeq(parent.getTreeSeq() + parent.getId() + PERIOD);
+        menu.setTreeSeq(parent.getTreeSeq() + parent.getId() + DOT);
         menu = menuRepository.save(menu);
         return menu;
     }

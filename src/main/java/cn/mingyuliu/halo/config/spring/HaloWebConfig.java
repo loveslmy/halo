@@ -11,8 +11,8 @@ import org.springframework.web.servlet.config.annotation.*;
  *     拦截器，资源路径配置
  * </pre>
  *
- * @author : RYAN0UP
- * @since : 2018/1/2
+ * @author : liumy2009@126.com
+ * @since : 2018/12/05
  */
 @Slf4j
 @Configuration

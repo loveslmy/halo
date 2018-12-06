@@ -1,4 +1,4 @@
-package cn.mingyuliu.halo.common.dto;
+package cn.mingyuliu.halo.common;
 
 import com.google.common.base.Joiner;
 import org.springframework.data.domain.Sort;
@@ -13,7 +13,10 @@ import org.springframework.data.domain.Sort;
  */
 public class HaloConst {
 
-    public static String PERIOD = ".";
+    public static final String SPACE = " ";
+    public static final String UNDER_LINE = "_";
+    public static final String COMMA = ",";
+    public static final String DOT = ".";
 
     /**
      * 后台菜单root节点

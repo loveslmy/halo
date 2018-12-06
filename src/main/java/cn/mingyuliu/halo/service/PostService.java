@@ -1,6 +1,5 @@
 package cn.mingyuliu.halo.service;
 
-import cn.mingyuliu.halo.common.dto.Archive;
 import cn.mingyuliu.halo.common.entity.Category;
 import cn.mingyuliu.halo.common.entity.Post;
 import cn.mingyuliu.halo.common.entity.Tag;
@@ -140,20 +139,6 @@ public interface PostService {
      * @return List
      */
     List<Post> findByPostDateBefore(Date postDate);
-
-    /**
-     * 查询归档信息 根据年份和月份
-     *
-     * @return List
-     */
-    List<Archive> findPostGroupByYearAndMonth();
-
-    /**
-     * 查询归档信息 根据年份
-     *
-     * @return List
-     */
-    List<Archive> findPostGroupByYear();
 
     /**
      * 根据年份和月份查询文章
