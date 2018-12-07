@@ -25,6 +25,13 @@ public interface IFileService {
     /**
      * 填充文件内容
      *
+     * @param file 文件
+     */
+    void fillContent(File file);
+
+    /**
+     * 填充文件内容
+     *
      * @param files 文件列表
      */
     void fillContent(List<File> files);

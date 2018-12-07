@@ -2,14 +2,16 @@ package cn.mingyuliu.halo.controller.api;
 
 import cn.mingyuliu.halo.common.dto.JsonResult;
 import cn.mingyuliu.halo.common.entity.Post;
+import cn.mingyuliu.halo.common.enums.PostStatus;
 import cn.mingyuliu.halo.common.repository.PostRepository;
 import cn.mingyuliu.halo.controller.BaseController;
 import cn.mingyuliu.halo.service.IPostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Optional;
@@ -32,11 +34,22 @@ public class PostController extends BaseController {
     @Resource
     private IPostService postService;
 
+    @RequestMapping("/loadByPostStatus")
+    public JsonResult<Page<Post>> loadByPostStatus(@RequestParam Integer postStatus,
+                                                   @PageableDefault(sort = "updDate", direction = Sort.Direction.DESC)
+                                                           Pageable page) {
+        try {
+            return new JsonResult<>(HttpStatus.OK, postRepository.findByPostStatus(PostStatus.of(postStatus), page));
+        } catch (Exception e) {
+            return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
     /**
      * 加载文章
      */
     @RequestMapping("/load")
-    public JsonResult<Post> load(Long postId) {
+    public JsonResult<Post> load(@RequestParam Long postId) {
         try {
             Optional<Post> postOpt = postRepository.findById(postId);
             if (!postOpt.isPresent()) {

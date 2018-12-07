@@ -77,6 +77,26 @@ public class FileServiceImpl implements IFileService {
     /**
      * (non-Javadoc)
      *
+     * @see IFileService#fillContent(File)
+     */
+    @Override
+    public void fillContent(File file) {
+        if (FileType.TEXT == file.getFileType()) {
+            Optional<TextFile> textFileOpt = textFileRepository.findById(file.getRefId());
+            if (textFileOpt.isPresent()) {
+                file.setContent(textFileOpt.get().getContent());
+            }
+        } else {
+            Optional<BinaryFile> binaryFileOpt = binaryFileRepository.findById(file.getRefId());
+            if (binaryFileOpt.isPresent()) {
+                file.setDatas(binaryFileOpt.get().getDatas());
+            }
+        }
+    }
+
+    /**
+     * (non-Javadoc)
+     *
      * @see IFileService#fillContent(List)
      */
     @Override

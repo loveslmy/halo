@@ -12,25 +12,34 @@ public enum PostStatus {
     /**
      * 草稿
      */
-    DRAFT("草稿"),
+    DRAFT(0),
 
     /**
      * 已发布
      */
-    PUBLISHED("已发布"),
+    PUBLISHED(1),
 
     /**
      * 回收站
      */
-    RECYCLE("回收站");
+    RECYCLE(2);
 
-    private String desc;
+    private static final PostStatus[] MAP = new PostStatus[3];
 
-    PostStatus(String desc) {
-        this.desc = desc;
+    static {
+        for (PostStatus postStatus : PostStatus.values()) {
+            MAP[postStatus.value] = postStatus;
+        }
     }
 
-    public String getDesc() {
-        return desc;
+    private byte value;
+
+    PostStatus(int postStatus) {
+        value = (byte) postStatus;
     }
+
+    public static PostStatus of(int value) {
+        return MAP[value];
+    }
+
 }

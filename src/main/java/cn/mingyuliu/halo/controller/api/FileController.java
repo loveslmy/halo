@@ -14,11 +14,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -48,17 +48,31 @@ import static cn.mingyuliu.halo.common.HaloConst.*;
 @RestController
 @RequestMapping(value = "/api/file")
 public class FileController extends BaseController {
+
     private static final Base64.Encoder BASE64_ENCODER = Base64.getEncoder();
+    private static final Base64.Decoder BASE64_DECODER = Base64.getDecoder();
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 800;
     private static final double ONE = 1.0;
-    private static Set<String> SUPPORT_IMAGES = Sets.newHashSet("jpg","jpeg","tiff","raw","bmp","gif","png");
+    private static Set<String> SUPPORT_IMAGES
+            = Sets.newHashSet("jpg", "jpeg", "tiff", "raw", "bmp", "gif", "png");
 
     @Resource
     private FileRepository fileRepository;
 
     @Resource
     private IFileService fileService;
+
+    @RequestMapping(value = "/loadImage/{id}")
+    public ResponseEntity<byte[]> loadImage(@PathVariable Long id) {
+        File file = fileService.findFileById(id);
+        String content = StringUtils.replace(file.getContent(), "data:image/" + file.getSuffix()
+                + ";base64,", "");
+        byte[] imageData = BASE64_DECODER.decode(content);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.valueOf("image/"+file.getSuffix()));
+        return new ResponseEntity<>(imageData, headers, HttpStatus.OK);
+    }
 
     /**
      * 根据文件id获取文件
@@ -103,8 +117,8 @@ public class FileController extends BaseController {
      */
     @PostMapping(value = "/upload/image")
     public JsonResult<File> uploadImage(@RequestParam("file") MultipartFile file,
-                                  @RequestParam("thumbnail") boolean thumbnail,
-                                  @RequestParam("token") String token) {
+                                        @RequestParam("thumbnail") boolean thumbnail,
+                                        @RequestParam("token") String token) {
         if (file.isEmpty()) {
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, "文件不能为空!");
         }
@@ -142,11 +156,13 @@ public class FileController extends BaseController {
 
             File dbFile = fileRepository.findByMd5(md5);
             if (dbFile != null) {
+                fileService.fillContent(dbFile);
                 return new JsonResult<>(HttpStatus.OK, dbFile);
             }
 
             newFile = buildFile(fileSuffix, fileName, contents, md5);
             newFile = fileService.saveOrModify(newFile);
+            fileService.fillContent(newFile);
         } catch (IOException e) {
             log.error("upload file occur exception：", e);
             return new JsonResult<>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
@@ -159,10 +175,10 @@ public class FileController extends BaseController {
         newFile = new File();
         newFile.setName(fileName);
         newFile.setFileType(FileType.TEXT);
-        newFile.setMd5(md5);
-        newFile.setSuffix(fileSuffix);
         newFile.setContent("data:image/" + fileSuffix + ";base64," + BASE64_ENCODER.encodeToString(contents));
         newFile.setSize(newFile.getContent().getBytes().length);
+        newFile.setMd5(md5);
+        newFile.setSuffix(fileSuffix);
         return newFile;
     }
 
